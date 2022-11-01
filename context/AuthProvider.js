@@ -8,6 +8,7 @@ import {
 } from "../utils/AsyncStorageFunctions";
 import { Image, Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import Loading from "../screens/Loading";
 
 const AuthContext = createContext(null);
 
@@ -28,21 +29,8 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
     AsyncStorage.removeItem("user");
   };
-  if (user === "loading" || timer) {
-    return (
-      <View
-        style={{
-          backgroundColor: "white",
-          display: "flex",
-          flex: 1,
-          justifyContent: "center",
-        }}
-      >
-        <Text style={{ textAlign: "center", fontSize: 18, fontWeight: "bold" }}>
-          Welcome to Paws ...
-        </Text>
-      </View>
-    );
+  if (user === "loading" || /*true*/ timer) {
+    return <Loading />;
   }
   return (
     <AuthContext.Provider value={{ user, login, logout }}>
