@@ -1,8 +1,7 @@
-import { View, Text } from 'react-native'
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Home from '../../screens/TabScreens/Home';
-import Checkout from '../../screens/Checkout';
+import Home from '../../../../../screens/TabScreens/Home';
+import Checkout from '../../../../../screens/Checkout';
 const Stack = createNativeStackNavigator();
 
 const HomeStack = () => {

@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState("loading");
   useEffect(() => {
     getDataObj("user").then((res) => setUser(res));
-    setTimeout(() => setTimer(false), 2000);
+    setTimeout(() => setTimer(false), 0);
   }, []);
 
   const login = (user) => {

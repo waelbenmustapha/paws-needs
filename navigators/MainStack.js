@@ -1,8 +1,8 @@
-import { View, Text } from "react-native";
 import React from "react";
 import { useAuth } from "../context/AuthProvider";
-import NotLoggedIn from "./NotLoggedIn";
-import LoggedIn from "./LoggedIn";
+import LoggedIn from "./loggedInStack/LoggedIn";
+import NotLoggedIn from "./notLoggedInStack/NotLoggedIn";
+
 
 const MainStack = () => {
   const auth = useAuth();
