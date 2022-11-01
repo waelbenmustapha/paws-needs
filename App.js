@@ -2,7 +2,7 @@ import { StyleSheet, View, StatusBar } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { AuthProvider } from "./context/AuthProvider";
 import MainStack from "./navigators/MainStack";
-import Colors from "./utils/colors";
+import Colors from "./utils/Colors";
 
 export default function App() {
   return (

@@ -8,7 +8,7 @@ import {
 import React from "react";
 import { useAuth } from "../context/AuthProvider";
 import bg from "../assets/get-started.png";
-import Colors from "../utils/colors";
+import Colors from "../utils/Colors";
 
 const Landing = () => {
   const auth = useAuth();
