@@ -5,7 +5,7 @@ import {
 } from "@react-navigation/drawer";
 import React from "react";
 import { Image, Text, View } from "react-native";
-import Logout from "../components/drawer/Logout";
+import Logout from "../../../components/drawer/Logout";
 
 const CustomDrawer = (props) => {
   const { navigation } = props;
