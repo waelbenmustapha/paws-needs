@@ -8,14 +8,11 @@ import {
 } from "react-native";
 import React from "react";
 import Colors from "../utils/Colors";
-import { Rating, AirbnbRating } from "react-native-ratings";
 import { useNavigation } from "@react-navigation/native";
 
 const ShopCard = ({ shop }) => {
   const navigation = useNavigation();
-  function ratingCompleted(rating) {
-    console.log("Rating is: " + rating);
-  }
+
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -39,7 +36,7 @@ const ShopCard = ({ shop }) => {
         <TouchableOpacity
           onPress={() =>
             navigation.navigate("shop", {
-              shop
+              shop,
             })
           }
           style={styles.knowmore}

@@ -1,8 +1,8 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeStack from "./tabsStacks/HomeStack";
+import ServicesStack from "./tabsStacks/ServicesStack";
 import Orders from "../../../../screens/TabStacks/Orders";
-import Services from "../../../../screens/TabStacks/Services";
 import Profile from "../../../../screens/TabStacks/Profile";
 import Checkout from "../../../../screens/Checkout";
 import ShopStack from "./tabsStacks/ShopStack";
@@ -15,7 +15,7 @@ const BottomTabs = () => {
     <Tab.Navigator screenOptions={{ headerShown: false }}>
       <Tab.Screen name="home-tab" component={HomeStack} />
       <Tab.Screen name="orders-tab" component={Orders} />
-      <Tab.Screen name="services-tab" component={Services} />
+      <Tab.Screen name="services-tab" component={ServicesStack} />
       <Tab.Screen
         options={{
           tabBarItemStyle: { display: "none" },

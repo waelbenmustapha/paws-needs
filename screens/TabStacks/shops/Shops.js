@@ -89,7 +89,7 @@ const Shops = () => {
   return (
     <View style={styles.container}>
       <StatusBar  translucent={false} backgroundColor="white" />
-      <PawAndText Component={Favorite} />
+      <PawAndText title={"Shops"} Component={Favorite} />
       <View style={{ marginBottom: 30 }}></View>
       <SearchAndFilter placeholder={"Search for a shop"} />
       <ScrollView>
