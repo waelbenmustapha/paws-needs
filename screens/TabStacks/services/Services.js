@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import PawAndText from "../../../components/PawAndText";
 import SearchAndFilter from "../../../components/SearchAndFilter";
-import ServiceCard from "../../../components/ServiceCard";
+import ServiceCategoryCard from "../../../components/ServiceCategoryCard";
 
 const Services = () => {
   const [services, setServices] = useState([
@@ -63,7 +63,7 @@ const Services = () => {
       <SearchAndFilter placeholder={"Search for a service"} />
       <ScrollView contentContainerStyle={styles.servicescont}>
         {services.map((el, index) => (
-          <ServiceCard service={el} key={index} />
+          <ServiceCategoryCard service={el} key={index} />
         ))}
       </ScrollView>
     </View>
