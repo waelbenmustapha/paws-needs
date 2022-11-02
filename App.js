@@ -1,12 +1,46 @@
-import { StyleSheet, View, StatusBar } from "react-native";
+import { useCallback, useEffect } from "react";
+import { View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { AuthProvider } from "./context/AuthProvider";
 import MainStack from "./navigators/MainStack";
 import Colors from "./utils/Colors";
+import { useFonts } from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
+
+SplashScreen.preventAutoHideAsync();
 
 export default function App() {
+  const [fontsLoaded] = useFonts({
+    urbanist: require("./assets/fonts/Urbanist-Regular.ttf"),
+    lobster: require("./assets/fonts/Lobster-Regular.ttf"),
+  });
+
+  useEffect(() => {
+    async function prepare() {
+      await SplashScreen.preventAutoHideAsync();
+    }
+    prepare();
+  }, []);
+
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return (
-    <View style={styles.container}>
+    <View
+      style={{
+        flex: 1,
+        // paddingTop: StatusBar.currentHeight,
+        color: Colors.TEXT,
+      }}
+      onLayout={onLayoutRootView}
+    >
       <NavigationContainer>
         <AuthProvider>
           <MainStack />
@@ -15,11 +49,3 @@ export default function App() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    // paddingTop: StatusBar.currentHeight,
-    color: Colors.TEXT,
-  },
-});

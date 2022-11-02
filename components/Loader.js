@@ -38,7 +38,7 @@ const Loader = ({ color = "#ff0000", durationMs = 1000 }) => {
             ],
           },
         ]}
-      />
+      ></Animated.View>
     </View>
   );
 };
@@ -51,13 +51,6 @@ const styles = StyleSheet.create({
     height: height,
     justifyContent: "center",
     alignItems: "center",
-  },
-  background: {
-    width: "100%",
-    height: "100%",
-    borderRadius: height / 2,
-    borderWidth: 4,
-    opacity: 0.25,
   },
   progress: {
     width: "100%",
