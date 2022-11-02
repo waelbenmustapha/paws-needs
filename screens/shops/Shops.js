@@ -10,6 +10,7 @@ import React, { useState } from "react";
 import PawAndText from "../../components/PawAndText";
 import SearchAndFilter from "../../components/SearchAndFilter";
 import ShopCard from "../../components/ShopCard";
+import Favorite from "../../components/Favorite";
 
 const Shops = () => {
   const [shops, setShops] = useState([
@@ -69,21 +70,7 @@ const Shops = () => {
     },
   ]);
 
-  const Favorite = () => {
-    const [isFav, setIsFav] = useState(false);
-    return (
-      <Pressable onPress={() => setIsFav(!isFav)}>
-        <Image
-          style={{ width: 22, height: 21 }}
-          source={
-            isFav
-              ? require("../../assets/fav-on.png")
-              : require("../../assets/fav-off.png")
-          }
-        />
-      </Pressable>
-    );
-  };
+ 
 
   return (
     <View style={styles.container}>
