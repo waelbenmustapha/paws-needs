@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
     AsyncStorage.removeItem("user");
   };
-  if (user === "loading" || /*true*/ timer) {
+  if (user === "loading" || timer) {
     return <Loading />;
   }
   return (

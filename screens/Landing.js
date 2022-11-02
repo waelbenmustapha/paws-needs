@@ -1,35 +1,45 @@
 import {
   View,
   Text,
-  TouchableOpacity,
   ImageBackground,
   StyleSheet,
+  Pressable,
 } from "react-native";
 import React from "react";
 import { useAuth } from "../context/AuthProvider";
 import bg from "../assets/get-started.png";
 import Colors from "../utils/Colors";
+import { LinearGradient } from "expo-linear-gradient";
 
 const Landing = () => {
   const auth = useAuth();
   return (
     <View style={styles.container}>
       <ImageBackground source={bg} resizeMode="cover" style={styles.image}>
-        <View style={styles.overlay} />
-        <View style={{ padding: 20 }}>
-          <Text style={{ color: "white", fontSize: 48, fontWeight: "bold" }}>
+        <LinearGradient
+          // Background Linear Gradient
+          colors={["transparent", "rgba(0,0,0,0.8)"]}
+          style={styles.overlay}
+        />
+        <View style={{ paddingHorizontal: 20, paddingVertical: 40 }}>
+          <Text style={{ color: "white", fontSize: 40, fontWeight: "bold" }}>
             Welcome to
           </Text>
           <Text
-            style={{ color: Colors.PRIMARY, fontSize: 96, fontWeight: "bold" }}
+            style={{
+              color: Colors.PRIMARY,
+              fontSize: 92,
+              fontWeight: "bold",
+              fontFamily: "lobster",
+            }}
           >
             Paws Needs
           </Text>
-          <Text style={{ color: "white", fontSize: 18, fontWeight: "600" }}>
+          <Text style={{ color: "white", fontSize: 16, fontWeight: "600" }}>
             All of your Fluffy Family needs and more ..
           </Text>
         </View>
-        <TouchableOpacity
+        <Pressable
           style={{
             alignSelf: "flex-end",
             borderTopLeftRadius: 50,
@@ -44,7 +54,7 @@ const Landing = () => {
           <Text style={{ color: "white", fontSize: 24, fontWeight: "bold" }}>
             Get Started
           </Text>
-        </TouchableOpacity>
+        </Pressable>
       </ImageBackground>
     </View>
   );
@@ -64,10 +74,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    // backgroundColor: "rgba(0,0,0,0.5)",
-    backgroundGradient: "vertical",
-    backgroundGradientTop: "red",
-    backgroundGradientBottom: "white",
+    backgroundColor: "rgba(0,0,0,0.3)",
   },
 });
 
