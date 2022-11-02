@@ -60,7 +60,7 @@ const ShopPage = ({ navigation, route }) => {
             <View style={{ flexDirection: "row", alignItems: "center" }}>
               <AntDesign
                 onPress={() => navigation.goBack()}
-                style={{ padding: 5, marginRight: 10 }}
+                style={{ paddingVertical: 5, paddingRight: 10 }}
                 name="arrowleft"
                 size={24}
                 color={Colors.PRIMARY}
@@ -70,14 +70,14 @@ const ShopPage = ({ navigation, route }) => {
             <View style={{ flexDirection: "row", alignItems: "center" }}>
               <AntDesign
                 // onPress={() => {}}
-                style={{ padding: 5, marginRight: 10 }}
+                style={{ padding: 5, marginLeft: 10 }}
                 name="message1"
                 size={24}
                 color={"#fff"}
               />
               <Feather
                 // onPress={() => {}}
-                style={{ padding: 5, marginRight: 10 }}
+                style={{ padding: 5, marginLeft: 10 }}
                 name="phone"
                 size={24}
                 color={"#fff"}
@@ -87,7 +87,7 @@ const ShopPage = ({ navigation, route }) => {
                   onPress={() => {
                     setIsFavorite(!isFavorite);
                   }}
-                  style={{ padding: 5, marginRight: 10 }}
+                  style={{ padding: 5, marginLeft: 10 }}
                   name="heart"
                   size={28}
                   color={"#D91B1B"}
@@ -97,7 +97,7 @@ const ShopPage = ({ navigation, route }) => {
                   onPress={() => {
                     setIsFavorite(!isFavorite);
                   }}
-                  style={{ padding: 5, marginRight: 10 }}
+                  style={{ padding: 5, marginLeft: 10 }}
                   name="heart-outline"
                   size={28}
                   color={"#ffffff"}
