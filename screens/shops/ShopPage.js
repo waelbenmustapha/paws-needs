@@ -4,10 +4,10 @@ import {
   Text,
   ImageBackground,
   StyleSheet,
+  StatusBar,
   Pressable,
   ScrollView,
 } from "react-native";
-import { StatusBar } from "expo-status-bar";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import Feather from "react-native-vector-icons/Feather";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -39,7 +39,6 @@ const ShopPage = ({ navigation, route }) => {
 
   return (
     <View style={styles.container}>
-      <StatusBar translucent={true} />
       <ImageBackground
         source={{ uri: shop.image }}
         style={{ height: 250, width: "100%" }}
@@ -250,6 +249,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
+    marginTop:-StatusBar.currentHeight,
+    overflow:"visible"
+
   },
   header: {
     position: "relative",

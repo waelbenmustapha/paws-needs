@@ -1,8 +1,7 @@
-import { View, StyleSheet, Image, ScrollView, Pressable } from "react-native";
+import { View, StyleSheet, Image, ScrollView, Pressable, StatusBar } from "react-native";
 import React, { useState } from "react";
 import PawAndText from "../../components/PawAndText";
 import SearchAndFilter from "../../components/SearchAndFilter";
-import { StatusBar } from "expo-status-bar";
 import ShopCard from "../../components/ShopCard";
 
 const Shops = () => {
@@ -81,7 +80,6 @@ const Shops = () => {
 
   return (
     <View style={styles.container}>
-      <StatusBar translucent={false} backgroundColor="white" />
       <PawAndText title={"Shops"} Component={Favorite} />
       <SearchAndFilter placeholder={"Search for a shop"} />
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -99,6 +97,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: 20,
     backgroundColor: "white",
+    paddingTop: StatusBar.currentHeight,
+
   },
 });
 

@@ -1,5 +1,6 @@
 import { useCallback, useEffect } from "react";
-import { View } from "react-native";
+import { StatusBar, View } from "react-native";
+import { StatusBar as Expostatus } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";
 import { AuthProvider } from "./context/AuthProvider";
 import MainStack from "./navigators/MainStack";
@@ -36,11 +37,12 @@ export default function App() {
     <View
       style={{
         flex: 1,
-        // paddingTop: StatusBar.currentHeight,
         backgroundColor: "#fff",
       }}
       onLayout={onLayoutRootView}
     >
+      <Expostatus  translucent={true} />
+
       <NavigationContainer>
         <AuthProvider>
           <MainStack />

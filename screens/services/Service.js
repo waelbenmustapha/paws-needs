@@ -4,10 +4,10 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
+  StatusBar
 } from "react-native";
 import React, { useState } from "react";
 import PawAndText from "../../components/PawAndText";
-import { StatusBar } from "expo-status-bar";
 import SearchAndFilter from "../../components/SearchAndFilter";
 import Colors from "../../utils/Colors";
 import ServiceCard from "../../components/ServiceCard";
@@ -79,15 +79,16 @@ const Service = ({ route, navigation }) => {
   const [selectedFilter, setSelectedFilter] = useState("In my area");
   return (
     <View style={styles.container}>
-      <StatusBar translucent={false} backgroundColor="white" />
       <PawAndText title={service.name} Component={() => <></>} />
       <View style={{ marginTop: 30 }}></View>
       <SearchAndFilter placeholder={"Search for a service"} />
       <View
-        style={{ height: 60, justifyContent: "center", alignItems: "center" }}
+        style={{ height: 85, justifyContent: "center", alignItems: "center" }}
       >
         <ScrollView
           horizontal
+          showsHorizontalScrollIndicator={false}
+        
           contentContainerStyle={{ alignItems: "center" }}
           style={{
             display: "flex",
@@ -101,7 +102,7 @@ const Service = ({ route, navigation }) => {
                 paddingHorizontal: 20,
                 display: "flex",
                 alignItems: "center",
-                height: 40,
+                height: 38,
                 marginRight: 25,
                 borderRadius: 100,
                 justifyContent: "center",
@@ -116,7 +117,7 @@ const Service = ({ route, navigation }) => {
           ))}
         </ScrollView>
       </View>
-      <ScrollView contentContainerStyle={styles.servicescontainer}>
+      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.servicescontainer}>
         {services.map((el) => (
           <ServiceCard key={el.name} service={el} />
         ))}
@@ -127,9 +128,10 @@ const Service = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 23,
+    paddingHorizontal: 20,
     alignItems: "flex-start",
-    paddingVertical: 20,
+    paddingTop: StatusBar.currentHeight+20,
+
     backgroundColor: "white",
   },
   servicescontainer: {
