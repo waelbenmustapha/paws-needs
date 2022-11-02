@@ -16,12 +16,21 @@ const ShopCard = ({ shop }) => {
   return (
     <View style={styles.container}>
       <ImageBackground
-        imageStyle={{ opacity: 0.6 }}
         style={{
           height: 150,
         }}
         source={{ uri: shop.image }}
       >
+        <View
+          style={{
+            backgroundColor: "rgba(33, 33, 33, 0.5)",
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+          }}
+        />
         <View style={styles.text}>
           <Text style={styles.shopname}>{shop.name}</Text>
           <Text style={styles.locations}>{shop.location} | 30min away</Text>
@@ -55,7 +64,6 @@ const styles = StyleSheet.create({
     width: "100%",
     borderRadius: 16,
     overflow: "hidden",
-    backgroundColor: "#212121",
   },
   shopname: {
     color: "white",

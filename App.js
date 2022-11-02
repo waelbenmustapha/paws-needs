@@ -37,7 +37,7 @@ export default function App() {
       style={{
         flex: 1,
         // paddingTop: StatusBar.currentHeight,
-        color: Colors.TEXT,
+        backgroundColor: "#fff",
       }}
       onLayout={onLayoutRootView}
     >
