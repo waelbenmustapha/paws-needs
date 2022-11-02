@@ -101,8 +101,9 @@ const ShopPage = ({ navigation, route }) => {
       </ImageBackground>
       <View
         style={{
+          flex: 1,
           paddingHorizontal: 20,
-          paddingVertical: 30,
+          paddingTop: 30,
         }}
       >
         <View
@@ -155,20 +156,14 @@ const ShopPage = ({ navigation, route }) => {
             </Text>
           </Pressable>
         </View>
-
-        {navActive == "categories" ? (
-          <View
-            style={{
-              flexDirection: "row",
-              flexWrap: "wrap",
-              justifyContent: "flex-start",
-            }}
-          >
-            <ScrollView
-              showsVerticalScrollIndicator={false}
+        <ScrollView showsVerticalScrollIndicator={false}>
+          {navActive == "categories" ? (
+            <View
               style={{
-                backgroundColor: "#ccc",
-                marginVertical: 20,
+                flexDirection: "row",
+                flexWrap: "wrap",
+                justifyContent: "flex-start",
+                paddingVertical: 20,
               }}
             >
               {categories.map((item, index) => (
@@ -202,12 +197,12 @@ const ShopPage = ({ navigation, route }) => {
                   </Text>
                 </Pressable>
               ))}
-            </ScrollView>
-          </View>
-        ) : null}
-        {navActive == "reviews" ? (
-          <Text style={{ fontSize: 16 }}>Reviews...</Text>
-        ) : null}
+            </View>
+          ) : null}
+          {navActive == "reviews" ? (
+            <Text style={{ fontSize: 16 }}>Reviews...</Text>
+          ) : null}
+        </ScrollView>
       </View>
     </View>
   );
