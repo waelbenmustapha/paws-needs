@@ -80,11 +80,16 @@ const Service = ({ route, navigation }) => {
   return (
     <View style={styles.container}>
       <PawAndText title={service.name} Component={() => <></>} />
-      <View style={{ marginTop: 20 }}>
+      <View style={{ marginVertical: 20 }}>
         <SearchAndFilter placeholder={"Search for a service"} />
       </View>
       <View
-        style={{ height: 80, justifyContent: "center", alignItems: "center" }}
+        style={{
+          height: 40,
+          marginBottom: 10,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
       >
         <ScrollView
           horizontal
@@ -99,11 +104,10 @@ const Service = ({ route, navigation }) => {
             <TouchableOpacity
               onPress={() => setSelectedFilter(el)}
               style={{
-                paddingHorizontal: 20,
-                display: "flex",
+                paddingHorizontal: 16,
                 alignItems: "center",
                 height: 38,
-                marginRight: 25,
+                marginRight: 16,
                 borderRadius: 100,
                 justifyContent: "center",
                 backgroundColor:
