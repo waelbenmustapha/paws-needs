@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#212121",
     width: Dimensions.get("window").width / 2 - 28,
-    marginTop: 24,
+    marginBottom: 20,
     borderRadius: 16,
     overflow: "hidden",
   },

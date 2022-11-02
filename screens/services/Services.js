@@ -57,7 +57,6 @@ const Services = () => {
           return <></>;
         }}
       />
-      <View style={{ marginBottom: 30 }}></View>
       <SearchAndFilter placeholder={"Search for a service"} />
       <ScrollView contentContainerStyle={styles.servicescont}>
         {services.map((el, index) => (
@@ -70,7 +69,7 @@ const Services = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: StatusBar.currentHeight+20,
+    paddingTop: StatusBar.currentHeight + 20,
     paddingHorizontal: 20,
     backgroundColor: "white",
   },
