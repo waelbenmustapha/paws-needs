@@ -10,10 +10,13 @@ import {
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import AntDesign from "react-native-vector-icons/AntDesign";
+import Feather from "react-native-vector-icons/Feather";
+import Ionicons from "react-native-vector-icons/Ionicons";
 import Colors from "../../../utils/Colors";
 
 const ShopPage = ({ navigation, route }) => {
   const shop = route.params.shop;
+  const [isFavorite, setIsFavorite] = useState(false);
   const [navActive, setNavActive] = useState("categories");
   const [selectedCategorie, setSelectedCategorie] = useState("all");
   const [categories, setCategories] = useState([
@@ -59,19 +62,55 @@ const ShopPage = ({ navigation, route }) => {
                 onPress={() => navigation.goBack()}
                 style={{ padding: 5, marginRight: 10 }}
                 name="arrowleft"
-                size={26}
+                size={24}
                 color={Colors.PRIMARY}
               />
               <Text style={styles.navText}>Shops</Text>
             </View>
-            <View>{/* <Image source={heart} /> */}</View>
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <AntDesign
+                // onPress={() => {}}
+                style={{ padding: 5, marginRight: 10 }}
+                name="message1"
+                size={24}
+                color={"#fff"}
+              />
+              <Feather
+                // onPress={() => {}}
+                style={{ padding: 5, marginRight: 10 }}
+                name="phone"
+                size={24}
+                color={"#fff"}
+              />
+              {isFavorite ? (
+                <Ionicons
+                  onPress={() => {
+                    setIsFavorite(!isFavorite);
+                  }}
+                  style={{ padding: 5, marginRight: 10 }}
+                  name="heart"
+                  size={28}
+                  color={"#D91B1B"}
+                />
+              ) : (
+                <Ionicons
+                  onPress={() => {
+                    setIsFavorite(!isFavorite);
+                  }}
+                  style={{ padding: 5, marginRight: 10 }}
+                  name="heart-outline"
+                  size={28}
+                  color={"#ffffff"}
+                />
+              )}
+            </View>
           </View>
           <View style={{ position: "absolute", bottom: 20, left: 20 }}>
             <Text style={styles.title}>{shop.name}</Text>
             <Text
               style={{
                 marginTop: 6,
-                color: "rgba(255,255,255,0.75)",
+                color: "rgba(255,255,255,0.8)",
                 fontSize: 16,
                 fontWeight: "400",
               }}
@@ -88,7 +127,7 @@ const ShopPage = ({ navigation, route }) => {
               </View>
               <Text
                 style={{
-                  color: "rgba(255,255,255,0.75)",
+                  color: "rgba(255,255,255,0.8)",
                   fontSize: 14,
                   fontWeight: "400",
                 }}
@@ -222,6 +261,7 @@ const styles = StyleSheet.create({
   },
   nav: {
     flexDirection: "row",
+    justifyContent: "space-between",
     alignItems: "center",
   },
   navText: {
