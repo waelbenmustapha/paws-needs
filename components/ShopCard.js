@@ -60,7 +60,7 @@ const ShopCard = ({ shop }) => {
 const styles = StyleSheet.create({
   container: {
     elevation: 2,
-    marginTop: 25,
+    marginBottom: 20,
     width: "100%",
     borderRadius: 16,
     overflow: "hidden",

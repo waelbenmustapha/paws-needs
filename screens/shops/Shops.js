@@ -83,9 +83,8 @@ const Shops = () => {
     <View style={styles.container}>
       <StatusBar translucent={false} backgroundColor="white" />
       <PawAndText title={"Shops"} Component={Favorite} />
-      <View style={{ marginBottom: 30 }}></View>
       <SearchAndFilter placeholder={"Search for a shop"} />
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         {shops.map((el, index) => (
           <ShopCard shop={el} key={index} />
         ))}
@@ -97,8 +96,8 @@ const Shops = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 23,
-    paddingVertical: 20,
+    paddingHorizontal: 20,
+    paddingTop: 20,
     backgroundColor: "white",
   },
 });
