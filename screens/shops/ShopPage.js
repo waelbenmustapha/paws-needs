@@ -3,7 +3,6 @@ import {
   View,
   Text,
   ImageBackground,
-  Image,
   StyleSheet,
   StatusBar,
   Pressable,
@@ -12,7 +11,7 @@ import {
 import AntDesign from "react-native-vector-icons/AntDesign";
 import Feather from "react-native-vector-icons/Feather";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import Colors from "../../../utils/Colors";
+import Colors from "../../utils/Colors";
 
 const ShopPage = ({ navigation, route }) => {
   const shop = route.params.shop;

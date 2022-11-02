@@ -26,17 +26,17 @@ const ServiceCard = ({ service }) => {
       >
         <View style={styles.text}>
           <Text style={styles.servicename}>{service.name}</Text>
-          <View style={{display:"flex",flexDirection:"column"}}>
+          <View style={{ display: "flex", flexDirection: "column" }}>
             <AirbnbRating
               size={8}
-              ratingContainerStyle={{width:68}}
+              ratingContainerStyle={{ width: 68 }}
               count={5}
               defaultRating={service.rating}
               isDisabled
               showRating={false}
             />
             <Text style={styles.servicesavailable}>
-              {"("+service.reviews+ "reviews)"}
+              {"(" + service.reviews + "reviews)"}
             </Text>
           </View>
         </View>

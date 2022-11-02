@@ -1,8 +1,8 @@
 import { View, StyleSheet, Image, ScrollView, Pressable, StatusBar } from "react-native";
 import React, { useState } from "react";
-import PawAndText from "../../../components/PawAndText";
-import SearchAndFilter from "../../../components/SearchAndFilter";
-import ShopCard from "../../../components/ShopCard";
+import PawAndText from "../../components/PawAndText";
+import SearchAndFilter from "../../components/SearchAndFilter";
+import ShopCard from "../../components/ShopCard";
 
 const Shops = () => {
   const [shops, setShops] = useState([
@@ -70,8 +70,8 @@ const Shops = () => {
           style={{ width: 22, height: 21 }}
           source={
             isFav
-              ? require("../../../assets/fav-on.png")
-              : require("../../../assets/fav-off.png")
+              ? require("../../assets/fav-on.png")
+              : require("../../assets/fav-off.png")
           }
         />
       </Pressable>

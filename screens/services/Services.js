@@ -1,8 +1,8 @@
 import { View, Text, StyleSheet, ScrollView, StatusBar } from "react-native";
 import React, { useState } from "react";
-import PawAndText from "../../../components/PawAndText";
-import SearchAndFilter from "../../../components/SearchAndFilter";
-import ServiceCategoryCard from "../../../components/ServiceCategoryCard";
+import PawAndText from "../../components/PawAndText";
+import SearchAndFilter from "../../components/SearchAndFilter";
+import ServiceCategoryCard from "../../components/ServiceCategoryCard";
 
 const Services = () => {
   const [services, setServices] = useState([

@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, Image } from "react-native";
 import React from "react";
 import Colors from "../utils/Colors";
 
-const PawAndText = ({Component,title}) => {
+const PawAndText = ({ Component, title }) => {
   return (
     <View style={styles.container}>
       <View style={styles.logoAndTextContainer}>
@@ -12,7 +12,7 @@ const PawAndText = ({Component,title}) => {
         />
         <Text style={styles.text}>{title}</Text>
       </View>
-      <Component/>
+      <Component />
     </View>
   );
 };
@@ -25,10 +25,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
   },
-  logoAndTextContainer:{
-    alignItems:"center",
-    display:"flex",
-    flexDirection:"row"
+  logoAndTextContainer: {
+    alignItems: "center",
+    display: "flex",
+    flexDirection: "row",
   },
   image: {
     height: 36,

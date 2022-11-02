@@ -7,10 +7,10 @@ import {
   StatusBar
 } from "react-native";
 import React, { useState } from "react";
-import PawAndText from "../../../components/PawAndText";
-import SearchAndFilter from "../../../components/SearchAndFilter";
-import Colors from "../../../utils/Colors";
-import ServiceCard from "../../../components/ServiceCard";
+import PawAndText from "../../components/PawAndText";
+import SearchAndFilter from "../../components/SearchAndFilter";
+import Colors from "../../utils/Colors";
+import ServiceCard from "../../components/ServiceCard";
 
 const Service = ({ route, navigation }) => {
   const service = route.params.service;
