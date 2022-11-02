@@ -4,7 +4,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
-  StatusBar
+  StatusBar,
 } from "react-native";
 import React, { useState } from "react";
 import PawAndText from "../../components/PawAndText";
@@ -80,15 +80,15 @@ const Service = ({ route, navigation }) => {
   return (
     <View style={styles.container}>
       <PawAndText title={service.name} Component={() => <></>} />
-      <View style={{ marginTop: 30 }}></View>
-      <SearchAndFilter placeholder={"Search for a service"} />
+      <View style={{ marginTop: 20 }}>
+        <SearchAndFilter placeholder={"Search for a service"} />
+      </View>
       <View
-        style={{ height: 85, justifyContent: "center", alignItems: "center" }}
+        style={{ height: 80, justifyContent: "center", alignItems: "center" }}
       >
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
-        
           contentContainerStyle={{ alignItems: "center" }}
           style={{
             display: "flex",
@@ -117,7 +117,10 @@ const Service = ({ route, navigation }) => {
           ))}
         </ScrollView>
       </View>
-      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.servicescontainer}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.servicescontainer}
+      >
         {services.map((el) => (
           <ServiceCard key={el.name} service={el} />
         ))}
@@ -130,7 +133,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 20,
     alignItems: "flex-start",
-    paddingTop: StatusBar.currentHeight+20,
+    paddingTop: StatusBar.currentHeight + 20,
 
     backgroundColor: "white",
   },

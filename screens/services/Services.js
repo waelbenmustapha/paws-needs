@@ -57,7 +57,9 @@ const Services = () => {
           return <></>;
         }}
       />
-      <SearchAndFilter placeholder={"Search for a service"} />
+      <View style={{ marginVertical: 20 }}>
+        <SearchAndFilter placeholder={"Search for a service"} />
+      </View>
       <ScrollView contentContainerStyle={styles.servicescont}>
         {services.map((el, index) => (
           <ServiceCategoryCard service={el} key={index} />

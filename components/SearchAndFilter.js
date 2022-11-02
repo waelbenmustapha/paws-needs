@@ -18,12 +18,11 @@ const SearchAndFilter = ({ placeholder }) => {
 };
 const styles = StyleSheet.create({
   container: {
+    width: "100%",
     height: 56,
     paddingHorizontal: 20,
-    marginVertical: 20,
     borderRadius: 12,
     backgroundColor: "#F5F5F5",
-    display: "flex",
     alignItems: "center",
     flexDirection: "row",
     justifyContent: "space-between",
