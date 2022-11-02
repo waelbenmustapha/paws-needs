@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: 20,
     backgroundColor: "white",
-    paddingTop: StatusBar.currentHeight,
+    paddingTop: StatusBar.currentHeight + 20,
   },
 });
 
