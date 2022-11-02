@@ -10,9 +10,8 @@ import {
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import Colors from "../utils/Colors";
-import { AirbnbRating } from "react-native-ratings";
 
-const ServiceCard = ({ service }) => {
+const ServiceCategoryCard = ({ service }) => {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
@@ -26,19 +25,9 @@ const ServiceCard = ({ service }) => {
       >
         <View style={styles.text}>
           <Text style={styles.servicename}>{service.name}</Text>
-          <View style={{display:"flex",flexDirection:"column"}}>
-            <AirbnbRating
-              size={8}
-              ratingContainerStyle={{width:68}}
-              count={5}
-              defaultRating={service.rating}
-              isDisabled
-              showRating={false}
-            />
-            <Text style={styles.servicesavailable}>
-              {"("+service.reviews+ "reviews)"}
-            </Text>
-          </View>
+          <Text style={styles.servicesavailable}>
+            {service.available} Services available
+          </Text>
         </View>
         <View style={styles.location}>
           <Image
@@ -71,7 +60,7 @@ const styles = StyleSheet.create({
     fontWeight: "500",
   },
 
-  text: { position: "absolute", bottom: 50, left: 10 },
+  text: { position: "absolute", bottom: 50, left: 17 },
   servicesavailable: { fontSize: 12, color: "white" },
   location: {
     position: "absolute",
@@ -95,4 +84,4 @@ const styles = StyleSheet.create({
   knowmoretxt: { color: "white", fontSize: 13, fontWeight: "500" },
 });
 
-export default ServiceCard;
+export default ServiceCategoryCard;
