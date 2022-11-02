@@ -8,12 +8,11 @@ import {
 } from "react-native";
 import React from "react";
 import Colors from "../utils/Colors";
-import { Rating, AirbnbRating } from "react-native-ratings";
+import { useNavigation } from "@react-navigation/native";
 
 const ShopCard = ({ shop }) => {
-  function ratingCompleted(rating) {
-    console.log("Rating is: " + rating);
-  }
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -34,7 +33,14 @@ const ShopCard = ({ shop }) => {
           />
           <Text style={styles.startstxt}> 4.2</Text>
         </View>
-        <TouchableOpacity style={styles.knowmore}>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate("shop", {
+              shop,
+            })
+          }
+          style={styles.knowmore}
+        >
           <Text style={styles.knowmoretxt}>Know more</Text>
         </TouchableOpacity>
       </ImageBackground>
@@ -67,9 +73,9 @@ const styles = StyleSheet.create({
     position: "absolute",
     right: 20,
     top: 20,
-    display:"flex",
-    flexDirection:"row",
-    alignItems:"center"
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
   },
   startstxt: { fontSize: 14, color: "white", fontWeight: "500" },
   knowmore: {

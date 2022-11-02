@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, Image } from "react-native";
 import React from "react";
 import Colors from "../utils/Colors";
 
-const PawAndText = ({Component}) => {
+const PawAndText = ({Component,title}) => {
   return (
     <View style={styles.container}>
       <View style={styles.logoAndTextContainer}>
@@ -10,7 +10,7 @@ const PawAndText = ({Component}) => {
           style={styles.image}
           source={require("../assets/logo-paw.png")}
         />
-        <Text style={styles.text}>Shops</Text>
+        <Text style={styles.text}>{title}</Text>
       </View>
       <Component/>
     </View>

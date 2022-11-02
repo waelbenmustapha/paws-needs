@@ -21,7 +21,7 @@ const Shops = () => {
       rating: 4.2,
       reviews: 230,
       image:
-        "https://i.postimg.cc/x1rqPzTC/supermarket-aisle-blurred-background-with-empty-red-shopping-cart-1-2.png",
+        "https://i.postimg.cc/3w9zmd2b/supermarket-aisle-blurred-background-with-empty-red-shopping-cart-1-1.png",
     },
     {
       name: "shop 2",
@@ -30,7 +30,7 @@ const Shops = () => {
       rating: 4.2,
       reviews: 230,
       image:
-        "https://i.postimg.cc/x1rqPzTC/supermarket-aisle-blurred-background-with-empty-red-shopping-cart-1-2.png",
+      "https://i.postimg.cc/3w9zmd2b/supermarket-aisle-blurred-background-with-empty-red-shopping-cart-1-1.png",
     },
     {
       name: "shop 1",
@@ -39,7 +39,7 @@ const Shops = () => {
       rating: 4.2,
       reviews: 230,
       image:
-        "https://i.postimg.cc/x1rqPzTC/supermarket-aisle-blurred-background-with-empty-red-shopping-cart-1-2.png",
+      "https://i.postimg.cc/3w9zmd2b/supermarket-aisle-blurred-background-with-empty-red-shopping-cart-1-1.png",
     },
     {
       name: "shop 2",
@@ -48,7 +48,7 @@ const Shops = () => {
       rating: 4.2,
       reviews: 230,
       image:
-        "https://i.postimg.cc/x1rqPzTC/supermarket-aisle-blurred-background-with-empty-red-shopping-cart-1-2.png",
+      "https://i.postimg.cc/3w9zmd2b/supermarket-aisle-blurred-background-with-empty-red-shopping-cart-1-1.png",
     },
     {
       name: "shop 1",
@@ -57,7 +57,7 @@ const Shops = () => {
       rating: 4.2,
       reviews: 230,
       image:
-        "https://i.postimg.cc/x1rqPzTC/supermarket-aisle-blurred-background-with-empty-red-shopping-cart-1-2.png",
+      "https://i.postimg.cc/3w9zmd2b/supermarket-aisle-blurred-background-with-empty-red-shopping-cart-1-1.png",
     },
     {
       name: "shop 2",
@@ -66,7 +66,7 @@ const Shops = () => {
       rating: 4.2,
       reviews: 230,
       image:
-        "https://i.postimg.cc/x1rqPzTC/supermarket-aisle-blurred-background-with-empty-red-shopping-cart-1-2.png",
+      "https://i.postimg.cc/3w9zmd2b/supermarket-aisle-blurred-background-with-empty-red-shopping-cart-1-1.png",
     },
   ]);
 
@@ -88,8 +88,8 @@ const Shops = () => {
 
   return (
     <View style={styles.container}>
-      <StatusBar translucent={false} backgroundColor="white" />
-      <PawAndText Component={Favorite} />
+      <StatusBar  translucent={false} backgroundColor="white" />
+      <PawAndText title={"Shops"} Component={Favorite} />
       <View style={{ marginBottom: 30 }}></View>
       <SearchAndFilter placeholder={"Search for a shop"} />
       <ScrollView>
