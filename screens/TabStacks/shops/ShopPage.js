@@ -132,7 +132,7 @@ const ShopPage = ({ navigation, route }) => {
                   fontWeight: "400",
                 }}
               >
-                {"("} 230 Reviews{")"}
+                {"("}230 Reviews{")"}
               </Text>
             </View>
           </View>
