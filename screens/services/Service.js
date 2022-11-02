@@ -6,11 +6,11 @@ import {
   ScrollView,
 } from "react-native";
 import React, { useState } from "react";
-import PawAndText from "../../../components/PawAndText";
+import PawAndText from "../../components/PawAndText";
 import { StatusBar } from "expo-status-bar";
-import SearchAndFilter from "../../../components/SearchAndFilter";
-import Colors from "../../../utils/Colors";
-import ServiceCard from "../../../components/ServiceCard";
+import SearchAndFilter from "../../components/SearchAndFilter";
+import Colors from "../../utils/Colors";
+import ServiceCard from "../../components/ServiceCard";
 
 const Service = ({ route, navigation }) => {
   const service = route.params.service;

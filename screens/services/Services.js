@@ -1,9 +1,9 @@
 import { View, Text, StyleSheet, ScrollView, Dimensions } from "react-native";
 import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
-import PawAndText from "../../../components/PawAndText";
-import SearchAndFilter from "../../../components/SearchAndFilter";
-import ServiceCategoryCard from "../../../components/ServiceCategoryCard";
+import PawAndText from "../../components/PawAndText";
+import SearchAndFilter from "../../components/SearchAndFilter";
+import ServiceCategoryCard from "../../components/ServiceCategoryCard";
 
 const Services = () => {
   const [services, setServices] = useState([

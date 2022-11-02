@@ -1,14 +1,14 @@
 import { View, Text, StyleSheet, Image, TextInput } from "react-native";
 import React from "react";
 
-const SearchAndFilter = ({placeholder}) => {
+const SearchAndFilter = ({ placeholder }) => {
   return (
     <View style={styles.container}>
       <Image
         source={require("../assets/search.png")}
         style={styles.searchimg}
       />
-      <TextInput placeholder={placeholder} style={styles.input}/>
+      <TextInput placeholder={placeholder} style={styles.input} />
       <Image
         source={require("../assets/filter.png")}
         style={styles.searchimg}
@@ -31,9 +31,9 @@ const styles = StyleSheet.create({
     height: 16,
     width: 16,
   },
-  input:{
-    flex:1,
-    marginHorizontal:13,
-  }
+  input: {
+    flex: 1,
+    marginHorizontal: 13,
+  },
 });
 export default SearchAndFilter;

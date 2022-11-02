@@ -2,11 +2,9 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeStack from "./tabsStacks/HomeStack";
 import ServicesStack from "./tabsStacks/ServicesStack";
-import Orders from "../../../../screens/TabStacks/Orders";
-import Profile from "../../../../screens/TabStacks/Profile";
-import Checkout from "../../../../screens/Checkout";
+import Orders from "../../../../screens/Orders";
+import Profile from "../../../../screens/Profile";
 import ShopStack from "./tabsStacks/ShopStack";
-
 
 const Tab = createBottomTabNavigator();
 

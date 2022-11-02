@@ -1,12 +1,12 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import React from "react";
+import { View, Text } from "react-native";
 
 const Checkout = () => {
   return (
     <View>
       <Text>Checkout</Text>
     </View>
-  )
-}
+  );
+};
 
-export default Checkout
+export default Checkout;

@@ -7,7 +7,7 @@ const NotLoggedIn = () => {
 
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="landing" component={Landing} /> 
+      <Stack.Screen name="landing" component={Landing} />
     </Stack.Navigator>
   );
 };
