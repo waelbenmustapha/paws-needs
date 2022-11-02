@@ -1,6 +1,5 @@
-import { View, Text, StyleSheet, ScrollView, Dimensions } from "react-native";
+import { View, Text, StyleSheet, ScrollView, StatusBar } from "react-native";
 import React, { useState } from "react";
-import { StatusBar } from "expo-status-bar";
 import PawAndText from "../../../components/PawAndText";
 import SearchAndFilter from "../../../components/SearchAndFilter";
 import ServiceCategoryCard from "../../../components/ServiceCategoryCard";
@@ -52,7 +51,6 @@ const Services = () => {
   ]);
   return (
     <View style={styles.container}>
-      <StatusBar translucent={false} backgroundColor="white" />
       <PawAndText
         title={"Services"}
         Component={() => {
@@ -72,8 +70,8 @@ const Services = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 23,
-    paddingVertical: 20,
+    paddingTop: StatusBar.currentHeight+20,
+    paddingHorizontal: 20,
     backgroundColor: "white",
   },
   servicescont: {

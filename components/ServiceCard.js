@@ -60,10 +60,10 @@ const ServiceCard = ({ service }) => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#212121",
-    width: Dimensions.get("window").width / 2 - 32,
-    marginTop: 24,
+    width: Dimensions.get("window").width / 2 - 28,
     borderRadius: 16,
     overflow: "hidden",
+    marginBottom:16,
   },
   servicename: {
     color: "white",
