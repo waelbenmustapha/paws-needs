@@ -73,8 +73,10 @@ const Service = ({ route, navigation }) => {
   const [filters, setFilters] = useState([
     "All",
     "In my area",
-    "Used",
-    "Liked",
+    "Usedd",
+    "Liksqed",
+    "Lidsqked",
+    "Liqsked",
   ]);
   const [selectedFilter, setSelectedFilter] = useState("In my area");
   return (
@@ -84,16 +86,19 @@ const Service = ({ route, navigation }) => {
         <SearchAndFilter placeholder={"Search for a service"} />
       </View>
       <View style={styles.horizontalscroll}>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+        <ScrollView  horizontal showsHorizontalScrollIndicator={false}>
           {filters.map((el, index) => (
             <TouchableOpacity
               key={index}
               onPress={() => setSelectedFilter(el)}
               style={[
                 styles.filteritem,
+
                 {
                   backgroundColor:
                     selectedFilter === el ? Colors.PRIMARY : Colors.SECONDARY,
+                    marginRight:index===filters.length-1?20:0
+
                 },
               ]}
             >
@@ -125,6 +130,7 @@ const styles = StyleSheet.create({
   horizontalscroll: {
     height: 40,
     marginBottom: 10,
+    marginHorizontal:-20,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -136,9 +142,10 @@ const styles = StyleSheet.create({
   },
   filteritem: {
     paddingHorizontal: 16,
+    marginLeft:20,
     alignItems: "center",
     height: 38,
-    marginRight: 16,
+    
     borderRadius: 100,
     justifyContent: "center",
   },
