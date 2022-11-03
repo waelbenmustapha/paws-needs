@@ -8,6 +8,7 @@ import {
   Pressable,
   ScrollView,
 } from "react-native";
+import { AirbnbRating } from "react-native-ratings";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import Feather from "react-native-vector-icons/Feather";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -115,14 +116,29 @@ const ShopPage = ({ navigation, route }) => {
             >
               Dubai | 30 min away
             </Text>
-            <View style={{ marginTop: 6, flexDirection: "row" }}>
-              <View style={{ marginRight: 8 }}>
+            <View
+              style={{
+                marginTop: 6,
+                flexDirection: "row",
+                alignItems: "center",
+              }}
+            >
+              <View style={{ marginRight: 8,flexDirection:"row" }}>
+                <AirbnbRating
+                  size={11}
+                  count={5}
+                  defaultRating={4}
+                  isDisabled
+                  showRating={false}
+                />
                 <Text
-                  style={{ color: "#ffff00", fontSize: 14, fontWeight: "400" }}
+                  style={{ fontSize: 14, fontWeight: "700", color: "#F3B004" }}
                 >
-                  Stars
+                  {"  "}
+                  {4.3}
                 </Text>
               </View>
+              
               <Text
                 style={{
                   color: "rgba(255,255,255,0.8)",

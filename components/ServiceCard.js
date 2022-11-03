@@ -51,6 +51,8 @@ const ServiceCard = ({ service }) => {
           <Text style={styles.startstxt}>{service.location}</Text>
         </View>
         <TouchableOpacity
+                activeOpacity={0.6}
+
           onPress={() => navigation.navigate("service", { service })}
           style={styles.knowmore}
         >

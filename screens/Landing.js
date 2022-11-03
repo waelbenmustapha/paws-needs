@@ -29,7 +29,6 @@ const Landing = () => {
             style={{
               color: Colors.PRIMARY,
               fontSize: 92,
-              fontWeight: "bold",
               fontFamily: "lobster",
             }}
           >
@@ -51,6 +50,7 @@ const Landing = () => {
           }}
           onPress={() => auth.login({ name: "wael" })}
         >
+          
           <Text style={{ color: "white", fontSize: 24, fontWeight: "bold" }}>
             Get Started
           </Text>
