@@ -83,38 +83,21 @@ const Service = ({ route, navigation }) => {
       <View style={{ marginVertical: 20 }}>
         <SearchAndFilter placeholder={"Search for a service"} />
       </View>
-      <View
-        style={{
-          height: 40,
-          marginBottom: 10,
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{ alignItems: "center" }}
-          style={{
-            display: "flex",
-            flexDirection: "row",
-          }}
-        >
-          {filters.map((el) => (
+      <View style={styles.horizontalscroll}>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          {filters.map((el,index) => (
             <TouchableOpacity
+            key={index}
               onPress={() => setSelectedFilter(el)}
-              style={{
-                paddingHorizontal: 16,
-                alignItems: "center",
-                height: 38,
-                marginRight: 16,
-                borderRadius: 100,
-                justifyContent: "center",
-                backgroundColor:
-                  selectedFilter === el ? Colors.PRIMARY : Colors.SECONDARY,
-              }}
+              style={[
+                styles.filteritem,
+                {
+                  backgroundColor:
+                    selectedFilter === el ? Colors.PRIMARY : Colors.SECONDARY,
+                },
+              ]}
             >
-              <Text style={{ color: "white", fontSize: 16, fontWeight: "500" }}>
+              <Text style={styles.filteritemtxt}>
                 {el}
               </Text>
             </TouchableOpacity>
@@ -141,11 +124,26 @@ const styles = StyleSheet.create({
 
     backgroundColor: "white",
   },
+  horizontalscroll: {
+    height: 40,
+    marginBottom: 10,
+    justifyContent: "center",
+    alignItems: "center",
+  },
   servicescontainer: {
     display: "flex",
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "space-between",
   },
+  filteritem: {
+    paddingHorizontal: 16,
+    alignItems: "center",
+    height: 38,
+    marginRight: 16,
+    borderRadius: 100,
+    justifyContent: "center",
+  },
+  filteritemtxt:{ color: "white", fontSize: 16, fontWeight: "500" }
 });
 export default Service;

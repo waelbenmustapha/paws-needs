@@ -11,15 +11,15 @@ import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import Colors from "../utils/Colors";
 
-const ServiceCategoryCard = ({ service }) => {
+const ServiceCategoryCard = ({ service, height, mrb, mrr,locationright,locationtop }) => {
   const navigation = useNavigation();
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { marginBottom: mrb, marginRight: mrr }]}>
       <ImageBackground
         resizeMode="stretch"
         imageStyle={{ opacity: 0.6 }}
         style={{
-          height: 230,
+          height: height,
         }}
         source={{ uri: service.image }}
       >
@@ -29,7 +29,7 @@ const ServiceCategoryCard = ({ service }) => {
             {service.available} Services available
           </Text>
         </View>
-        <View style={styles.location}>
+        <View style={[styles.location, { right: locationright, top: locationtop }]}>
           <Image
             source={require("../assets/location.png")}
             style={{ width: 20, height: 20 }}
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#212121",
     width: Dimensions.get("window").width / 2 - 28,
-    marginBottom: 20,
+
     borderRadius: 16,
     overflow: "hidden",
   },
@@ -64,8 +64,7 @@ const styles = StyleSheet.create({
   servicesavailable: { fontSize: 12, color: "white" },
   location: {
     position: "absolute",
-    right: 20,
-    top: 20,
+
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
