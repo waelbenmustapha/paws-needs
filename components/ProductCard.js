@@ -35,7 +35,9 @@ const ProductCard = ({ product }) => {
           style={styles.img}
         />
       </View>
-      <Text style={styles.prodname}>{product.name}</Text>
+      <Text numberOfLines={1} style={styles.prodname}>
+        {product.name}
+      </Text>
       <View
         style={{ display: "flex", flexDirection: "row", alignItems: "center" }}
       >
@@ -98,12 +100,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
     color: Colors.TEXT,
-    marginBottom:8
+    marginBottom: 8,
   },
-  price:{
-    fontWeight:'bold',
-    fontSize:16,
-    color:Colors.PRIMARY
-  }
+  price: {
+    fontWeight: "bold",
+    fontSize: 16,
+    color: Colors.PRIMARY,
+  },
 });
 export default ProductCard;

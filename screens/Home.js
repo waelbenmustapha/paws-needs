@@ -179,48 +179,69 @@ const Home = () => {
         source={require("../assets/circles.png")}
         style={styles.circles}
       />
-
-      <HelloUserBar />
-      <View style={{ marginVertical: 20 }}>
+      <View style={{ paddingHorizontal: 20 }}>
+        <HelloUserBar />
+      </View>
+      <View style={{ marginVertical: 20, paddingHorizontal: 20 }}>
         <SearchAndFilter placeholder={"Search for a shop"} />
       </View>
-      <View style={{ marginBottom: 0 }}>
+      <View style={{ marginBottom: 0, paddingHorizontal: 20 }}>
         <SeeAll text={"Promotions"} onpress={() => console.log("Sell all")} />
       </View>
-        <ScrollView  showsHorizontalScrollIndicator={false} horizontal>
+      <ScrollView showsHorizontalScrollIndicator={false} horizontal>
+        <View
+          style={{
+            paddingHorizontal: 10,
+            marginTop: 20,
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           {services.map((el, index) => (
             <PromotionCard key={index} />
           ))}
-        </ScrollView>
-      <View style={{ marginVertical:20 }}>
+        </View>
+      </ScrollView>
+      <View style={{ marginVertical: 20, paddingHorizontal: 20 }}>
         <SeeAll text={"Services"} onpress={() => console.log("Sell all")} />
       </View>
-      <View style={{ height: 160, marginBottom: 20 }}>
-        <ScrollView showsHorizontalScrollIndicator={false} horizontal>
+      <ScrollView showsHorizontalScrollIndicator={false} horizontal>
+        <View
+          style={{
+            paddingHorizontal: 10,
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           {services.map((el, index) => (
             <ServiceCategoryCard
-              mrb={0}
-              mrr={22}
               locationright={10}
               locationtop={10}
+              width={Dimensions.get("window").width / 2 - 10}
               height={160}
               service={el}
               key={index}
             />
           ))}
-        </ScrollView>
-      </View>
-      <View style={{ marginBottom: 20 }}>
+        </View>
+      </ScrollView>
+      <View style={{ marginBottom: 20, paddingHorizontal: 20 }}>
         <SeeAll text={"Services"} onpress={() => console.log("Sell all")} />
       </View>
-      <View style={styles.categoriesselect}>
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{ alignItems: "center" }}
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{ alignItems: "center" }}
+        style={{ marginBottom: 16 }}
+      >
+        <View
           style={{
-            display: "flex",
+            paddingHorizontal: 10,
             flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
           {categories.map((el) => (
@@ -235,12 +256,15 @@ const Home = () => {
                 },
               ]}
             >
-              <Text style={styles.categoryitemtxt}>{el}</Text>
+              <Text numberOfLines={1} style={styles.categoryitemtxt}>
+                {el}
+              </Text>
             </TouchableOpacity>
           ))}
-        </ScrollView>
-      </View>
+        </View>
+      </ScrollView>
       <ScrollView
+        style={{ paddingHorizontal: 20 }}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.servicescontainer}
       >
@@ -254,16 +278,9 @@ const Home = () => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 20,
     paddingTop: 70,
     backgroundColor: "white",
     position: "relative",
-  },
-  categoriesselect: {
-    height: 40,
-    marginBottom: 10,
-    justifyContent: "center",
-    alignItems: "center",
   },
   servicescontainer: {
     display: "flex",
@@ -279,10 +296,10 @@ const styles = StyleSheet.create({
     left: 0,
   },
   categoryitem: {
+    marginHorizontal: 10,
     paddingHorizontal: 16,
     alignItems: "center",
     height: 38,
-    marginRight: 16,
     borderRadius: 100,
     justifyContent: "center",
   },

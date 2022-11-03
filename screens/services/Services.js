@@ -1,4 +1,11 @@
-import { View, Text, StyleSheet, ScrollView, StatusBar } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  StatusBar,
+  Dimensions,
+} from "react-native";
 import React, { useState } from "react";
 import PawAndText from "../../components/PawAndText";
 import SearchAndFilter from "../../components/SearchAndFilter";
@@ -51,20 +58,36 @@ const Services = () => {
   ]);
   return (
     <View style={styles.container}>
-      
-      <PawAndText
-        title={"Services"}
-        Component={() => {
-          return <></>;
-        }}
-      />
-      <View style={{ marginVertical: 20 }}>
-        <SearchAndFilter placeholder={"Search for a service"} />
+      <View style={{ paddingHorizontal: 20 }}>
+        <PawAndText
+          title={"Services"}
+          Component={() => {
+            return <></>;
+          }}
+        />
+        <View style={{ marginVertical: 20 }}>
+          <SearchAndFilter placeholder={"Search for a service"} />
+        </View>
       </View>
-      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.servicescont}>
-        {services.map((el, index) => (
-          <ServiceCategoryCard  mrb={20} mrr={0} height={230} locationright={20} locationtop={20} service={el} key={index} />
-        ))}
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View
+          style={{
+            paddingHorizontal: 10,
+            flexDirection: "row",
+            flexWrap: "wrap",
+          }}
+        >
+          {services.map((el, index) => (
+            <ServiceCategoryCard
+              width={Dimensions.get("window").width / 2 - 30}
+              height={230}
+              locationright={20}
+              locationtop={20}
+              service={el}
+              key={index}
+            />
+          ))}
+        </View>
       </ScrollView>
     </View>
   );
@@ -73,14 +96,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: StatusBar.currentHeight + 20,
-    paddingHorizontal: 20,
     backgroundColor: "white",
-  },
-  servicescont: {
-    display: "flex",
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "space-between",
   },
 });
 export default Services;

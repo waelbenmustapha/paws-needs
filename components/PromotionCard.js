@@ -6,12 +6,11 @@ const PromotionCard = () => {
   return (
     <LinearGradient
       style={{
-        marginRight: 20,
+        marginHorizontal: 10,
         padding: 15,
-        marginTop:20,
         height: 157,
         position: "relative",
-        width: Dimensions.get("window").width / 1.4,
+        width: Dimensions.get("window").width / 1.35,
         borderRadius: 16,
       }}
       // Button Linear Gradient
@@ -46,26 +45,39 @@ const PromotionCard = () => {
         />
       </View>
       <Text
+        numberOfLines={1}
         style={{
           fontSize: 26,
           fontWeight: "bold",
           color: "white",
           marginBottom: 10,
+          maxWidth: "65%",
         }}
       >
         20% Off
       </Text>
       <Text
+        numberOfLines={1}
         style={{
           fontSize: 16,
-          fontWeight: "bold",
+          fontWeight: "700",
           color: "white",
           marginBottom: 10,
+          maxWidth: "65%",
         }}
       >
         At Shop Name !
       </Text>
-      <Text style={{ fontSize: 12, color: "white", marginBottom: 10 }}>
+      <Text
+        numberOfLines={2}
+        style={{
+          fontSize: 12,
+          fontWeight: "500",
+          color: "white",
+          marginBottom: 10,
+          maxWidth: "65%",
+        }}
+      >
         Get a new supplement discount,only valid this week
       </Text>
     </LinearGradient>

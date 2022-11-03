@@ -11,10 +11,21 @@ import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import Colors from "../utils/Colors";
 
-const ServiceCategoryCard = ({ service, height, mrb, mrr,locationright,locationtop }) => {
+const ServiceCategoryCard = ({
+  service,
+  width,
+  height,
+  locationright,
+  locationtop,
+}) => {
   const navigation = useNavigation();
   return (
-    <View style={[styles.container, { marginBottom: mrb, marginRight: mrr }]}>
+    <View
+      style={[
+        styles.container,
+        { width: width, marginBottom: 20, marginHorizontal: 10 },
+      ]}
+    >
       <ImageBackground
         resizeMode="stretch"
         imageStyle={{ opacity: 0.6 }}
@@ -24,12 +35,16 @@ const ServiceCategoryCard = ({ service, height, mrb, mrr,locationright,locationt
         source={{ uri: service.image }}
       >
         <View style={styles.text}>
-          <Text style={styles.servicename}>{service.name}</Text>
-          <Text style={styles.servicesavailable}>
+          <Text numberOfLines={1} style={styles.servicename}>
+            {service.name}
+          </Text>
+          <Text numberOfLines={1} style={styles.servicesavailable}>
             {service.available} Services available
           </Text>
         </View>
-        <View style={[styles.location, { right: locationright, top: locationtop }]}>
+        <View
+          style={[styles.location, { right: locationright, top: locationtop }]}
+        >
           <Image
             source={require("../assets/location.png")}
             style={{ width: 20, height: 20 }}
@@ -49,8 +64,6 @@ const ServiceCategoryCard = ({ service, height, mrb, mrr,locationright,locationt
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#212121",
-    width: Dimensions.get("window").width / 2 - 28,
-
     borderRadius: 16,
     overflow: "hidden",
   },

@@ -85,9 +85,9 @@ const Service = ({ route, navigation }) => {
       </View>
       <View style={styles.horizontalscroll}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {filters.map((el,index) => (
+          {filters.map((el, index) => (
             <TouchableOpacity
-            key={index}
+              key={index}
               onPress={() => setSelectedFilter(el)}
               style={[
                 styles.filteritem,
@@ -97,9 +97,7 @@ const Service = ({ route, navigation }) => {
                 },
               ]}
             >
-              <Text style={styles.filteritemtxt}>
-                {el}
-              </Text>
+              <Text style={styles.filteritemtxt}>{el}</Text>
             </TouchableOpacity>
           ))}
         </ScrollView>
@@ -144,6 +142,6 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     justifyContent: "center",
   },
-  filteritemtxt:{ color: "white", fontSize: 16, fontWeight: "500" }
+  filteritemtxt: { color: "white", fontSize: 16, fontWeight: "500" },
 });
 export default Service;
