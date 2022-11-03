@@ -67,6 +67,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#212121",
     borderRadius: 16,
     overflow: "hidden",
+
   },
   servicename: {
     color: "white",
