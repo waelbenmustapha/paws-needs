@@ -27,16 +27,19 @@ const ServiceCard = ({ service }) => {
         <View style={styles.text}>
           <Text style={styles.servicename}>{service.name}</Text>
           <View style={{ display: "flex", flexDirection: "column" }}>
-            <AirbnbRating
-              size={8}
-              ratingContainerStyle={{ width: 68 }}
-              count={5}
-              defaultRating={service.rating}
-              isDisabled
-              showRating={false}
-            />
+            <View style={{display:'flex',flexDirection:"row",alignItems:"center"}}>
+              <AirbnbRating
+                size={8}
+                ratingContainerStyle={{ width: 68 }}
+                count={5}
+                defaultRating={service.rating}
+                isDisabled
+                showRating={false}
+              />
+              <Text style={{fontSize:11,fontWeight:"700",color:"#F3B004"}}>{"  "}{service.rating}</Text>
+            </View>
             <Text style={styles.servicesavailable}>
-              {"(" + service.reviews + "reviews)"}
+              {"(" + service.reviews + " reviews)"}
             </Text>
           </View>
         </View>
@@ -63,7 +66,7 @@ const styles = StyleSheet.create({
     width: Dimensions.get("window").width / 2 - 28,
     borderRadius: 16,
     overflow: "hidden",
-    marginBottom:16,
+    marginBottom: 16,
   },
   servicename: {
     color: "white",

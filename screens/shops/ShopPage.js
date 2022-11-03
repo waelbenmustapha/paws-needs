@@ -205,7 +205,13 @@ const ShopPage = ({ navigation, route }) => {
             >
               {categories.map((item, index) => (
                 <Pressable
-                  onPress={() => setSelectedCategorie(item)}
+                  onPress={() => {
+                    setSelectedCategorie(item);
+                    navigation.navigate("shop-products", {
+                      shop,
+                      category: item,
+                    });
+                  }}
                   key={`categorie-${index}`}
                 >
                   <Text
@@ -249,8 +255,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    overflow:"visible"
-
+    overflow: "visible",
   },
   header: {
     position: "relative",

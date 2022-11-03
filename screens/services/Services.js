@@ -51,6 +51,7 @@ const Services = () => {
   ]);
   return (
     <View style={styles.container}>
+      
       <PawAndText
         title={"Services"}
         Component={() => {
@@ -62,7 +63,7 @@ const Services = () => {
       </View>
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.servicescont}>
         {services.map((el, index) => (
-          <ServiceCategoryCard service={el} key={index} />
+          <ServiceCategoryCard  mrb={20} mrr={0} height={230} locationright={20} locationtop={20} service={el} key={index} />
         ))}
       </ScrollView>
     </View>
