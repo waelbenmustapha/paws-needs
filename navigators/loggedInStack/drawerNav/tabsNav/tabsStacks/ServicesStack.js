@@ -5,7 +5,7 @@ import Service from "../../../../../screens/services/Service";
 
 const Stack = createNativeStackNavigator();
 
-const ShopStack = () => {
+const ServicesStack = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="services" component={Services} />
@@ -14,4 +14,4 @@ const ShopStack = () => {
   );
 };
 
-export default ShopStack;
+export default ServicesStack;
