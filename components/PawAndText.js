@@ -12,7 +12,7 @@ const PawAndText = ({ Component, title }) => {
         />
         <Text style={styles.text}>{title}</Text>
       </View>
-      <Component />
+      {Component ? <Component /> : null}
     </View>
   );
 };

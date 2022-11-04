@@ -10,124 +10,123 @@ import React, { useState } from "react";
 import PawAndText from "../../components/PawAndText";
 import SearchAndFilter from "../../components/SearchAndFilter";
 import Colors from "../../utils/Colors";
-import ServiceCard from "../../components/ServiceCard";
 import ProductCard from "../../components/ProductCard";
 
 const ShopProducts = ({ route, navigation }) => {
   const shop = route.params.shop;
   const [products, setProducts] = useState([
     {
-        name: "Inukshuk",
-        image: "https://i.postimg.cc/cCJg28Kn/Inukshuk-2616-1024x-1-2.png",
-        rating: 4.3,
-        price: 40,
-        category: "Aquarium and equipment",
-      },
-      {
-        name: "Pet Backpack",
-        image: "https://i.postimg.cc/Y0yGHqgy/45645-1-1.png",
-        rating: 4.7,
-        price: 15,
-        category: "Cat health",
-      },
-      {
-        name: "Cosy Pet Bed",
-        image: "https://i.postimg.cc/FFPJcGqg/1-4-1-1.png",
-        rating: 4.5,
-        price: 5,
-        category: "dog food and treats",
-      },
-      {
-        name: "Cat Litter",
-        image: "https://i.postimg.cc/qMz6GyHf/001742787-1.png",
-        rating: 3.8,
-        price: 32,
-        category: "Dog health",
-      },
-      {
-        name: "Inukshuk",
-        image: "https://i.postimg.cc/cCJg28Kn/Inukshuk-2616-1024x-1-2.png",
-        rating: 4.3,
-        price: 40,
-        category: "Aquarium and equipment",
-      },
-      {
-        name: "Pet Backpack",
-        image: "https://i.postimg.cc/Y0yGHqgy/45645-1-1.png",
-        rating: 4.7,
-        price: 15,
-        category: "Cat health",
-      },
-      {
-        name: "Cosy Pet Bed",
-        image: "https://i.postimg.cc/FFPJcGqg/1-4-1-1.png",
-        rating: 4.5,
-        price: 5,
-        category: "dog food and treats",
-      },
-      {
-        name: "Cat Litter",
-        image: "https://i.postimg.cc/qMz6GyHf/001742787-1.png",
-        rating: 3.8,
-        price: 32,
-        category: "Dog health",
-      },
-      {
-        name: "Inukshuk",
-        image: "https://i.postimg.cc/cCJg28Kn/Inukshuk-2616-1024x-1-2.png",
-        rating: 4.3,
-        price: 40,
-        category: "Aquarium and equipment",
-      },
-      {
-        name: "Pet Backpack",
-        image: "https://i.postimg.cc/Y0yGHqgy/45645-1-1.png",
-        rating: 4.7,
-        price: 15,
-        category: "Cat health",
-      },
-      {
-        name: "Cosy Pet Bed",
-        image: "https://i.postimg.cc/FFPJcGqg/1-4-1-1.png",
-        rating: 4.5,
-        price: 5,
-        category: "dog food and treats",
-      },
-      {
-        name: "Cat Litter",
-        image: "https://i.postimg.cc/qMz6GyHf/001742787-1.png",
-        rating: 3.8,
-        price: 32,
-        category: "Dog health",
-      },
-      {
-        name: "Inukshuk",
-        image: "https://i.postimg.cc/cCJg28Kn/Inukshuk-2616-1024x-1-2.png",
-        rating: 4.3,
-        price: 40,
-        category: "Aquarium and equipment",
-      },
-      {
-        name: "Pet Backpack",
-        image: "https://i.postimg.cc/Y0yGHqgy/45645-1-1.png",
-        rating: 4.7,
-        price: 15,
-        category: "Cat health",
-      },
-      {
-        name: "Cosy Pet Bed",
-        image: "https://i.postimg.cc/FFPJcGqg/1-4-1-1.png",
-        rating: 4.5,
-        price: 5,
-        category: "dog food and treats",
-      },
-      {
-        name: "Cat Litter",
-        image: "https://i.postimg.cc/qMz6GyHf/001742787-1.png",
-        rating: 3.8,
-        price: 32,
-        category: "Dog health",
-      },
+      name: "Inukshuk",
+      image: "https://i.postimg.cc/cCJg28Kn/Inukshuk-2616-1024x-1-2.png",
+      rating: 4.3,
+      price: 40,
+      category: "Aquarium and equipment",
+    },
+    {
+      name: "Pet Backpack",
+      image: "https://i.postimg.cc/Y0yGHqgy/45645-1-1.png",
+      rating: 4.7,
+      price: 15,
+      category: "Cat health",
+    },
+    {
+      name: "Cosy Pet Bed",
+      image: "https://i.postimg.cc/FFPJcGqg/1-4-1-1.png",
+      rating: 4.5,
+      price: 5,
+      category: "dog food and treats",
+    },
+    {
+      name: "Cat Litter",
+      image: "https://i.postimg.cc/qMz6GyHf/001742787-1.png",
+      rating: 3.8,
+      price: 32,
+      category: "Dog health",
+    },
+    {
+      name: "Inukshuk",
+      image: "https://i.postimg.cc/cCJg28Kn/Inukshuk-2616-1024x-1-2.png",
+      rating: 4.3,
+      price: 40,
+      category: "Aquarium and equipment",
+    },
+    {
+      name: "Pet Backpack",
+      image: "https://i.postimg.cc/Y0yGHqgy/45645-1-1.png",
+      rating: 4.7,
+      price: 15,
+      category: "Cat health",
+    },
+    {
+      name: "Cosy Pet Bed",
+      image: "https://i.postimg.cc/FFPJcGqg/1-4-1-1.png",
+      rating: 4.5,
+      price: 5,
+      category: "dog food and treats",
+    },
+    {
+      name: "Cat Litter",
+      image: "https://i.postimg.cc/qMz6GyHf/001742787-1.png",
+      rating: 3.8,
+      price: 32,
+      category: "Dog health",
+    },
+    {
+      name: "Inukshuk",
+      image: "https://i.postimg.cc/cCJg28Kn/Inukshuk-2616-1024x-1-2.png",
+      rating: 4.3,
+      price: 40,
+      category: "Aquarium and equipment",
+    },
+    {
+      name: "Pet Backpack",
+      image: "https://i.postimg.cc/Y0yGHqgy/45645-1-1.png",
+      rating: 4.7,
+      price: 15,
+      category: "Cat health",
+    },
+    {
+      name: "Cosy Pet Bed",
+      image: "https://i.postimg.cc/FFPJcGqg/1-4-1-1.png",
+      rating: 4.5,
+      price: 5,
+      category: "dog food and treats",
+    },
+    {
+      name: "Cat Litter",
+      image: "https://i.postimg.cc/qMz6GyHf/001742787-1.png",
+      rating: 3.8,
+      price: 32,
+      category: "Dog health",
+    },
+    {
+      name: "Inukshuk",
+      image: "https://i.postimg.cc/cCJg28Kn/Inukshuk-2616-1024x-1-2.png",
+      rating: 4.3,
+      price: 40,
+      category: "Aquarium and equipment",
+    },
+    {
+      name: "Pet Backpack",
+      image: "https://i.postimg.cc/Y0yGHqgy/45645-1-1.png",
+      rating: 4.7,
+      price: 15,
+      category: "Cat health",
+    },
+    {
+      name: "Cosy Pet Bed",
+      image: "https://i.postimg.cc/FFPJcGqg/1-4-1-1.png",
+      rating: 4.5,
+      price: 5,
+      category: "dog food and treats",
+    },
+    {
+      name: "Cat Litter",
+      image: "https://i.postimg.cc/qMz6GyHf/001742787-1.png",
+      rating: 3.8,
+      price: 32,
+      category: "Dog health",
+    },
   ]);
   const [categories, setCategories] = useState([
     "all",
@@ -197,7 +196,7 @@ const ShopProducts = ({ route, navigation }) => {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.servicescontainer}
       >
-        {products.map((el,index) => (
+        {products.map((el, index) => (
           <ProductCard key={index} product={el} />
         ))}
       </ScrollView>

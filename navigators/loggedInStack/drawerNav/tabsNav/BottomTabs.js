@@ -3,11 +3,10 @@ import { View, Image } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeStack from "./tabsStacks/HomeStack";
 import ServicesStack from "./tabsStacks/ServicesStack";
-import Orders from "../../../../screens/Orders";
+import Orders from "../../../../screens/orders/Orders";
 import Profile from "../../../../screens/Profile";
 import ShopStack from "./tabsStacks/ShopStack";
 import Colors from "../../../../utils/Colors";
-import Ionicons from "react-native-vector-icons/Ionicons";
 
 const Tab = createBottomTabNavigator();
 

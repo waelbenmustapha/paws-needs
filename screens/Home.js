@@ -20,7 +20,7 @@ import ProductCard from "../components/ProductCard";
 import Colors from "../utils/Colors";
 import PromotionCard from "../components/PromotionCard";
 
-const Home = () => {
+const Home = ({ navigation }) => {
   const [products, setProducts] = useState([
     {
       name: "Inukshuk",
@@ -269,7 +269,7 @@ const Home = () => {
         contentContainerStyle={styles.servicescontainer}
       >
         {products.map((el, index) => (
-          <ProductCard key={index} product={el} />
+          <ProductCard key={index} product={el} navigation={navigation} />
         ))}
       </ScrollView>
     </ScrollView>

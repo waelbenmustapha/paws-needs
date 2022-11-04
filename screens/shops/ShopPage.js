@@ -11,12 +11,11 @@ import {
 import { AirbnbRating } from "react-native-ratings";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import Feather from "react-native-vector-icons/Feather";
-import Ionicons from "react-native-vector-icons/Ionicons";
+import Favorite from "../../components/Favorite";
 import Colors from "../../utils/Colors";
 
 const ShopPage = ({ navigation, route }) => {
   const shop = route.params.shop;
-  const [isFavorite, setIsFavorite] = useState(false);
   const [navActive, setNavActive] = useState("categories");
   const [selectedCategorie, setSelectedCategorie] = useState("all");
   const [categories, setCategories] = useState([
@@ -81,27 +80,9 @@ const ShopPage = ({ navigation, route }) => {
                 size={24}
                 color={"#fff"}
               />
-              {isFavorite ? (
-                <Ionicons
-                  onPress={() => {
-                    setIsFavorite(!isFavorite);
-                  }}
-                  style={{ padding: 5, marginLeft: 10 }}
-                  name="heart"
-                  size={28}
-                  color={"#D91B1B"}
-                />
-              ) : (
-                <Ionicons
-                  onPress={() => {
-                    setIsFavorite(!isFavorite);
-                  }}
-                  style={{ padding: 5, marginLeft: 10 }}
-                  name="heart-outline"
-                  size={28}
-                  color={"#ffffff"}
-                />
-              )}
+              <View style={{ padding: 5, marginLeft: 10 }}>
+                <Favorite isWhite={true} />
+              </View>
             </View>
           </View>
           <View style={{ position: "absolute", bottom: 20, left: 20 }}>
@@ -123,7 +104,7 @@ const ShopPage = ({ navigation, route }) => {
                 alignItems: "center",
               }}
             >
-              <View style={{ marginRight: 8,flexDirection:"row" }}>
+              <View style={{ marginRight: 8, flexDirection: "row" }}>
                 <AirbnbRating
                   size={11}
                   count={5}
@@ -138,7 +119,7 @@ const ShopPage = ({ navigation, route }) => {
                   {4.3}
                 </Text>
               </View>
-              
+
               <Text
                 style={{
                   color: "rgba(255,255,255,0.8)",
@@ -277,7 +258,7 @@ const styles = StyleSheet.create({
     position: "relative",
     width: "100%",
     height: "100%",
-    paddingTop: 60,
+    paddingTop: StatusBar.currentHeight + 20,
     paddingHorizontal: 20,
   },
   nav: {

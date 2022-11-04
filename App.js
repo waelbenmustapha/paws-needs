@@ -4,7 +4,6 @@ import { StatusBar as Expostatus } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";
 import { AuthProvider } from "./context/AuthProvider";
 import MainStack from "./navigators/MainStack";
-import Colors from "./utils/Colors";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 
@@ -41,7 +40,7 @@ export default function App() {
       }}
       onLayout={onLayoutRootView}
     >
-      <Expostatus  translucent={true} />
+      <Expostatus translucent={true} />
 
       <NavigationContainer>
         <AuthProvider>

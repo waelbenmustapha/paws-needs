@@ -9,10 +9,15 @@ import {
 import React, { useState } from "react";
 import Colors from "../utils/Colors";
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, navigation }) => {
   const [isFav, setIsFav] = useState(false);
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      onPress={() => {
+        navigation.navigate("product-details", { product });
+      }}
+      style={styles.container}
+    >
       <View style={styles.graybox}>
         <TouchableOpacity
           onPress={() => setIsFav(!isFav)}
@@ -68,7 +73,7 @@ const ProductCard = ({ product }) => {
         </Text>
       </View>
       <Text style={styles.price}>AED {product.price}</Text>
-    </View>
+    </TouchableOpacity>
   );
 };
 const styles = StyleSheet.create({
