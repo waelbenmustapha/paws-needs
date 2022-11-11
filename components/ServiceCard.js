@@ -27,7 +27,13 @@ const ServiceCard = ({ service }) => {
         <View style={styles.text}>
           <Text style={styles.servicename}>{service.name}</Text>
           <View style={{ display: "flex", flexDirection: "column" }}>
-            <View style={{display:'flex',flexDirection:"row",alignItems:"center"}}>
+            <View
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+              }}
+            >
               <AirbnbRating
                 size={8}
                 ratingContainerStyle={{ width: 68 }}
@@ -36,7 +42,12 @@ const ServiceCard = ({ service }) => {
                 isDisabled
                 showRating={false}
               />
-              <Text style={{fontSize:11,fontWeight:"700",color:"#F3B004"}}>{"  "}{service.rating}</Text>
+              <Text
+                style={{ fontSize: 11, fontWeight: "700", color: "#F3B004" }}
+              >
+                {"  "}
+                {service.rating}
+              </Text>
             </View>
             <Text style={styles.servicesavailable}>
               {"(" + service.reviews + " reviews)"}
@@ -51,9 +62,8 @@ const ServiceCard = ({ service }) => {
           <Text style={styles.startstxt}>{service.location}</Text>
         </View>
         <TouchableOpacity
-                activeOpacity={0.6}
-
-          onPress={() => navigation.navigate("service", { service })}
+          activeOpacity={0.6}
+          onPress={() => navigation.navigate("service-form", { service })}
           style={styles.knowmore}
         >
           <Text style={styles.knowmoretxt}>Know more</Text>
