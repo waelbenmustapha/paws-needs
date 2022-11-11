@@ -18,6 +18,7 @@ import { Calendar } from "react-native-calendars";
 
 const ServiceForm = ({ route, navigation }) => {
   const service = route.params.service;
+
   const types = [
     { label: "Pet", value: "pet" },
     { label: "Dog", value: "dog" },
@@ -33,6 +34,14 @@ const ServiceForm = ({ route, navigation }) => {
 
   const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
 
+  const hideBottomNavigation = () => {
+    console.log("hide");
+    // Function to change navigation options
+    navigation.setOptions({
+      tabBarVisible: true,
+    });
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.nav}>
@@ -46,7 +55,10 @@ const ServiceForm = ({ route, navigation }) => {
             </Text>
             <CustomPicker items={types} />
             <Pressable
-              onPress={() => setBottomSheetOpen(true)}
+              onPress={() => {
+                hideBottomNavigation();
+                // setBottomSheetOpen(true);
+              }}
               style={{
                 height: 56,
                 paddingHorizontal: 20,
@@ -101,7 +113,7 @@ const ServiceForm = ({ route, navigation }) => {
       <CustomBottomSheet
         bottomSheetOpen={bottomSheetOpen}
         setBottomSheetOpen={setBottomSheetOpen}
-        setFrequency={setFrequency}
+        setValue={setFrequency}
         title={"Frequency"}
         data={bottomSheetData}
       />

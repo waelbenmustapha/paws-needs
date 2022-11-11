@@ -7,7 +7,7 @@ import Colors from "../utils/Colors";
 const CustomBottomSheet = ({
   bottomSheetOpen,
   setBottomSheetOpen,
-  setFrequency,
+  setValue,
   title,
   data,
   defaultValue,
@@ -53,7 +53,7 @@ const CustomBottomSheet = ({
                   ]}
                   onPress={() => {
                     setItemSelected(el.value);
-                    setFrequency(el.label);
+                    setValue(el.label);
                   }}
                 >
                   <Text style={styles.bottomSheetItemText}>{el.label}</Text>
