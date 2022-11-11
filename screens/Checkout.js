@@ -12,7 +12,7 @@ import {
 import Colors from "../utils/Colors";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import AntDesign from "react-native-vector-icons/AntDesign";
-import CartCard from "./Orders/CartCard";
+import CartCard from "./orders/CartCard";
 
 const Checkout = ({ navigation }) => {
   const [orders, setOrders] = useState([
