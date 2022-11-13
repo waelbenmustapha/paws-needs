@@ -7,14 +7,13 @@ import {
   ScrollView,
   TouchableOpacity,
   TextInput,
-  Image,
   Pressable,
 } from "react-native";
 import PawAndText from "../../../components/PawAndText";
 import ButtonPrimary from "../../../components/ButtonPrimary";
 import CustomPicker from "../../../components/CustomPicker";
 import Ionicons from "react-native-vector-icons/Ionicons";
-
+import Feather from "react-native-vector-icons/Feather";
 import OneTimeCalendar from "../../../components/calendars/OneTimeCalendar";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import CustomBottomSheet from "../../../components/CustomBottomSheet";
@@ -125,22 +124,21 @@ const PetTrainingForm = ({ route, navigation }) => {
                 {
                   display: "flex",
                   flexDirection: "row",
+                  alignItems: "center",
                   justifyContent: "space-between",
+                  height: 56,
                   marginBottom: 20,
                 },
               ]}
             >
               <TextInput
                 placeholder={"f"}
-                style={{ color: "black", fontSize: 18 }}
+                style={{ color: "#000", fontSize: 14 }}
                 editable={false}
                 value={time.toLocaleTimeString().substring(0, 5)}
               ></TextInput>
 
-              <Image
-                source={require("../../../assets/clock.png")}
-                style={{ height: 27, width: 27, opacity: 0.7 }}
-              />
+              <Feather name="clock" size={24} color={Colors.PRIMARY} />
             </TouchableOpacity>
             {show && (
               <DateTimePicker
@@ -205,4 +203,3 @@ const styles = StyleSheet.create({
 });
 
 export default PetTrainingForm;
-

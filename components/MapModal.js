@@ -1,11 +1,9 @@
 import { View, Text, StyleSheet, Modal, Dimensions, Alert } from "react-native";
 import React, { useState } from "react";
 import MapView, { Marker } from "react-native-maps";
+import Colors from "../utils/Colors";
 
-const MapModal = ({modalVisible,setModalVisible,marker,setMarker}) => {
-
-  
-  
+const MapModal = ({ modalVisible, setModalVisible, marker, setMarker }) => {
   return (
     <Modal
       animationType="slide"
@@ -38,36 +36,35 @@ const MapModal = ({modalVisible,setModalVisible,marker,setMarker}) => {
             onPress={() => {
               if (marker) {
                 setModalVisible(false);
-
               } else {
                 Alert.alert("Please select a location");
               }
             }}
             style={{
               position: "absolute",
-              bottom: 10,
+              bottom: 20,
               zIndex: 1,
-              color: "rgba(255,255,255,0.8)",
-              paddingHorizontal: 8,
-              paddingVertical: 3,
-              borderRadius: 10,
-              backgroundColor: "rgba(133,196,65,0.8)",
+              color: "#fff",
+              paddingHorizontal: 16,
+              paddingVertical: 8,
+              borderRadius: 5,
+              backgroundColor: Colors.PRIMARY,
               fontSize: 16,
               fontWeight: "bold",
             }}
           >
-            Save
+            Save location
           </Text>
           <MapView
             onLongPress={(e) => {
               setMarker(e.nativeEvent.coordinate);
             }}
             style={{
-              width: Dimensions.get("window").width * 0.8,
-              height: Dimensions.get("window").height * 0.8,
+              width: Dimensions.get("window").width * 1,
+              height: Dimensions.get("window").height * 1,
             }}
           >
-            {marker && <Marker  coordinate={marker} />}
+            {marker && <Marker coordinate={marker} />}
           </MapView>
         </View>
       </View>
@@ -75,32 +72,16 @@ const MapModal = ({modalVisible,setModalVisible,marker,setMarker}) => {
   );
 };
 const styles = StyleSheet.create({
-    centeredView: {
-      flex: 1,
-      justifyContent: "center",
-      alignItems: "center",
-      marginTop: 22,
-    },
-    modalView: {
-      position: "relative",
-      margin: 20,
-      backgroundColor: "white",
-      borderRadius: 20,
-      overflow: "hidden",
-      alignItems: "center",
-      shadowColor: "#000",
-      shadowOffset: {
-        width: 0,
-        height: 2,
-      },
-      shadowOpacity: 0.25,
-      shadowRadius: 4,
-      elevation: 5,
-    },
- 
- 
-   
-  
-  
-  });
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  modalView: {
+    position: "relative",
+    backgroundColor: "white",
+    overflow: "hidden",
+    alignItems: "center",
+  },
+});
 export default MapModal;

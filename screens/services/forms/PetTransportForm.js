@@ -7,13 +7,13 @@ import {
   ScrollView,
   TouchableOpacity,
   TextInput,
-  Image,
   Pressable,
 } from "react-native";
 import PawAndText from "../../../components/PawAndText";
 import ButtonPrimary from "../../../components/ButtonPrimary";
 import CustomPicker from "../../../components/CustomPicker";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import Feather from "react-native-vector-icons/Feather";
 
 import OneTimeCalendar from "../../../components/calendars/OneTimeCalendar";
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -30,7 +30,7 @@ const PetTransportForm = ({ route, navigation }) => {
   const [show, setShow] = useState(false);
   const [markeddate, setMarkedDates] = useState({});
   const [modalVisible, setModalVisible] = useState(false);
-  const [marker,setMarker]=useState(null)
+  const [marker, setMarker] = useState(null);
   const [frequency, setFrequency] = useState("One Time");
 
   const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
@@ -78,7 +78,12 @@ const PetTransportForm = ({ route, navigation }) => {
 
   return (
     <View style={styles.container}>
-      <MapModal marker={marker} setMarker={setMarker} modalVisible={modalVisible} setModalVisible={setModalVisible}/>
+      <MapModal
+        marker={marker}
+        setMarker={setMarker}
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+      />
       <View style={styles.nav}>
         <PawAndText title={service.name} Component={() => <></>} />
       </View>
@@ -129,21 +134,19 @@ const PetTransportForm = ({ route, navigation }) => {
                   display: "flex",
                   flexDirection: "row",
                   justifyContent: "space-between",
+                  alignItems: "center",
                   marginBottom: 20,
+                  height: 56,
                 },
               ]}
             >
               <TextInput
                 placeholder={"f"}
-                style={{ color: "#9E9E9E", fontSize: 18 }}
+                style={{ color: "#000", fontSize: 14 }}
                 editable={false}
                 value={time.toLocaleTimeString().substring(0, 5)}
               ></TextInput>
-
-              <Image
-                source={require("../../../assets/clock.png")}
-                style={{ height: 27, width: 27, opacity: 0.7 }}
-              />
+              <Feather name="clock" size={24} color={Colors.PRIMARY} />
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => setModalVisible(true)}
@@ -153,17 +156,20 @@ const PetTransportForm = ({ route, navigation }) => {
                   display: "flex",
                   flexDirection: "row",
                   justifyContent: "space-between",
-                  alignItems:"center",
+                  alignItems: "center",
                   marginBottom: 20,
+                  height: 56,
                 },
               ]}
             >
-             <Text style={{color:"#9E9E9E"}}>Destination</Text>
-
-              <Image
-                source={marker?require("../../../assets/checkmark.png"):require("../../../assets/map1.png")}
-                style={{ height: 27, width: 27, opacity: 0.7 }}
-              />
+              <Text style={{ color: "#9E9E9E", fontSize: 14 }}>
+                Destination
+              </Text>
+              {marker ? (
+                <Feather name="check-circle" size={24} color={Colors.PRIMARY} />
+              ) : (
+                <Feather name="map-pin" size={24} color={"#9E9E9E"} />
+              )}
             </TouchableOpacity>
             {show && (
               <DateTimePicker
@@ -227,4 +233,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PetTransportForm
+export default PetTransportForm;

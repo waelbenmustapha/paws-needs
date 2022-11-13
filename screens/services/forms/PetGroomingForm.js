@@ -12,9 +12,11 @@ import {
 import PawAndText from "../../../components/PawAndText";
 import ButtonPrimary from "../../../components/ButtonPrimary";
 import CustomPicker from "../../../components/CustomPicker";
+import Feather from "react-native-vector-icons/Feather";
 
 import OneTimeCalendar from "../../../components/calendars/OneTimeCalendar";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import Colors from "../../../utils/Colors";
 
 const PetGroomingForm = ({ route }) => {
   const service = route.params.service;
@@ -36,13 +38,11 @@ const PetGroomingForm = ({ route }) => {
   const changeOneDay = (dt) => {
     setOneDay({ [dt]: { selected: true } });
   };
- 
+
   const types = [
     { label: "Pet", value: "pet" },
     { label: "Dog", value: "dog" },
   ];
-
-
 
   return (
     <View style={styles.container}>
@@ -62,26 +62,35 @@ const PetGroomingForm = ({ route }) => {
                 changedMarkedDates={changedMarkedDates}
             />*/}
             <OneTimeCalendar changeOneDay={changeOneDay} oneDay={oneday} />
-            <TouchableOpacity onPress={()=>showTimepicker()} style={[styles.input,{display:"flex",flexDirection:"row",justifyContent:"space-between",marginBottom:20}]}>
+            <TouchableOpacity
+              onPress={() => showTimepicker()}
+              style={[
+                styles.input,
+                {
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  height: 56,
+                  marginBottom: 20,
+                },
+              ]}
+            >
               <TextInput
                 placeholder={"f"}
-                style={{color:"black",fontSize:18}}
+                style={{ color: "#000", fontSize: 14 }}
                 editable={false}
-                value={time.toLocaleTimeString().substring(0,5)}
+                value={time.toLocaleTimeString().substring(0, 5)}
               ></TextInput>
-             
-                <Image
-                  source={require("../../../assets/clock.png")}
-                  style={{ height: 27, width: 27, opacity: 0.7 }}
-                  />
-              </TouchableOpacity>
+
+              <Feather name="clock" size={24} color={Colors.PRIMARY} />
+            </TouchableOpacity>
             {show && (
               <DateTimePicker
                 value={new Date()}
                 onChange={onChange}
                 minuteInterval={30}
                 textColor="red"
-               
                 mode="time"
               />
             )}
@@ -132,4 +141,3 @@ const styles = StyleSheet.create({
 });
 
 export default PetGroomingForm;
-
