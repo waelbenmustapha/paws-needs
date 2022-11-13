@@ -80,9 +80,9 @@ const Services = () => {
           {services.map((el, index) => (
             <ServiceCategoryCard
               width={Dimensions.get("window").width / 2 - 30}
-              height={230}
-              locationright={20}
-              locationtop={20}
+              height={(Dimensions.get("window").width / 2 - 30)+30}
+              locationright={10}
+              locationtop={10}
               service={el}
               key={index}
             />

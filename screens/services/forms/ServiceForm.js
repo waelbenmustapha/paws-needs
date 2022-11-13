@@ -6,19 +6,37 @@ import {
   StatusBar,
   ScrollView,
   Pressable,
+  TouchableOpacity,
 } from "react-native";
-import PawAndText from "../../components/PawAndText";
-import ButtonPrimary from "../../components/ButtonPrimary";
-import InputText from "../../components/InputText";
-import CustomPicker from "../../components/CustomPicker";
-import CustomBottomSheet from "../../components/CustomBottomSheet";
+import PawAndText from "../../../components/PawAndText";
+import ButtonPrimary from "../../../components/ButtonPrimary";
+import InputText from "../../../components/InputText";
+import CustomPicker from "../../../components/CustomPicker";
+import CustomBottomSheet from "../../../components/CustomBottomSheet";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import Colors from "../../utils/Colors";
-import { Calendar } from "react-native-calendars";
+import Colors from "../../../utils/Colors";
+import SpecificDaysCalendar from "../../../components/calendars/SpecificDaysCalendar";
+import OneTimeCalendar from "../../../components/calendars/OneTimeCalendar";
 
 const ServiceForm = ({ route, navigation }) => {
   const service = route.params.service;
 
+  const [markeddate, setMarkedDates] = useState({});
+  const [oneday,setOneDay]=useState({})
+
+
+  const changeOneDay = (dt) => {
+    setOneDay({[dt]: { selected: true }})
+  }
+  const changedMarkedDates = (dt) => {
+    const cpy = { ...markeddate };
+    if (cpy.hasOwnProperty(dt)) {
+      delete cpy[dt];
+      setMarkedDates({ ...cpy });
+    } else {
+      setMarkedDates({ ...markeddate, [dt]: { selected: true } });
+    }
+  };
   const types = [
     { label: "Pet", value: "pet" },
     { label: "Dog", value: "dog" },
@@ -57,7 +75,7 @@ const ServiceForm = ({ route, navigation }) => {
             <Pressable
               onPress={() => {
                 hideBottomNavigation();
-                // setBottomSheetOpen(true);
+                setBottomSheetOpen(true);
               }}
               style={{
                 height: 56,
@@ -78,27 +96,12 @@ const ServiceForm = ({ route, navigation }) => {
               <Ionicons name="caret-down" size={14} color={Colors.PRIMARY} />
             </Pressable>
 
-            <View
-              style={{
-                marginBottom: 20,
-                borderRadius: 24,
-                overflow: "hidden",
-                padding: 20,
-                backgroundColor: "#fff",
-
-                shadowColor: "#c7c7c7",
-                shadowOffset: {
-                  width: 0,
-                  height: 9,
-                },
-                shadowOpacity: 0.48,
-                shadowRadius: 11.95,
-
-                elevation: 18,
-              }}
-            >
-              <Calendar />
-            </View>
+          
+              {/*<SpecificDaysCalendar
+                markeddate={markeddate}
+                changedMarkedDates={changedMarkedDates}
+            />*/}
+            <OneTimeCalendar changeOneDay={changeOneDay} oneDay={oneday}/>
 
             <View style={{ marginBottom: 20 }}>
               <InputText placeholder={"Drop Off Time"} />

@@ -219,8 +219,8 @@ const Home = ({ navigation }) => {
             <ServiceCategoryCard
               locationright={10}
               locationtop={10}
-              width={Dimensions.get("window").width / 2 - 10}
-              height={160}
+              width={Dimensions.get("window").width / 2 - 20}
+              height={Dimensions.get("window").width / 2 - 20}
               service={el}
               key={index}
             />

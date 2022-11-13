@@ -112,7 +112,7 @@ const Service = ({ route, navigation }) => {
         contentContainerStyle={styles.servicescontainer}
       >
         {services.map((el) => (
-          <ServiceCard key={el.name} service={el} />
+          <ServiceCard key={el.name} service={el} category={service}/>
         ))}
       </ScrollView>
     </View>

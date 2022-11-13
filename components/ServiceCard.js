@@ -12,7 +12,7 @@ import { useNavigation } from "@react-navigation/native";
 import Colors from "../utils/Colors";
 import { AirbnbRating } from "react-native-ratings";
 
-const ServiceCard = ({ service }) => {
+const ServiceCard = ({ service, category }) => {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
@@ -63,7 +63,21 @@ const ServiceCard = ({ service }) => {
         </View>
         <TouchableOpacity
           activeOpacity={0.6}
-          onPress={() => navigation.navigate("service-form", { service })}
+          onPress={() => {
+            category.name === "Vet Appointment"
+              ? navigation.navigate("vet-appointment-form", { service })
+              : category.name === "Pet Transport"
+              ? navigation.navigate("pet-transport-form", { service })
+              : category.name === "Pet Training"
+              ? navigation.navigate("pet-training-form", { service })
+              : category.name === "Dog Walking"
+              ? navigation.navigate("dog-walking-form", { service })
+              : category.name === "Pet Boarding"
+              ? navigation.navigate("pet-boarding-form", { service })
+              : category.name === "Pet Grooming"
+              ? navigation.navigate("pet-grooming-form", { service })
+              : null;
+          }}
           style={styles.knowmore}
         >
           <Text style={styles.knowmoretxt}>Know more</Text>
