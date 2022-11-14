@@ -16,7 +16,7 @@ const Service = ({ route, navigation }) => {
   const service = route.params.service;
   const [services, setServices] = useState([
     {
-      name: "Dog walker 1",
+      name: "Service 1",
       location: "Dubai",
       rating: 4,
       reviews: 210,
@@ -24,7 +24,7 @@ const Service = ({ route, navigation }) => {
         "https://i.postimg.cc/TPcW3NCM/haircuting-process-small-dog-sits-table-dog-with-professional-1-4.png",
     },
     {
-      name: "Dog walker 2",
+      name: "Service 2",
       location: "Dubai",
       rating: 4.3,
       reviews: 4,
@@ -32,7 +32,7 @@ const Service = ({ route, navigation }) => {
         "https://i.postimg.cc/JzZk9zXh/haircuting-process-small-dog-sits-table-dog-with-professional-1-5.png",
     },
     {
-      name: "Dog walker 3",
+      name: "Service 3",
       location: "Abu dhabi",
       rating: 3.7,
       reviews: 26,
@@ -40,14 +40,14 @@ const Service = ({ route, navigation }) => {
         "https://i.postimg.cc/fyydF774/haircuting-process-small-dog-sits-table-dog-with-professional-1-6.png",
     },
     {
-      name: "Dog walker 4",
+      name: "Service 4",
       location: "Dubai",
       rating: 5,
       reviews: 17,
       image: "https://i.postimg.cc/QMDTsZgJ/Mask-group.png",
     },
     {
-      name: "Dog walker 5",
+      name: "Service 5",
       location: "Dubai",
       rating: 3.3,
       reviews: 160,
@@ -55,7 +55,7 @@ const Service = ({ route, navigation }) => {
         "https://i.postimg.cc/TPcW3NCM/haircuting-process-small-dog-sits-table-dog-with-professional-1-4.png",
     },
     {
-      name: "Dog walker 6",
+      name: "Service 6",
       location: "Dubai",
       rating: 4,
       reviews: 240,
@@ -63,7 +63,7 @@ const Service = ({ route, navigation }) => {
         "https://i.postimg.cc/JzZk9zXh/haircuting-process-small-dog-sits-table-dog-with-professional-1-5.png",
     },
     {
-      name: "Dog walker 7",
+      name: "Service 7",
       location: "Dubai",
       rating: 4.1,
       reviews: 155,

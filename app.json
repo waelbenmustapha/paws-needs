@@ -22,10 +22,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/logo-paw.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.waelben.pawsneeds"
     },
     "web": {
       "favicon": "./assets/logo-paw.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "5f96f3c6-3a84-4598-878e-9e434c576741"
+      }
     }
   }
 }
