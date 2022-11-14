@@ -40,7 +40,7 @@ export default function App() {
       }}
       onLayout={onLayoutRootView}
     >
-      <Expostatus translucent={true} />
+      <Expostatus style="dark"  translucent={true} />
 
       <NavigationContainer>
         <AuthProvider>

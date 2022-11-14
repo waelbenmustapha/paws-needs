@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, Modal, Dimensions, Alert } from "react-native";
 import React, { useState } from "react";
-import MapView, { Marker } from "react-native-maps";
+import MapView, { Marker,PROVIDER_GOOGLE } from "react-native-maps";
 import Colors from "../utils/Colors";
 
 const MapModal = ({ modalVisible, setModalVisible, marker, setMarker }) => {
@@ -56,6 +56,7 @@ const MapModal = ({ modalVisible, setModalVisible, marker, setMarker }) => {
             Save location
           </Text>
           <MapView
+          provider={PROVIDER_GOOGLE}
             onLongPress={(e) => {
               setMarker(e.nativeEvent.coordinate);
             }}

@@ -19,6 +19,11 @@
       "supportsTablet": true
     },
     "android": {
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyB_sDW0p2g0IGeCd497f77qQbArKgyR6io"
+        }
+      },
       "adaptiveIcon": {
         "foregroundImage": "./assets/logo-paw.png",
         "backgroundColor": "#FFFFFF"
