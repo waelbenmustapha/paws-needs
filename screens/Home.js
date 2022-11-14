@@ -228,7 +228,7 @@ const Home = ({ navigation }) => {
         </View>
       </ScrollView>
       <View style={{ marginBottom: 20, paddingHorizontal: 20 }}>
-        <SeeAll text={"Services"} onpress={() => console.log("Sell all")} />
+        <SeeAll text={"Products"} onpress={() => console.log("Sell all")} />
       </View>
       <ScrollView
         horizontal
