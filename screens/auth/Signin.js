@@ -81,13 +81,16 @@ const Signin = ({ navigation }) => {
             ></View>
           </View>
           <View style={{ width: "100%", marginBottom: 40 }}>
-            <ButtonPrimary title="Sign in with password" />
+            <ButtonPrimary
+              title="Sign in with password"
+              fnc={() => navigation.navigate("signin-with-email")}
+            />
           </View>
           <View style={[styles.row, { marginBottom: 40 }]}>
             <Text style={{ fontSize: 16, fontWeight: "400", color: "#9E9E9E" }}>
               Don’t have an account?{" "}
             </Text>
-            <Pressable>
+            <Pressable onPress={() => navigation.navigate("signup-with-email")}>
               <Text
                 style={{
                   fontSize: 16,
