@@ -10,7 +10,7 @@ const ButtonPrimary = ({ title, fnc }) => {
         {
           backgroundColor: pressed ? Colors.PRIMARY_DARK : Colors.PRIMARY,
         },
-        styles.input,
+        styles.btn,
       ]}
     >
       <Text style={styles.text}>{title}</Text>
@@ -18,12 +18,13 @@ const ButtonPrimary = ({ title, fnc }) => {
   );
 };
 const styles = StyleSheet.create({
-  input: {
+  btn: {
     height: 58,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 100,
+    paddingHorizontal: 24,
 
     shadowColor: "#F77E34",
     shadowOffset: {

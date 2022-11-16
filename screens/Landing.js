@@ -11,7 +11,7 @@ import bg from "../assets/get-started.png";
 import Colors from "../utils/Colors";
 import { LinearGradient } from "expo-linear-gradient";
 
-const Landing = () => {
+const Landing = ({ navigation }) => {
   const auth = useAuth();
   return (
     <View style={styles.container}>
@@ -48,9 +48,9 @@ const Landing = () => {
             justifyContent: "center",
             alignItems: "center",
           }}
-          onPress={() => auth.login({ name: "wael" })}
+          // onPress={() => auth.login({ name: "wael" })}
+          onPress={() => navigation.navigate("signin")}
         >
-          
           <Text style={{ color: "white", fontSize: 24, fontWeight: "bold" }}>
             Get Started
           </Text>

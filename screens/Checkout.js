@@ -40,13 +40,6 @@ const Checkout = ({ navigation }) => {
           />
           <Text style={styles.navText}>Checkout</Text>
         </View>
-        <Ionicons
-          onPress={() => {}}
-          style={styles.icon}
-          name="ellipsis-horizontal-circle-outline"
-          size={24}
-          color={Colors.TEXT}
-        />
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={{ flex: 1, paddingVertical: 20 }}>
