@@ -12,7 +12,7 @@ import React from "react";
 import Colors from "../../utils/Colors";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import UserImageEdit from "../../components/UserImageEdit";
-
+import avatarimg from "../../assets/avatar.png";
 const EditProfile = ({ navigation }) => {
   return (
     <View style={styles.container}>
@@ -29,7 +29,7 @@ const EditProfile = ({ navigation }) => {
             <Text style={styles.navText}>Edit Profile</Text>
           </View>
         </View>
-        <UserImageEdit />
+        <UserImageEdit image={avatarimg} />
         <View style={styles.inputContainer}>
           <TextInput placeholder={"Email"} style={{ flex: 1 }} />
           <Image
