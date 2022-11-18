@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
   navText: {
     fontSize: 24,
     fontWeight: "bold",
+    includeFontPadding:false,
     color: Colors.TEXT,
   },
   icon: { paddingVertical: 5, paddingRight: 10 },

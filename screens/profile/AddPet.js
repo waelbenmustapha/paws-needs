@@ -6,7 +6,7 @@ import {
   StyleSheet,
   StatusBar,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import UserImageEdit from "../../components/UserImageEdit";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import Colors from "../../utils/Colors";
@@ -14,25 +14,26 @@ import dogavatar from "../../assets/dogavatar.png";
 import InputText from "../../components/InputText";
 import Envelope from "../../assets/svg/envelope.svg";
 import CustomPicker from "../../components/CustomPicker";
+import Ionicons from "react-native-vector-icons/Ionicons";
+import CustomBottomSheet from "../../components/CustomBottomSheet";
 
-const AddPet = () => {
-    const [frequency, setFrequency] = useState("One Time");
+const AddPet = ({ navigation }) => {
+  const [frequency, setFrequency] = useState("One Time");
 
-    const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
-    
-    const bottomSheetData = [
-      { label: "Daily", value: "Daily" },
-      { label: "Weekly", value: "Weekly" },
-      { label: "One Time", value: "One Time" },
-      { label: "Specific dates", value: "Specific dates" },
-    ];
-    const hideBottomNavigation = () => {
-      console.log("hide");
-      // Function to change navigation options
-      
-      navigation.getParent().setOptions({tabBarStyle: {display: 'none'}});
-  
-    };
+  const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
+
+  const bottomSheetData = [
+    { label: "Daily", value: "Daily" },
+    { label: "Weekly", value: "Weekly" },
+    { label: "One Time", value: "One Time" },
+    { label: "Specific dates", value: "Specific dates" },
+  ];
+  const hideBottomNavigation = () => {
+    console.log("hide");
+    // Function to change navigation options
+
+    navigation.getParent().setOptions({ tabBarStyle: { display: "none" } });
+  };
   const types = [
     { label: "Pet", value: "pet" },
     { label: "Dog", value: "dog" },
@@ -66,28 +67,26 @@ const AddPet = () => {
           />
         </View>
         <Pressable
-              onPress={() => {
-                hideBottomNavigation();
-                setBottomSheetOpen(true);
-              }}
-              style={{
-                height: 56,
-                paddingHorizontal: 20,
-                marginBottom: 20,
-                borderRadius: 12,
-                backgroundColor: "#F0F2F4",
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-between",
-              }}
-            >
-              <Text
-                style={{ fontSize: 14, fontWeight: "400", color: "#9E9E9E" }}
-              >
-                {frequency}
-              </Text>
-              <Ionicons name="caret-down" size={14} color={Colors.PRIMARY} />
-            </Pressable>
+          onPress={() => {
+            hideBottomNavigation();
+            setBottomSheetOpen(true);
+          }}
+          style={{
+            height: 56,
+            paddingHorizontal: 20,
+            marginBottom: 20,
+            borderRadius: 12,
+            backgroundColor: "#F0F2F4",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          <Text style={{ fontSize: 14, fontWeight: "400", color: "#9E9E9E" }}>
+            {frequency}
+          </Text>
+          <Ionicons name="caret-down" size={14} color={Colors.PRIMARY} />
+        </Pressable>
         <View style={{ marginTop: 25 }}>
           <InputText
             placeholder={"Name"}
@@ -112,47 +111,9 @@ const AddPet = () => {
             icon={<Envelope width={20} height={20} color={Colors.PRIMARY} />}
           />
         </View>
+       
       </ScrollView>
-      <View
-        style={{
-          backgroundColor: "#fff",
-          paddingTop: 20,
-          marginTop: 20,
-          paddingBottom: 36,
-        }}
-      >
-        <Pressable
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "center",
-            height: 58,
-            borderRadius: 100,
-            backgroundColor: Colors.PRIMARY,
-
-            shadowColor: "#F77E34",
-            shadowOffset: {
-              width: 0,
-              height: 9,
-            },
-            shadowOpacity: 0.48,
-            shadowRadius: 11.95,
-
-            elevation: 18,
-          }}
-        >
-          <Text
-            numberOfLines={1}
-            style={{
-              fontSize: 18,
-              fontWeight: "700",
-              color: "#fff",
-            }}
-          >
-            Update
-          </Text>
-        </Pressable>
-      </View>
+      
       <CustomBottomSheet
         bottomSheetOpen={bottomSheetOpen}
         setBottomSheetOpen={setBottomSheetOpen}
@@ -167,7 +128,6 @@ const AddPet = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
     backgroundColor: "#fff",
   },
   row: { flexDirection: "row", alignItems: "center" },
@@ -181,6 +141,8 @@ const styles = StyleSheet.create({
   },
   navText: {
     fontSize: 24,
+    includeFontPadding: false,
+
     fontWeight: "bold",
     color: Colors.TEXT,
   },
