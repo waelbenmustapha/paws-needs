@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo, useRef, useCallback } from "react";
 import {
   View,
   Text,
@@ -30,7 +30,7 @@ const DogWalkingForm = ({ route, navigation }) => {
   const [markeddate, setMarkedDates] = useState({});
 
   const [frequency, setFrequency] = useState("One Time");
-  const app = useApp()
+  const app = useApp();
   const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
   const bottomSheetData = [
     { label: "Daily", value: "Daily" },
@@ -41,8 +41,7 @@ const DogWalkingForm = ({ route, navigation }) => {
   const hideBottomNavigation = () => {
     console.log("hide");
     // Function to change navigation options
-    app.hideBottomBar()
-    
+    app.hideBottomBar();
   };
 
   const changedMarkedDates = (dt) => {
@@ -84,6 +83,10 @@ const DogWalkingForm = ({ route, navigation }) => {
             <Text style={{ fontSize: 20, fontWeight: "600", marginBottom: 20 }}>
               Fill Informations
             </Text>
+            {/* <TouchableOpacity onPress={() => handleOpenPress()}>
+              <Text>ssssssssssssssssssssssssssssss</Text>
+            </TouchableOpacity> */}
+
             <CustomPicker items={types} />
             <Pressable
               onPress={() => {
@@ -178,6 +181,18 @@ const DogWalkingForm = ({ route, navigation }) => {
         title={"Frequency"}
         data={bottomSheetData}
       />
+      {/* <BottomSheet
+        ref={bottomSheetRef}
+        index={0}
+        snapPoints={snapPoints}
+        backdropComponent={CustomBackdrop}
+        enablePanDownToClose={true}
+        onClose={() => {
+          handleClosePress();
+        }}
+      >
+        <Text>ssssssssssssssssssssssssssssss</Text>
+      </BottomSheet> */}
     </View>
   );
 };

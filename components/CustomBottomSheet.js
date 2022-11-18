@@ -1,10 +1,11 @@
-import React, { useState, useMemo, useRef } from "react";
-import { View, Text, StyleSheet, Dimensions, Pressable } from "react-native";
+import React, { useState, useMemo, useRef, useCallback } from "react";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 import BottomSheet from "@gorhom/bottom-sheet";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Colors from "../utils/Colors";
 import { useNavigation } from "@react-navigation/native";
 import { useApp } from "../context/AppProvider";
+import CustomBackdrop from "./bottomsheet/CustomBackdrop";
 
 const CustomBottomSheet = ({
   bottomSheetOpen,
@@ -14,70 +15,68 @@ const CustomBottomSheet = ({
   data,
   defaultValue,
 }) => {
-  const [itemSelected, setItemSelected] = useState(defaultValue);
   const navigation = useNavigation();
+  const app = useApp();
+
+  const [itemSelected, setItemSelected] = useState(defaultValue);
+
   // ref
   const bottomSheetRef = useRef(null);
-const app = useApp()
+
   // variables
   const snapPoints = useMemo(() => ["45%", "70%"], []);
 
-  return (
-    <>
-      {bottomSheetOpen ? (
-        <View
-          style={{
-            position: "absolute",
-            bottom: 0,
-            width: Dimensions.get("window").width,
-            height: Dimensions.get("window").height,
-            backgroundColor: "rgba(9, 16, 29, 0.5)",
-          }}
-        >
-          <BottomSheet
-            ref={bottomSheetRef}
-            index={0}
-            snapPoints={snapPoints}
-            enablePanDownToClose={true}
-            onClose={() => {
+  const handleClosePress = useCallback(() => {
+    bottomSheetRef.current?.close();
+  }, []);
+
+  return bottomSheetOpen ? (
+    <BottomSheet
+      ref={bottomSheetRef}
+      index={0}
+      snapPoints={snapPoints}
+      backdropComponent={CustomBackdrop}
+      enablePanDownToClose={true}
+      onClose={() => {
+        handleClosePress();
+        setBottomSheetOpen(false);
+        app.showBottomBar();
+      }}
+    >
+      <View style={styles.bottomSheetContent}>
+        <View style={{ width: "100%", paddingHorizontal: 20 }}>
+          <Text style={styles.bottomSheetTitle}>{title}</Text>
+        </View>
+        {data.map((el, index) => (
+          <Pressable
+            key={`bsi-${index}`}
+            style={({ pressed }) => [
+              {
+                backgroundColor: pressed ? "#f2f2f2" : "#fff",
+              },
+              styles.bottomSheetItem,
+            ]}
+            onPress={() => {
+              setItemSelected(el.value);
+              setValue(el.label);
+              handleClosePress();
               setBottomSheetOpen(false);
               app.showBottomBar();
             }}
           >
-            <View style={styles.bottomSheetContent}>
-              <View style={{ width: "100%", paddingHorizontal: 20 }}>
-                <Text style={styles.bottomSheetTitle}>{title}</Text>
-              </View>
-              {data.map((el, index) => (
-                <Pressable
-                  key={`bsi-${index}`}
-                  style={({ pressed }) => [
-                    {
-                      backgroundColor: pressed ? "#f2f2f2" : "#fff",
-                    },
-                    styles.bottomSheetItem,
-                  ]}
-                  onPress={() => {
-                    setItemSelected(el.value);
-                    setValue(el.label);
-                  }}
-                >
-                  <Text style={styles.bottomSheetItemText}>{el.label}</Text>
-                  {itemSelected === el.value ? (
-                    <Ionicons
-                      name="checkmark-sharp"
-                      size={24}
-                      color={Colors.PRIMARY}
-                    />
-                  ) : null}
-                </Pressable>
-              ))}
-            </View>
-          </BottomSheet>
-        </View>
-      ) : null}
-    </>
-  );
+            <Text style={styles.bottomSheetItemText}>{el.label}</Text>
+            {itemSelected === el.value ? (
+              <Ionicons
+                name="checkmark-sharp"
+                size={24}
+                color={Colors.PRIMARY}
+              />
+            ) : null}
+          </Pressable>
+        ))}
+      </View>
+    </BottomSheet>
+  ) : null;
 };
 
 const styles = StyleSheet.create({
