@@ -204,7 +204,20 @@ const Home = ({ navigation }) => {
         </View>
       </ScrollView>
       <View style={{ marginVertical: 20, paddingHorizontal: 20 }}>
-        <SeeAll text={"Services"} onpress={() => console.log("Sell all")} />
+        <SeeAll
+          text={"Services"}
+          onpress={() =>
+            navigation.reset({
+              index: 0,
+              routes: [
+                {
+                  name: "services-tab",
+                  params: { user: "username" },
+                },
+              ],
+            })
+          }
+        />
       </View>
       <ScrollView showsHorizontalScrollIndicator={false} horizontal>
         <View

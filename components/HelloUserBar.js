@@ -1,17 +1,19 @@
-import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import React from "react";
+import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import Colors from "../utils/Colors";
 import { useNavigation } from "@react-navigation/native";
+import GridIcon from "../assets/svg/grid.svg";
+import NotifIcon from "../assets/svg/bell.svg";
 
 const HelloUserBar = () => {
-    const navigation = useNavigation()
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <TouchableOpacity
         onPress={() => navigation.openDrawer()}
         style={{ marginRight: 20 }}
       >
-        <Image source={require("../assets/draw.png")} style={styles.draw} />
+        <GridIcon width={28} height={28} color={"#000"} />
       </TouchableOpacity>
       <Image source={require("../assets/avatar.png")} style={styles.avatar} />
       <View>
@@ -19,11 +21,18 @@ const HelloUserBar = () => {
         <Text style={styles.username}>User Name</Text>
       </View>
       <TouchableOpacity style={{ marginLeft: "auto" }}>
-        <Image
-          resizeMode="contain"
-          source={require("../assets/notif-on.png")}
-          style={styles.notif}
-        />
+        <NotifIcon width={20} height={20} color={"#000"} />
+        <View
+          style={{
+            backgroundColor: Colors.PRIMARY,
+            height: 7,
+            width: 7,
+            position: "absolute",
+            top: 0,
+            right: 0,
+            borderRadius: 100,
+          }}
+        ></View>
       </TouchableOpacity>
     </View>
   );
@@ -36,11 +45,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
   },
-  draw: { height: 28, width: 28 },
   avatar: { height: 48, width: 48, marginRight: 20 },
-  hellotxt: { fontSize: 16, color: "#757575" },
+  hellotxt: { fontSize: 16, color: Colors.TEXT_GRAY },
   username: { fontSize: 18, fontWeight: "bold", color: Colors.PRIMARY },
-  notif: { height: 23.2, width: 18.6 },
 });
 
 export default HelloUserBar;

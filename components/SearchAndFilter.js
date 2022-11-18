@@ -1,18 +1,15 @@
-import { View, Text, StyleSheet, Image, TextInput } from "react-native";
+import { View, StyleSheet, TextInput } from "react-native";
 import React from "react";
+import Colors from "../utils/Colors";
+import SearchIcon from "../assets/svg/search.svg";
+import FilterIcon from "../assets/svg/filter.svg";
 
 const SearchAndFilter = ({ placeholder }) => {
   return (
     <View style={styles.container}>
-      <Image
-        source={require("../assets/search.png")}
-        style={styles.searchimg}
-      />
+      <SearchIcon width={18} height={18} color={Colors.LIGHT_GRAY} />
       <TextInput placeholder={placeholder} style={styles.input} />
-      <Image
-        source={require("../assets/filter.png")}
-        style={styles.searchimg}
-      />
+      <FilterIcon width={18} height={18} color={Colors.PRIMARY} />
     </View>
   );
 };
@@ -26,10 +23,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     justifyContent: "space-between",
-  },
-  searchimg: {
-    height: 16,
-    width: 16,
   },
   input: {
     flex: 1,
