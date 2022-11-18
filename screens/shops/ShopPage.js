@@ -65,24 +65,8 @@ const ShopPage = ({ navigation, route }) => {
               />
               <Text style={styles.navText}>Shops</Text>
             </View>
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <AntDesign
-                // onPress={() => {}}
-                style={{ padding: 5, marginLeft: 10 }}
-                name="message1"
-                size={24}
-                color={"#fff"}
-              />
-              <Feather
-                // onPress={() => {}}
-                style={{ padding: 5, marginLeft: 10 }}
-                name="phone"
-                size={24}
-                color={"#fff"}
-              />
-              <View style={{ padding: 5, marginLeft: 10 }}>
-                <Favorite isWhite={true} />
-              </View>
+            <View style={{ padding: 5, marginLeft: 10 }}>
+              <Favorite color={"#fff"} fillColor={Colors.RED} />
             </View>
           </View>
           <View style={{ position: "absolute", bottom: 20, left: 20 }}>

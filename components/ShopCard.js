@@ -4,11 +4,11 @@ import {
   ImageBackground,
   StyleSheet,
   TouchableOpacity,
-  Image,
 } from "react-native";
 import React from "react";
 import Colors from "../utils/Colors";
 import { useNavigation } from "@react-navigation/native";
+import StarHalfIcon from "../assets/svg/star-half.svg";
 
 const ShopCard = ({ shop }) => {
   const navigation = useNavigation();
@@ -36,10 +36,7 @@ const ShopCard = ({ shop }) => {
           <Text style={styles.locations}>{shop.location} | 30min away</Text>
         </View>
         <View style={styles.stars}>
-          <Image
-            source={require("../assets/star.png")}
-            style={{ width: 16.6, height: 15.8 }}
-          />
+          <StarHalfIcon />
           <Text style={styles.startstxt}> 4.2</Text>
         </View>
         <TouchableOpacity

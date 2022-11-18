@@ -8,6 +8,8 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import Colors from "../utils/Colors";
+import Favorite from "./Favorite";
+import StarHalfIcon from "../assets/svg/star-half.svg";
 
 const ProductCard = ({ product, navigation }) => {
   const [isFav, setIsFav] = useState(false);
@@ -23,14 +25,11 @@ const ProductCard = ({ product, navigation }) => {
           onPress={() => setIsFav(!isFav)}
           style={styles.favcontainer}
         >
-          <Image
-            resizeMode="center"
-            source={
-              isFav
-                ? require("../assets/fav-on-orange.png")
-                : require("../assets/fav-off.png")
-            }
-            style={styles.fav}
+          <Favorite
+            width={20}
+            height={20}
+            color="#000"
+            fillColor={Colors.PRIMARY}
           />
         </TouchableOpacity>
 
@@ -46,11 +45,7 @@ const ProductCard = ({ product, navigation }) => {
       <View
         style={{ display: "flex", flexDirection: "row", alignItems: "center" }}
       >
-        <Image
-          resizeMode="center"
-          source={require("../assets/star.png")}
-          style={{ height: 16, width: 16, marginRight: 8 }}
-        />
+        <StarHalfIcon height={16} width={16} style={{ marginRight: 8 }} />
         <Text style={{ color: "#616161", fontSize: 14, marginRight: 8 }}>
           {product.rating}
         </Text>
@@ -93,7 +88,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   img: { height: 130, width: Dimensions.get("window").width / 2 - 60 },
-  fav: { height: 18, width: 18 },
   favcontainer: {
     position: "absolute",
     right: 8,
