@@ -20,6 +20,7 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import CustomBottomSheet from "../../../components/CustomBottomSheet";
 import Colors from "../../../utils/Colors";
 import SpecificDaysCalendar from "../../../components/calendars/SpecificDaysCalendar";
+import { useApp } from "../../../context/AppProvider";
 
 const DogWalkingForm = ({ route, navigation }) => {
   const service = route.params.service;
@@ -29,7 +30,7 @@ const DogWalkingForm = ({ route, navigation }) => {
   const [markeddate, setMarkedDates] = useState({});
 
   const [frequency, setFrequency] = useState("One Time");
-
+  const app = useApp()
   const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
   const bottomSheetData = [
     { label: "Daily", value: "Daily" },
@@ -40,8 +41,8 @@ const DogWalkingForm = ({ route, navigation }) => {
   const hideBottomNavigation = () => {
     console.log("hide");
     // Function to change navigation options
-
-    navigation.getParent().setOptions({ tabBarStyle: { display: "none" } });
+    app.hideBottomBar()
+    
   };
 
   const changedMarkedDates = (dt) => {

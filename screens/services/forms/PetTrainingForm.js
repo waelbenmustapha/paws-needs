@@ -19,6 +19,7 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import CustomBottomSheet from "../../../components/CustomBottomSheet";
 import Colors from "../../../utils/Colors";
 import SpecificDaysCalendar from "../../../components/calendars/SpecificDaysCalendar";
+import { useApp } from "../../../context/AppProvider";
 
 const PetTrainingForm = ({ route, navigation }) => {
   const service = route.params.service;
@@ -27,7 +28,7 @@ const PetTrainingForm = ({ route, navigation }) => {
   const [time, setTime] = useState(new Date("2022-11-13T09:00:00.300Z"));
   const [show, setShow] = useState(false);
   const [markeddate, setMarkedDates] = useState({});
-
+  const app = useApp()
   const [frequency, setFrequency] = useState("One Time");
 
   const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
@@ -40,9 +41,8 @@ const PetTrainingForm = ({ route, navigation }) => {
   const hideBottomNavigation = () => {
     console.log("hide");
     // Function to change navigation options
-    navigation.setOptions({
-      tabBarVisible: true,
-    });
+    app.hideBottomBar()
+
   };
 
   const changedMarkedDates = (dt) => {
