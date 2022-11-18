@@ -197,7 +197,7 @@ const ShopProducts = ({ route, navigation }) => {
         contentContainerStyle={styles.servicescontainer}
       >
         {products.map((el, index) => (
-          <ProductCard key={index} product={el} />
+          <ProductCard key={index} product={el} navigation={navigation} />
         ))}
       </ScrollView>
     </View>

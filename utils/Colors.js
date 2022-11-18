@@ -10,6 +10,7 @@ const Colors = {
   TEXT_GRAY: "#9E9E9E",
   DARK_BG: "#F0F2F4",
   LIGHT_GRAY: "#BDBDBD",
+  RED: "#D91B1B",
 };
 
 export default Colors;
