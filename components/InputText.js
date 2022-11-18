@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View, TextInput, StyleSheet, Pressable } from "react-native";
 import Eye from "../assets/svg/eye.svg";
 import EyeOff from "../assets/svg/eye-off.svg";
+import Colors from "../utils/Colors";
 
 const InputText = ({ placeholder, isPassword, iconImage, icon }) => {
   const [hidePassword, setHidePassword] = useState(isPassword);
@@ -18,14 +19,14 @@ const InputText = ({ placeholder, isPassword, iconImage, icon }) => {
             onPress={() => setHidePassword(!hidePassword)}
             style={styles.icon}
           >
-            <EyeOff width={20} height={20} color={"#9E9E9E"} />
+            <EyeOff width={20} height={20} color={Colors.TEXT_GRAY} />
           </Pressable>
         ) : (
           <Pressable
             onPress={() => setHidePassword(!hidePassword)}
             style={styles.icon}
           >
-            <Eye width={20} height={20} color={"#9E9E9E"} />
+            <Eye width={20} height={20} color={Colors.TEXT_GRAY} />
           </Pressable>
         )
       ) : icon ? (
@@ -40,7 +41,7 @@ const styles = StyleSheet.create({
     flex: 1,
     height: "100%",
     borderRadius: 12,
-    backgroundColor: "#F0F2F4",
+    backgroundColor: Colors.DARK_BG,
     paddingHorizontal: 20,
   },
   inputContainer: {
@@ -50,7 +51,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     borderRadius: 12,
-    backgroundColor: "#F0F2F4",
+    backgroundColor: Colors.DARK_BG,
   },
   icon: {
     height: "100%",

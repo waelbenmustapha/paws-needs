@@ -87,7 +87,13 @@ const Signin = ({ navigation }) => {
             />
           </View>
           <View style={[styles.row, { marginBottom: 32 }]}>
-            <Text style={{ fontSize: 16, fontWeight: "400", color: "#9E9E9E" }}>
+            <Text
+              style={{
+                fontSize: 16,
+                fontWeight: "400",
+                color: Colors.TEXT_GRAY,
+              }}
+            >
               Don’t have an account?{" "}
             </Text>
             <Pressable onPress={() => navigation.navigate("signup-with-email")}>

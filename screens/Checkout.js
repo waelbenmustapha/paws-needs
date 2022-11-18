@@ -48,7 +48,7 @@ const Checkout = ({ navigation }) => {
             <View style={{ flexDirection: "row", alignItems: "center" }}>
               <View
                 style={{
-                  backgroundColor: "#F0F2F4",
+                  backgroundColor: Colors.DARK_BG,
                   padding: 8,
                   borderRadius: 100,
                   marginRight: 16,

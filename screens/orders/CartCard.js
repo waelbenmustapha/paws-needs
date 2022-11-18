@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: "37%",
     height: "100%",
-    backgroundColor: "#F0F2F4",
+    backgroundColor: Colors.DARK_BG,
     borderRadius: 24,
   },
   img: { height: "100%", width: "100%" },

@@ -22,12 +22,11 @@ const ServiceForm = ({ route, navigation }) => {
   const service = route.params.service;
 
   const [markeddate, setMarkedDates] = useState({});
-  const [oneday,setOneDay]=useState({})
-
+  const [oneday, setOneDay] = useState({});
 
   const changeOneDay = (dt) => {
-    setOneDay({[dt]: { selected: true }})
-  }
+    setOneDay({ [dt]: { selected: true } });
+  };
   const changedMarkedDates = (dt) => {
     const cpy = { ...markeddate };
     if (cpy.hasOwnProperty(dt)) {
@@ -82,26 +81,29 @@ const ServiceForm = ({ route, navigation }) => {
                 paddingHorizontal: 20,
                 marginBottom: 20,
                 borderRadius: 12,
-                backgroundColor: "#F0F2F4",
+                backgroundColor: Colors.DARK_BG,
                 flexDirection: "row",
                 alignItems: "center",
                 justifyContent: "space-between",
               }}
             >
               <Text
-                style={{ fontSize: 14, fontWeight: "400", color: "#9E9E9E" }}
+                style={{
+                  fontSize: 14,
+                  fontWeight: "400",
+                  color: Colors.TEXT_GRAY,
+                }}
               >
                 {frequency}
               </Text>
               <Ionicons name="caret-down" size={14} color={Colors.PRIMARY} />
             </Pressable>
 
-          
-              {/*<SpecificDaysCalendar
+            {/*<SpecificDaysCalendar
                 markeddate={markeddate}
                 changedMarkedDates={changedMarkedDates}
             />*/}
-            <OneTimeCalendar changeOneDay={changeOneDay} oneDay={oneday}/>
+            <OneTimeCalendar changeOneDay={changeOneDay} oneDay={oneday} />
 
             <View style={{ marginBottom: 20 }}>
               <InputText placeholder={"Drop Off Time"} />

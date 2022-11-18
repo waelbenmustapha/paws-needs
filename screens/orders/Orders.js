@@ -52,7 +52,7 @@ const Orders = () => {
             <Text
               style={{
                 fontSize: 18,
-                color: navActive == "cart" ? Colors.PRIMARY : "#9E9E9E",
+                color: navActive == "cart" ? Colors.PRIMARY : Colors.TEXT_GRAY,
                 fontWeight: "600",
                 textAlign: "center",
               }}
@@ -73,7 +73,8 @@ const Orders = () => {
             <Text
               style={{
                 fontSize: 18,
-                color: navActive == "completed" ? Colors.PRIMARY : "#9E9E9E",
+                color:
+                  navActive == "completed" ? Colors.PRIMARY : Colors.TEXT_GRAY,
                 fontWeight: "600",
                 textAlign: "center",
               }}

@@ -29,7 +29,7 @@ const SigninWithEmail = ({ navigation }) => {
               style={{
                 fontSize: 14,
                 fontWeight: "400",
-                color: "#9E9E9E",
+                color: Colors.TEXT_GRAY,
                 textAlign: "right",
                 textDecorationLine: "underline",
               }}
@@ -50,7 +50,7 @@ const SigninWithEmail = ({ navigation }) => {
               style={{
                 fontSize: 16,
                 fontWeight: "400",
-                color: "#9E9E9E",
+                color: Colors.TEXT_GRAY,
               }}
             >
               Don’t have an account?{" "}
