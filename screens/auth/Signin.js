@@ -52,7 +52,7 @@ const Signin = ({ navigation }) => {
             style={[
               styles.row,
               styles.center,
-              { marginTop: 20, marginBottom: 40, paddingHorizontal: 10 },
+              { marginTop: 12, marginBottom: 32, paddingHorizontal: 10 },
             ]}
           >
             <View
@@ -64,7 +64,7 @@ const Signin = ({ navigation }) => {
             ></View>
             <Text
               style={{
-                fontSize: 16,
+                fontSize: 14,
                 fontWeight: "600",
                 color: "#000",
                 paddingHorizontal: 10,
@@ -80,13 +80,13 @@ const Signin = ({ navigation }) => {
               }}
             ></View>
           </View>
-          <View style={{ width: "100%", marginBottom: 40 }}>
+          <View style={{ width: "100%", marginBottom: 32 }}>
             <ButtonPrimary
               title="Sign in with password"
               fnc={() => navigation.navigate("signin-with-email")}
             />
           </View>
-          <View style={[styles.row, { marginBottom: 40 }]}>
+          <View style={[styles.row, { marginBottom: 32 }]}>
             <Text style={{ fontSize: 16, fontWeight: "400", color: "#9E9E9E" }}>
               Don’t have an account?{" "}
             </Text>
@@ -117,13 +117,14 @@ const styles = StyleSheet.create({
   row: { flexDirection: "row" },
   center: { justifyContent: "center", alignItems: "center" },
   image: {
-    width: Dimensions.get("window").width / 1.8,
-    height: Dimensions.get("window").width / 2.1,
+    width: Dimensions.get("window").width / 1.9,
+    height: Dimensions.get("window").width / 2.3,
     resizeMode: "stretch",
-    marginVertical: 20,
+    marginTop: 20,
+    marginBottom: 16,
   },
   text: {
-    fontSize: 42,
+    fontSize: 38,
     fontWeight: "700",
     textAlign: "center",
     marginBottom: 20,
