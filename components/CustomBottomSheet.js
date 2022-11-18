@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Dimensions, Pressable } from "react-native";
 import BottomSheet from "@gorhom/bottom-sheet";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Colors from "../utils/Colors";
+import { useNavigation } from "@react-navigation/native";
 
 const CustomBottomSheet = ({
   bottomSheetOpen,
@@ -13,7 +14,7 @@ const CustomBottomSheet = ({
   defaultValue,
 }) => {
   const [itemSelected, setItemSelected] = useState(defaultValue);
-
+  const navigation = useNavigation();
   // ref
   const bottomSheetRef = useRef(null);
 
@@ -26,6 +27,7 @@ const CustomBottomSheet = ({
         <View
           style={{
             position: "absolute",
+            bottom:0,
             width: Dimensions.get("window").width,
             height: Dimensions.get("window").height,
             backgroundColor: "rgba(9, 16, 29, 0.5)",
@@ -36,7 +38,12 @@ const CustomBottomSheet = ({
             index={0}
             snapPoints={snapPoints}
             enablePanDownToClose={true}
-            onClose={() => setBottomSheetOpen(false)}
+            onClose={() => {
+              setBottomSheetOpen(false);
+              navigation
+                .getParent()
+                .setOptions({ tabBarStyle: { display: "flex" } });
+            }}
           >
             <View style={styles.bottomSheetContent}>
               <View style={{ width: "100%", paddingHorizontal: 20 }}>

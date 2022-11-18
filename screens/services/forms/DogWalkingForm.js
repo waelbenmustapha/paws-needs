@@ -23,7 +23,6 @@ import SpecificDaysCalendar from "../../../components/calendars/SpecificDaysCale
 
 const DogWalkingForm = ({ route, navigation }) => {
   const service = route.params.service;
-
   const [oneday, setOneDay] = useState({});
   const [time, setTime] = useState(new Date("2022-11-13T09:00:00.300Z"));
   const [show, setShow] = useState(false);
@@ -41,9 +40,9 @@ const DogWalkingForm = ({ route, navigation }) => {
   const hideBottomNavigation = () => {
     console.log("hide");
     // Function to change navigation options
-    navigation.setOptions({
-      tabBarVisible: true,
-    });
+    
+    navigation.getParent().setOptions({tabBarStyle: {display: 'none'}});
+
   };
 
   const changedMarkedDates = (dt) => {
