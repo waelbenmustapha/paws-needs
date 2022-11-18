@@ -4,6 +4,7 @@ import BottomSheet from "@gorhom/bottom-sheet";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Colors from "../utils/Colors";
 import { useNavigation } from "@react-navigation/native";
+import { useApp } from "../context/AppProvider";
 
 const CustomBottomSheet = ({
   bottomSheetOpen,
@@ -17,7 +18,7 @@ const CustomBottomSheet = ({
   const navigation = useNavigation();
   // ref
   const bottomSheetRef = useRef(null);
-
+const app = useApp()
   // variables
   const snapPoints = useMemo(() => ["45%", "70%"], []);
 
@@ -27,7 +28,7 @@ const CustomBottomSheet = ({
         <View
           style={{
             position: "absolute",
-            bottom:0,
+            bottom: 0,
             width: Dimensions.get("window").width,
             height: Dimensions.get("window").height,
             backgroundColor: "rgba(9, 16, 29, 0.5)",
@@ -40,9 +41,7 @@ const CustomBottomSheet = ({
             enablePanDownToClose={true}
             onClose={() => {
               setBottomSheetOpen(false);
-              navigation
-                .getParent()
-                .setOptions({ tabBarStyle: { display: "flex" } });
+              app.showBottomBar();
             }}
           >
             <View style={styles.bottomSheetContent}>

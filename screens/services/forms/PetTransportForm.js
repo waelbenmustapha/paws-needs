@@ -21,6 +21,7 @@ import CustomBottomSheet from "../../../components/CustomBottomSheet";
 import Colors from "../../../utils/Colors";
 import SpecificDaysCalendar from "../../../components/calendars/SpecificDaysCalendar";
 import MapModal from "../../../components/MapModal";
+import { useApp } from "../../../context/AppProvider";
 
 const PetTransportForm = ({ route, navigation }) => {
   const service = route.params.service;
@@ -32,7 +33,7 @@ const PetTransportForm = ({ route, navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [marker, setMarker] = useState(null);
   const [frequency, setFrequency] = useState("One Time");
-
+  const app = useApp()
   const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
   const bottomSheetData = [
     { label: "Daily", value: "Daily" },
@@ -43,9 +44,8 @@ const PetTransportForm = ({ route, navigation }) => {
   const hideBottomNavigation = () => {
     console.log("hide");
     // Function to change navigation options
-    navigation.setOptions({
-      tabBarVisible: true,
-    });
+    app.hideBottomBar()
+
   };
 
   const changedMarkedDates = (dt) => {
