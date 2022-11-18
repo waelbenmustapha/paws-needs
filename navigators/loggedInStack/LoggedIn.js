@@ -3,7 +3,6 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Checkout from "../../screens/Checkout";
 import DrawerNavigator from "./drawerNav/DrawerNavigator";
 import ProductDetails from "../../screens/ProductDetails";
-import MyPets from "../../screens/profile/MyPets";
 import EditProfile from "../../screens/profile/EditProfile";
 import PetsStack from "./drawerNav/tabsNav/tabsStacks/ProfileStack/PetsStack";
 const Stack = createNativeStackNavigator();

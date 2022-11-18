@@ -1,11 +1,10 @@
-import { View, Text, StyleSheet, StatusBar } from "react-native";
+import { View, Text, StyleSheet, StatusBar, TouchableOpacity } from "react-native";
 import React from "react";
 import Colors from "../../utils/Colors";
 import AntDesign from "react-native-vector-icons/AntDesign";
-import useHideBottomBar from "../../hooks/useHideBottomBar";
 
 const MyPets = ({navigation}) => {
-
+  const pets = ["cat","dog","rabbit"]
 
   return (
     <View style={styles.container}>
@@ -21,7 +20,8 @@ const MyPets = ({navigation}) => {
           <Text style={styles.navText}>My Pets</Text>
         </View>
       </View>
-    </View>
+      {pets.map((el)=><TouchableOpacity style={{backgroundColor:Colors.SECONDARY2,margin:10,padding:10,borderRadius:10}} key={el}><Text>{el}</Text></TouchableOpacity>)}
+      <TouchableOpacity onPress={()=>navigation.navigate("addpet")} style={{backgroundColor:Colors.SECONDARY2,margin:10,marginTop:50,padding:10,borderRadius:10}} ><Text>ADD PET</Text></TouchableOpacity></View>
   );
 };
 
