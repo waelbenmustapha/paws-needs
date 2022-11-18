@@ -18,8 +18,8 @@ const CustomPicker = ({ items }) => {
         dropdownIconColor={Colors.PRIMARY}
         style={{
           height: 56,
-          backgroundColor: "#F0F2F4",
-          color: "#9E9E9E",
+          backgroundColor: Colors.DARK_BG,
+          color: Colors.TEXT_GRAY,
           fontSize: 14,
         }}
         selectedValue={selectedItem}

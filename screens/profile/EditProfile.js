@@ -16,48 +16,49 @@ import UserImageEdit from "../../components/UserImageEdit";
 const EditProfile = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <ScrollView><View style={styles.nav}>
-        <View style={styles.row}>
-          <AntDesign
-            onPress={() => navigation.goBack()}
-            style={styles.icon}
-            name="arrowleft"
-            size={24}
-            color={Colors.PRIMARY}
-          />
-          <Text style={styles.navText}>Edit Profile</Text>
+      <ScrollView>
+        <View style={styles.nav}>
+          <View style={styles.row}>
+            <AntDesign
+              onPress={() => navigation.goBack()}
+              style={styles.icon}
+              name="arrowleft"
+              size={24}
+              color={Colors.PRIMARY}
+            />
+            <Text style={styles.navText}>Edit Profile</Text>
+          </View>
         </View>
-      </View>
-      <UserImageEdit />
-      <View style={styles.inputContainer}>
-        <TextInput placeholder={"Email"} style={{ flex: 1 }} />
-        <Image
-          resizeMode="center"
-          source={require("../../assets/mail.png")}
-          style={{ width: 20 }}
-        />
-      </View>
-      <View style={styles.inputContainer}>
-        <TextInput placeholder={"Name"} style={{ flex: 1 }} />
-      </View>
+        <UserImageEdit />
+        <View style={styles.inputContainer}>
+          <TextInput placeholder={"Email"} style={{ flex: 1 }} />
+          <Image
+            resizeMode="center"
+            source={require("../../assets/mail.png")}
+            style={{ width: 20 }}
+          />
+        </View>
+        <View style={styles.inputContainer}>
+          <TextInput placeholder={"Name"} style={{ flex: 1 }} />
+        </View>
 
-      <View style={styles.inputContainer}>
-        <TextInput placeholder={"Address Linked"} style={{ flex: 1 }} />
-        <Image
-          resizeMode="center"
-          source={require("../../assets/locationorange.png")}
-          style={{ width: 20 }}
-        />
-      </View>
-      <View style={styles.inputContainer}>
-        <Text style={{ color: "grey", marginRight: 5 }}>+971</Text>
-        <TextInput placeholder={"Phone Number"} style={{ flex: 1 }} />
-        <Image
-          resizeMode="center"
-          source={require("../../assets/mail.png")}
-          style={{ width: 20 }}
-        />
-      </View>
+        <View style={styles.inputContainer}>
+          <TextInput placeholder={"Address Linked"} style={{ flex: 1 }} />
+          <Image
+            resizeMode="center"
+            source={require("../../assets/locationorange.png")}
+            style={{ width: 20 }}
+          />
+        </View>
+        <View style={styles.inputContainer}>
+          <Text style={{ color: "grey", marginRight: 5 }}>+971</Text>
+          <TextInput placeholder={"Phone Number"} style={{ flex: 1 }} />
+          <Image
+            resizeMode="center"
+            source={require("../../assets/mail.png")}
+            style={{ width: 20 }}
+          />
+        </View>
       </ScrollView>
       <View
         style={{
@@ -108,7 +109,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     padding: 20,
-    paddingTop:0,
+    paddingTop: 0,
     justifyContent: "space-between",
   },
   row: { flexDirection: "row", alignItems: "center" },
@@ -134,7 +135,7 @@ const styles = StyleSheet.create({
     marginTop: 25,
     paddingHorizontal: 20,
     borderRadius: 12,
-    backgroundColor: "#F0F2F4",
+    backgroundColor: Colors.DARK_BG,
   },
 });
 

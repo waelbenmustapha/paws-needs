@@ -40,9 +40,8 @@ const DogWalkingForm = ({ route, navigation }) => {
   const hideBottomNavigation = () => {
     console.log("hide");
     // Function to change navigation options
-    
-    navigation.getParent().setOptions({tabBarStyle: {display: 'none'}});
 
+    navigation.getParent().setOptions({ tabBarStyle: { display: "none" } });
   };
 
   const changedMarkedDates = (dt) => {
@@ -95,14 +94,18 @@ const DogWalkingForm = ({ route, navigation }) => {
                 paddingHorizontal: 20,
                 marginBottom: 20,
                 borderRadius: 12,
-                backgroundColor: "#F0F2F4",
+                backgroundColor: Colors.DARK_BG,
                 flexDirection: "row",
                 alignItems: "center",
                 justifyContent: "space-between",
               }}
             >
               <Text
-                style={{ fontSize: 14, fontWeight: "400", color: "#9E9E9E" }}
+                style={{
+                  fontSize: 14,
+                  fontWeight: "400",
+                  color: Colors.TEXT_GRAY,
+                }}
               >
                 {frequency}
               </Text>
@@ -197,7 +200,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 10,
     borderRadius: 12,
-    backgroundColor: "#F0F2F4",
+    backgroundColor: Colors.DARK_BG,
   },
 });
 

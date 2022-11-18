@@ -50,7 +50,7 @@ const SignupWithEmail = ({ navigation }) => {
               style={{
                 fontSize: 16,
                 fontWeight: "400",
-                color: "#9E9E9E",
+                color: Colors.TEXT_GRAY,
               }}
             >
               Already have an account?{" "}

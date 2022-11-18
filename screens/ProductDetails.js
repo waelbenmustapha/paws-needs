@@ -51,7 +51,7 @@ const ProductDetails = ({ navigation, route }) => {
               <TouchableOpacity onPress={() => setItemCount(itemCount - 1)}>
                 <Entypo
                   style={{
-                    backgroundColor: "#F0F2F4",
+                    backgroundColor: Colors.DARK_BG,
                     justifyContent: "center",
                     alignItems: "center",
                     borderRadius: 5,

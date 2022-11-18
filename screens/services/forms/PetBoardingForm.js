@@ -104,14 +104,18 @@ const PetBoardingForm = ({ route, navigation }) => {
                 paddingHorizontal: 20,
                 marginBottom: 20,
                 borderRadius: 12,
-                backgroundColor: "#F0F2F4",
+                backgroundColor: Colors.DARK_BG,
                 flexDirection: "row",
                 alignItems: "center",
                 justifyContent: "space-between",
               }}
             >
               <Text
-                style={{ fontSize: 14, fontWeight: "400", color: "#9E9E9E" }}
+                style={{
+                  fontSize: 14,
+                  fontWeight: "400",
+                  color: Colors.TEXT_GRAY,
+                }}
               >
                 {frequency}
               </Text>
@@ -163,12 +167,12 @@ const PetBoardingForm = ({ route, navigation }) => {
                 },
               ]}
             >
-              <Text style={{ color: "#9E9E9E" }}>Destination</Text>
+              <Text style={{ color: Colors.TEXT_GRAY }}>Destination</Text>
 
               {marker ? (
                 <Feather name="check-circle" size={24} color={Colors.PRIMARY} />
               ) : (
-                <Feather name="map-pin" size={24} color={"#9E9E9E"} />
+                <Feather name="map-pin" size={24} color={Colors.TEXT_GRAY} />
               )}
             </TouchableOpacity>
             {show && (
@@ -229,7 +233,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 10,
     borderRadius: 12,
-    backgroundColor: "#F0F2F4",
+    backgroundColor: Colors.DARK_BG,
   },
 });
 

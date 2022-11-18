@@ -160,7 +160,8 @@ const ShopPage = ({ navigation, route }) => {
             <Text
               style={{
                 fontSize: 18,
-                color: navActive == "categories" ? Colors.PRIMARY : "#9E9E9E",
+                color:
+                  navActive == "categories" ? Colors.PRIMARY : Colors.TEXT_GRAY,
                 fontWeight: "600",
                 textAlign: "center",
               }}
@@ -181,7 +182,8 @@ const ShopPage = ({ navigation, route }) => {
             <Text
               style={{
                 fontSize: 18,
-                color: navActive == "reviews" ? Colors.PRIMARY : "#9E9E9E",
+                color:
+                  navActive == "reviews" ? Colors.PRIMARY : Colors.TEXT_GRAY,
                 fontWeight: "600",
                 textAlign: "center",
               }}
