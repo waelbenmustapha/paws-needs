@@ -37,6 +37,9 @@
       "eas": {
         "projectId": "5f96f3c6-3a84-4598-878e-9e434c576741"
       }
+    },
+    "packagerOpts": {
+      "config": "metro.config.js"
     }
   }
 }

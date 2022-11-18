@@ -1,18 +1,14 @@
 import React from "react";
-import { View, Text, StyleSheet, StatusBar } from "react-native";
-import AntDesign from "react-native-vector-icons/AntDesign";
+import { View, Text, StyleSheet, StatusBar, Pressable } from "react-native";
+import ArrowLeft from "../assets/svg/arrow-left.svg";
 
 const ReturnNavBar = ({ navigation, title }) => {
   return (
     <View style={styles.nav}>
       <View style={styles.row}>
-        <AntDesign
-          onPress={() => navigation.goBack()}
-          style={styles.icon}
-          name="arrowleft"
-          size={28}
-          color={"#000"}
-        />
+        <Pressable onPress={() => navigation.goBack()} style={styles.icon}>
+          <ArrowLeft width={20} height={20} color={"#000"} />
+        </Pressable>
         <Text numberOfLines={1} style={styles.navText}>
           {title}
         </Text>

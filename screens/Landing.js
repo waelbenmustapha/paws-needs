@@ -10,6 +10,7 @@ import { useAuth } from "../context/AuthProvider";
 import bg from "../assets/get-started.png";
 import Colors from "../utils/Colors";
 import { LinearGradient } from "expo-linear-gradient";
+import RightCircle from "../assets/svg/right-circle.svg";
 
 const Landing = ({ navigation }) => {
   const auth = useAuth();
@@ -43,17 +44,18 @@ const Landing = ({ navigation }) => {
             alignSelf: "flex-end",
             borderTopLeftRadius: 50,
             backgroundColor: Colors.PRIMARY,
-            width: 200,
             height: 77,
+            paddingHorizontal: 24,
+            flexDirection: "row",
             justifyContent: "center",
             alignItems: "center",
           }}
-          // onPress={() => auth.login({ name: "wael" })}
           onPress={() => navigation.navigate("signin")}
         >
           <Text style={{ color: "white", fontSize: 24, fontWeight: "bold" }}>
             Get Started
           </Text>
+          <RightCircle style={{ marginLeft: 8 }} />
         </Pressable>
       </ImageBackground>
     </View>
