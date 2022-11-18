@@ -1,10 +1,35 @@
-import { View, Text, StyleSheet, StatusBar, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  StatusBar,
+  TouchableOpacity,
+} from "react-native";
 import React from "react";
 import Colors from "../../utils/Colors";
 import AntDesign from "react-native-vector-icons/AntDesign";
 
-const MyPets = ({navigation}) => {
-  const pets = ["cat","dog","rabbit"]
+const MyPets = ({ navigation }) => {
+  const pets = [
+    {
+      name: "kaloub",
+      type: "Dog",
+      breed: "chiwawa",
+      gender: "male",
+      weight: 6,
+      details: "agressive",
+      description: "a small dog that like to bite people",
+    },
+    {
+      name: "9atousa",
+      type: "Cat",
+      breed: "siamese ",
+      gender: "female",
+      weight: 2,
+      details: "lovely",
+      description: "kitty cat",
+    },
+  ];
 
   return (
     <View style={styles.container}>
@@ -20,8 +45,33 @@ const MyPets = ({navigation}) => {
           <Text style={styles.navText}>My Pets</Text>
         </View>
       </View>
-      {pets.map((el)=><TouchableOpacity style={{backgroundColor:Colors.SECONDARY2,margin:10,padding:10,borderRadius:10}} key={el}><Text>{el}</Text></TouchableOpacity>)}
-      <TouchableOpacity onPress={()=>navigation.navigate("addpet")} style={{backgroundColor:Colors.SECONDARY2,margin:10,marginTop:50,padding:10,borderRadius:10}} ><Text>ADD PET</Text></TouchableOpacity></View>
+      {pets.map((el) => (
+        <TouchableOpacity
+          onPress={() => navigation.navigate("editpet", { pet: el })}
+          style={{
+            backgroundColor: Colors.SECONDARY2,
+            margin: 10,
+            padding: 10,
+            borderRadius: 10,
+          }}
+          key={el.name}
+        >
+          <Text>{el.name}</Text>
+        </TouchableOpacity>
+      ))}
+      <TouchableOpacity
+        onPress={() => navigation.navigate("addpet")}
+        style={{
+          backgroundColor: Colors.SECONDARY2,
+          margin: 10,
+          marginTop: 50,
+          padding: 10,
+          borderRadius: 10,
+        }}
+      >
+        <Text>ADD PET</Text>
+      </TouchableOpacity>
+    </View>
   );
 };
 
@@ -42,11 +92,10 @@ const styles = StyleSheet.create({
   navText: {
     fontSize: 24,
     fontWeight: "bold",
-    includeFontPadding:false,
+    includeFontPadding: false,
     color: Colors.TEXT,
   },
   icon: { paddingVertical: 5, paddingRight: 10 },
 });
 
 export default MyPets;
-

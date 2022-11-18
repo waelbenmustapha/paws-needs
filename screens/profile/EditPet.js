@@ -15,9 +15,9 @@ import UserImageEdit from "../../components/UserImageEdit";
 import avatarimg from "../../assets/dogavatar.png";
 import CustomPicker from "../../components/CustomPicker";
 import InputText from "../../components/InputText";
-import KgIcon from "../../assets/svg/kg.svg"
-const AddPet = ({ navigation }) => {
- 
+import KgIcon from "../../assets/svg/kg.svg";
+const EditPet = ({ navigation, route }) => {
+  const pet = route.params.pet;
   const types = [
     { label: "Dog", value: "Dog" },
     { label: "Cat", value: "Cat" },
@@ -33,9 +33,8 @@ const AddPet = ({ navigation }) => {
     { label: "Cat", value: "Cat" },
     { label: "Rabbit", value: "Rabbit" },
     { label: "Turtle", value: "Turtle" },
-  
   ];
-  
+
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -48,12 +47,12 @@ const AddPet = ({ navigation }) => {
               size={24}
               color={Colors.PRIMARY}
             />
-            <Text style={styles.navText}>Add Pet</Text>
+            <Text style={styles.navText}>Edit Pet</Text>
           </View>
         </View>
         <UserImageEdit image={avatarimg} />
         <View style={{ marginTop: 20 }}>
-          <InputText placeholder={"Name"} />
+          <InputText value={pet.name} placeholder={"Name"} />
         </View>
 
         <View
@@ -62,10 +61,10 @@ const AddPet = ({ navigation }) => {
             height: 56,
           }}
         >
-          <CustomPicker placeholder={"Types"} items={types} />
+          <CustomPicker placeholder={pet.type} items={types} />
         </View>
         <View style={{ marginTop: 20 }}>
-          <InputText placeholder={"Breed"} />
+          <InputText value={pet.breed} placeholder={"Breed"} />
         </View>
         <View
           style={{
@@ -73,10 +72,14 @@ const AddPet = ({ navigation }) => {
             height: 56,
           }}
         >
-          <CustomPicker placeholder={"Gender"} items={types} />
+          <CustomPicker placeholder={pet.gender} items={types} />
         </View>
         <View style={{ marginTop: 20 }}>
-          <InputText icon={<KgIcon color={Colors.PRIMARY}/>} placeholder={"Weight"} />
+          <InputText
+          value={pet.weight.toString()}
+            icon={<KgIcon color={Colors.PRIMARY} />}
+            placeholder={"Weight"}
+          />
         </View>
         <View
           style={{
@@ -87,17 +90,13 @@ const AddPet = ({ navigation }) => {
           <CustomPicker placeholder={"More Details"} items={types} />
         </View>
         <View style={{ marginTop: 20 }}>
-              <TextInput
-                multiline={true}
-                numberOfLines={3}
-                placeholder={"Description"}
-                style={[
-                  styles.input,
-                  { minHeight: 100, textAlignVertical: "top" },
-                ]}
-              />
-            </View>
-            
+          <TextInput
+            multiline={true}
+            numberOfLines={3}
+            value={pet.description}
+            style={[styles.input, { minHeight: 100, textAlignVertical: "top" }]}
+          />
+        </View>
       </ScrollView>
       <View
         style={{
@@ -135,7 +134,7 @@ const AddPet = ({ navigation }) => {
               color: "#fff",
             }}
           >
-            Add
+            Update
           </Text>
         </Pressable>
       </View>
@@ -173,4 +172,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AddPet;
+export default EditPet;

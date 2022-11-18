@@ -3,7 +3,7 @@ import { View } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import Colors from "../utils/Colors";
 
-const CustomPicker = ({ items }) => {
+const CustomPicker = ({ items,placeholder }) => {
   const [selectedItem, setSelectedItem] = useState();
 
   return (
@@ -12,6 +12,10 @@ const CustomPicker = ({ items }) => {
         marginBottom: 20,
         borderRadius: 10,
         overflow: "hidden",
+
+        paddingLeft: 10,
+        backgroundColor: Colors.DARK_BG,
+        borderRadius: 10,
       }}
     >
       <Picker
@@ -25,6 +29,12 @@ const CustomPicker = ({ items }) => {
         selectedValue={selectedItem}
         onValueChange={(itemValue, itemIndex) => setSelectedItem(itemValue)}
       >
+         <Picker.Item
+            key={`pickType-default`}
+            enabled={false}
+            label={placeholder}
+            value={placeholder}
+          />
         {items.map((el, index) => (
           <Picker.Item
             key={`pickType-${index}`}
