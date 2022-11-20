@@ -4,13 +4,14 @@ import Eye from "../assets/svg/eye.svg";
 import EyeOff from "../assets/svg/eye-off.svg";
 import Colors from "../utils/Colors";
 
-const InputText = ({ placeholder, isPassword, iconImage, icon }) => {
+const InputText = ({ placeholder, isPassword, iconImage, icon,value }) => {
   const [hidePassword, setHidePassword] = useState(isPassword);
   return (
     <View style={styles.inputContainer}>
       <TextInput
         secureTextEntry={hidePassword}
         placeholder={placeholder}
+        value={value}
         style={styles.input}
       />
       {isPassword === true ? (

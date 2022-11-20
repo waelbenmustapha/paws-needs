@@ -16,7 +16,8 @@ import avatarimg from "../../assets/dogavatar.png";
 import CustomPicker from "../../components/CustomPicker";
 import InputText from "../../components/InputText";
 import KgIcon from "../../assets/svg/kg.svg";
-const AddPet = ({ navigation }) => {
+const EditPet = ({ navigation, route }) => {
+  const pet = route.params.pet;
   const types = [
     { label: "Dog", value: "Dog" },
     { label: "Cat", value: "Cat" },
@@ -46,12 +47,12 @@ const AddPet = ({ navigation }) => {
               size={24}
               color={Colors.PRIMARY}
             />
-            <Text style={styles.navText}>Add Pet</Text>
+            <Text style={styles.navText}>Edit Pet</Text>
           </View>
         </View>
         <UserImageEdit image={avatarimg} />
         <View style={{ marginTop: 20 }}>
-          <InputText placeholder={"Name"} />
+          <InputText value={pet.name} placeholder={"Name"} />
         </View>
 
         <View
@@ -60,10 +61,10 @@ const AddPet = ({ navigation }) => {
             height: 56,
           }}
         >
-          <CustomPicker placeholder={"Types"} items={types} />
+          <CustomPicker placeholder={pet.type} items={types} />
         </View>
         <View style={{ marginTop: 20 }}>
-          <InputText placeholder={"Breed"} />
+          <InputText value={pet.breed} placeholder={"Breed"} />
         </View>
         <View
           style={{
@@ -71,10 +72,11 @@ const AddPet = ({ navigation }) => {
             height: 56,
           }}
         >
-          <CustomPicker placeholder={"Gender"} items={types} />
+          <CustomPicker placeholder={pet.gender} items={types} />
         </View>
         <View style={{ marginTop: 20 }}>
           <InputText
+          value={pet.weight.toString()}
             icon={<KgIcon color={Colors.PRIMARY} />}
             placeholder={"Weight"}
           />
@@ -91,7 +93,7 @@ const AddPet = ({ navigation }) => {
           <TextInput
             multiline={true}
             numberOfLines={3}
-            placeholder={"Description"}
+            value={pet.description}
             style={[styles.input, { minHeight: 100, textAlignVertical: "top" }]}
           />
         </View>
@@ -132,7 +134,7 @@ const AddPet = ({ navigation }) => {
               color: "#fff",
             }}
           >
-            Add
+            Update
           </Text>
         </Pressable>
       </View>
@@ -170,4 +172,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AddPet;
+export default EditPet;
