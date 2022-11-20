@@ -1,9 +1,15 @@
 import React, { useMemo, useRef, useEffect, useCallback } from "react";
-import { BottomSheetModal, BottomSheetBackdrop } from "@gorhom/bottom-sheet";
+import { View, Text, StyleSheet } from "react-native";
+import {
+  BottomSheetModal,
+  BottomSheetScrollView,
+  BottomSheetBackdrop,
+} from "@gorhom/bottom-sheet";
 
 const CustomBottomSheet = ({
   bottomSheetOpen,
   setBottomSheetOpen,
+  title,
   children,
 }) => {
   // ref
@@ -62,9 +68,27 @@ const CustomBottomSheet = ({
         closeBottomSheet();
       }}
     >
-      {children}
+      {title ? (
+        <View style={{ width: "100%", paddingHorizontal: 20 }}>
+          <Text style={styles.bottomSheetTitle}>{title}</Text>
+        </View>
+      ) : null}
+      <BottomSheetScrollView>{children}</BottomSheetScrollView>
     </BottomSheetModal>
   );
 };
+
+const styles = StyleSheet.create({
+  bottomSheetTitle: {
+    fontSize: 24,
+    fontWeight: "600",
+    color: "#000",
+    borderBottomColor: "#EEEEEE",
+    borderBottomWidth: 1,
+    width: "100%",
+    textAlign: "center",
+    paddingBottom: 20,
+  },
+});
 
 export default CustomBottomSheet;

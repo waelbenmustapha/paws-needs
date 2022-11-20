@@ -5,10 +5,14 @@ import React, {
   useEffect,
   useCallback,
 } from "react";
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import { View, Text, StyleSheet, Pressable, ScrollView } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Colors from "../../utils/Colors";
-import { BottomSheetModal, BottomSheetBackdrop } from "@gorhom/bottom-sheet";
+import {
+  BottomSheetModal,
+  BottomSheetScrollView,
+  BottomSheetBackdrop,
+} from "@gorhom/bottom-sheet";
 
 const SelectBottomSheet = ({
   bottomSheetOpen,
@@ -76,36 +80,38 @@ const SelectBottomSheet = ({
         closeBottomSheet();
       }}
     >
-      <View style={styles.bottomSheetContent}>
-        <View style={{ width: "100%", paddingHorizontal: 20 }}>
-          <Text style={styles.bottomSheetTitle}>{title}</Text>
-        </View>
-        {data.map((el, index) => (
-          <Pressable
-            key={`bsi-${index}`}
-            style={({ pressed }) => [
-              {
-                backgroundColor: pressed ? "#f2f2f2" : "#fff",
-              },
-              styles.bottomSheetItem,
-            ]}
-            onPress={() => {
-              setItemSelected(el.value);
-              setValue(el.label);
-              closeBottomSheet(false);
-            }}
-          >
-            <Text style={styles.bottomSheetItemText}>{el.label}</Text>
-            {itemSelected === el.value ? (
-              <Ionicons
-                name="checkmark-sharp"
-                size={24}
-                color={Colors.PRIMARY}
-              />
-            ) : null}
-          </Pressable>
-        ))}
+      <View style={{ width: "100%", paddingHorizontal: 20 }}>
+        <Text style={styles.bottomSheetTitle}>{title}</Text>
       </View>
+      <BottomSheetScrollView>
+        <View style={styles.bottomSheetContent}>
+          {data.map((el, index) => (
+            <Pressable
+              key={`bsi-${index}`}
+              style={({ pressed }) => [
+                {
+                  backgroundColor: pressed ? "#f2f2f2" : "#fff",
+                },
+                styles.bottomSheetItem,
+              ]}
+              onPress={() => {
+                setItemSelected(el.value);
+                setValue(el.label);
+                closeBottomSheet(false);
+              }}
+            >
+              <Text style={styles.bottomSheetItemText}>{el.label}</Text>
+              {itemSelected === el.value ? (
+                <Ionicons
+                  name="checkmark-sharp"
+                  size={24}
+                  color={Colors.PRIMARY}
+                />
+              ) : null}
+            </Pressable>
+          ))}
+        </View>
+      </BottomSheetScrollView>
     </BottomSheetModal>
   );
 };
