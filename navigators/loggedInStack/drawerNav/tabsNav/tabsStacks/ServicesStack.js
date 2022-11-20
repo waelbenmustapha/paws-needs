@@ -2,7 +2,6 @@ import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Services from "../../../../../screens/services/Services";
 import Service from "../../../../../screens/services/Service";
-import ServiceForm from "../../../../../screens/services/forms/ServiceForm";
 import DogWalkingForm from "../../../../../screens/services/forms/DogWalkingForm";
 import PetBoardingForm from "../../../../../screens/services/forms/PetBoardingForm";
 import PetGroomingForm from "../../../../../screens/services/forms/PetGroomingForm";
@@ -19,7 +18,10 @@ const ServicesStack = () => {
       <Stack.Screen name="service" component={Service} />
       <Stack.Screen name="dog-walking-form" component={DogWalkingForm} />
       <Stack.Screen name="pet-boarding-form" component={PetBoardingForm} />
-      <Stack.Screen name="vet-appointment-form" component={VetAppointmentForm} />
+      <Stack.Screen
+        name="vet-appointment-form"
+        component={VetAppointmentForm}
+      />
       <Stack.Screen name="pet-grooming-form" component={PetGroomingForm} />
       <Stack.Screen name="pet-training-form" component={PetTrainingForm} />
       <Stack.Screen name="pet-transport-form" component={PetTransportForm} />
