@@ -1,13 +1,16 @@
-import React, { useState, useMemo, useRef, useCallback } from "react";
+import React, {
+  useState,
+  useMemo,
+  useRef,
+  useEffect,
+  useCallback,
+} from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
-import BottomSheet from "@gorhom/bottom-sheet";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import Colors from "../utils/Colors";
-import { useNavigation } from "@react-navigation/native";
-import { useApp } from "../context/AppProvider";
-import CustomBackdrop from "./bottomsheet/CustomBackdrop";
+import Colors from "../../utils/Colors";
+import { BottomSheetModal, BottomSheetBackdrop } from "@gorhom/bottom-sheet";
 
-const CustomBottomSheet = ({
+const SelectBottomSheet = ({
   bottomSheetOpen,
   setBottomSheetOpen,
   setValue,
@@ -15,9 +18,6 @@ const CustomBottomSheet = ({
   data,
   defaultValue,
 }) => {
-  const navigation = useNavigation();
-  const app = useApp();
-
   const [itemSelected, setItemSelected] = useState(defaultValue);
 
   // ref
@@ -26,21 +26,54 @@ const CustomBottomSheet = ({
   // variables
   const snapPoints = useMemo(() => ["45%", "70%"], []);
 
-  const handleClosePress = useCallback(() => {
-    bottomSheetRef.current?.close();
+  const openBottomSheet = () => {
+    bottomSheetRef.current?.present();
+    setBottomSheetOpen(true);
+    console.log("bottom sheet opened");
+  };
+
+  const closeBottomSheet = () => {
+    bottomSheetRef.current?.dismiss();
+    setBottomSheetOpen(false);
+    console.log("bottom sheet closed");
+  };
+
+  // callbacks
+  const handleSheetChanges = useCallback((index) => {
+    console.log("handleSheetChanges", index);
+    if (index === -1) {
+      closeBottomSheet();
+    }
   }, []);
 
-  return bottomSheetOpen ? (
-    <BottomSheet
+  useEffect(() => {
+    if (bottomSheetOpen === true) {
+      openBottomSheet();
+    } else {
+      closeBottomSheet();
+    }
+  }, [bottomSheetOpen]);
+
+  const renderBackdrop = useCallback((props) => {
+    return (
+      <BottomSheetBackdrop
+        {...props}
+        disappearsOnIndex={-1}
+        appearsOnIndex={0}
+      />
+    );
+  }, []);
+
+  return (
+    <BottomSheetModal
       ref={bottomSheetRef}
       index={0}
       snapPoints={snapPoints}
-      backdropComponent={CustomBackdrop}
+      backdropComponent={renderBackdrop}
       enablePanDownToClose={true}
+      onChange={handleSheetChanges}
       onClose={() => {
-        handleClosePress();
-        setBottomSheetOpen(false);
-        app.showBottomBar();
+        closeBottomSheet();
       }}
     >
       <View style={styles.bottomSheetContent}>
@@ -59,9 +92,7 @@ const CustomBottomSheet = ({
             onPress={() => {
               setItemSelected(el.value);
               setValue(el.label);
-              handleClosePress();
-              setBottomSheetOpen(false);
-              app.showBottomBar();
+              closeBottomSheet(false);
             }}
           >
             <Text style={styles.bottomSheetItemText}>{el.label}</Text>
@@ -75,8 +106,8 @@ const CustomBottomSheet = ({
           </Pressable>
         ))}
       </View>
-    </BottomSheet>
-  ) : null;
+    </BottomSheetModal>
+  );
 };
 
 const styles = StyleSheet.create({
@@ -108,4 +139,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CustomBottomSheet;
+export default SelectBottomSheet;

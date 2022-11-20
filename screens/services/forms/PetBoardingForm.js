@@ -17,7 +17,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import Feather from "react-native-vector-icons/Feather";
 import OneTimeCalendar from "../../../components/calendars/OneTimeCalendar";
 import DateTimePicker from "@react-native-community/datetimepicker";
-import CustomBottomSheet from "../../../components/CustomBottomSheet";
+import CustomBottomSheet from "../../../components/bottomsheet/CustomBottomSheet";
 import Colors from "../../../utils/Colors";
 import SpecificDaysCalendar from "../../../components/calendars/SpecificDaysCalendar";
 import MapModal from "../../../components/MapModal";
@@ -33,7 +33,7 @@ const PetBoardingForm = ({ route, navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [marker, setMarker] = useState(null);
   const [frequency, setFrequency] = useState("One Time");
-  const app = useApp()
+  const app = useApp();
   const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
   const bottomSheetData = [
     { label: "Daily", value: "Daily" },
@@ -44,8 +44,7 @@ const PetBoardingForm = ({ route, navigation }) => {
   const hideBottomNavigation = () => {
     console.log("hide");
     // Function to change navigation options
-    app.hideBottomBar()
-
+    app.hideBottomBar();
   };
 
   const changedMarkedDates = (dt) => {

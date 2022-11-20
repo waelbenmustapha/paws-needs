@@ -12,7 +12,7 @@ import PawAndText from "../../../components/PawAndText";
 import ButtonPrimary from "../../../components/ButtonPrimary";
 import InputText from "../../../components/InputText";
 import CustomPicker from "../../../components/CustomPicker";
-import CustomBottomSheet from "../../../components/CustomBottomSheet";
+import CustomBottomSheet from "../../../components/bottomsheet/CustomBottomSheet";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Colors from "../../../utils/Colors";
 import SpecificDaysCalendar from "../../../components/calendars/SpecificDaysCalendar";

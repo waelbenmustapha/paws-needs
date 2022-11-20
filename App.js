@@ -6,6 +6,8 @@ import { AuthProvider } from "./context/AuthProvider";
 import MainStack from "./navigators/MainStack";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -33,20 +35,24 @@ export default function App() {
   }
 
   return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: "#fff",
-      }}
-      onLayout={onLayoutRootView}
-    >
-      <Expostatus style="dark"  translucent={true} />
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <BottomSheetModalProvider>
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: "#fff",
+          }}
+          onLayout={onLayoutRootView}
+        >
+          <Expostatus style="dark" translucent={true} />
 
-      <NavigationContainer>
-        <AuthProvider>
-          <MainStack />
-        </AuthProvider>
-      </NavigationContainer>
-    </View>
+          <NavigationContainer>
+            <AuthProvider>
+              <MainStack />
+            </AuthProvider>
+          </NavigationContainer>
+        </View>
+      </BottomSheetModalProvider>
+    </GestureHandlerRootView>
   );
 }

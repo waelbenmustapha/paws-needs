@@ -15,11 +15,11 @@ import UserImageEdit from "../../components/UserImageEdit";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 import avatarimg from "../../assets/avatar.png";
-import CustomBottomSheet from "../../components/CustomBottomSheet";
+import CustomBottomSheet from "../../components/bottomsheet/CustomBottomSheet";
 
 const AddPet = ({ navigation }) => {
   const [frequency, setFrequency] = useState("One Time");
-    
+
   const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
   const bottomSheetData = [
     { label: "Daily", value: "Daily" },

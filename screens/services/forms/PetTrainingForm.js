@@ -16,7 +16,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import Feather from "react-native-vector-icons/Feather";
 import OneTimeCalendar from "../../../components/calendars/OneTimeCalendar";
 import DateTimePicker from "@react-native-community/datetimepicker";
-import CustomBottomSheet from "../../../components/CustomBottomSheet";
+import CustomBottomSheet from "../../../components/bottomsheet/CustomBottomSheet";
 import Colors from "../../../utils/Colors";
 import SpecificDaysCalendar from "../../../components/calendars/SpecificDaysCalendar";
 import { useApp } from "../../../context/AppProvider";
@@ -28,7 +28,7 @@ const PetTrainingForm = ({ route, navigation }) => {
   const [time, setTime] = useState(new Date("2022-11-13T09:00:00.300Z"));
   const [show, setShow] = useState(false);
   const [markeddate, setMarkedDates] = useState({});
-  const app = useApp()
+  const app = useApp();
   const [frequency, setFrequency] = useState("One Time");
 
   const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
@@ -41,8 +41,7 @@ const PetTrainingForm = ({ route, navigation }) => {
   const hideBottomNavigation = () => {
     console.log("hide");
     // Function to change navigation options
-    app.hideBottomBar()
-
+    app.hideBottomBar();
   };
 
   const changedMarkedDates = (dt) => {
