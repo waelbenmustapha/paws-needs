@@ -7,21 +7,18 @@ import {
   ScrollView,
   TouchableOpacity,
   TextInput,
-  Image,
-  Pressable,
+
 } from "react-native";
 import PawAndText from "../../../components/PawAndText";
 import ButtonPrimary from "../../../components/ButtonPrimary";
-import CustomPicker from "../../../components/CustomPicker";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Feather from "react-native-vector-icons/Feather";
 import OneTimeCalendar from "../../../components/calendars/OneTimeCalendar";
 import DateTimePicker from "@react-native-community/datetimepicker";
-import CustomBottomSheet from "../../../components/bottomsheet/CustomBottomSheet";
 import Colors from "../../../utils/Colors";
 import SpecificDaysCalendar from "../../../components/calendars/SpecificDaysCalendar";
-import MapModal from "../../../components/MapModal";
-import { useApp } from "../../../context/AppProvider";
+import SelectBottomSheet from "../../../components/bottomsheet/SelectBottomSheet";
+import MapModal from "../../../components/modals/MapModal";
 
 const PetBoardingForm = ({ route, navigation }) => {
   const service = route.params.service;
@@ -32,20 +29,24 @@ const PetBoardingForm = ({ route, navigation }) => {
   const [markeddate, setMarkedDates] = useState({});
   const [modalVisible, setModalVisible] = useState(false);
   const [marker, setMarker] = useState(null);
+  
   const [frequency, setFrequency] = useState("One Time");
-  const app = useApp();
-  const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
-  const bottomSheetData = [
+  const [bottomSheetOpenFrequency, setBottomSheetOpenFrequency] =
+    useState(false);
+
+  const bottomSheetDataFrequency = [
     { label: "Daily", value: "Daily" },
     { label: "Weekly", value: "Weekly" },
     { label: "One Time", value: "One Time" },
     { label: "Specific dates", value: "Specific dates" },
   ];
-  const hideBottomNavigation = () => {
-    console.log("hide");
-    // Function to change navigation options
-    app.hideBottomBar();
-  };
+
+  const [type, setType] = useState("Pet");
+  const [bottomSheetOpenTypes, setBottomSheetOpenTypes] = useState(false);
+  const bottomSheetDataTypes = [
+    { label: "Pet", value: "pet" },
+    { label: "Dog", value: "dog" },
+  ];
 
   const changedMarkedDates = (dt) => {
     const cpy = { ...markeddate };
@@ -70,10 +71,7 @@ const PetBoardingForm = ({ route, navigation }) => {
     setOneDay({ [dt]: { selected: true } });
   };
 
-  const types = [
-    { label: "Pet", value: "pet" },
-    { label: "Dog", value: "dog" },
-  ];
+ 
 
   return (
     <View style={styles.container}>
@@ -85,18 +83,51 @@ const PetBoardingForm = ({ route, navigation }) => {
       />
       <View style={styles.nav}>
         <PawAndText title={service.name} Component={() => <></>} />
-      </View>
+      </View> 
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.content}>
           <View style={{ paddingHorizontal: 20 }}>
             <Text style={{ fontSize: 20, fontWeight: "600", marginBottom: 20 }}>
               Fill Informations
             </Text>
-            <CustomPicker items={types} />
-            <Pressable
+            <TouchableOpacity
               onPress={() => {
-                hideBottomNavigation();
-                setBottomSheetOpen(true);
+                setBottomSheetOpenTypes(true);
+              }}
+              style={{
+                height: 56,
+                paddingHorizontal: 20,
+                marginBottom: 20,
+                borderRadius: 12,
+                backgroundColor: Colors.DARK_BG,
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 14,
+                  fontWeight: "400",
+                  color: Colors.TEXT_GRAY,
+                }}
+              >
+                {type}
+              </Text>
+              <Ionicons name="caret-down" size={14} color={Colors.PRIMARY} />
+            </TouchableOpacity>
+
+            <SelectBottomSheet
+              bottomSheetOpen={bottomSheetOpenTypes}
+              setBottomSheetOpen={setBottomSheetOpenTypes}
+              setValue={setType}
+              title={"Types"}
+              data={bottomSheetDataTypes}
+            />
+
+            <TouchableOpacity
+              onPress={() => {
+                setBottomSheetOpenFrequency(true);
               }}
               style={{
                 height: 56,
@@ -119,7 +150,15 @@ const PetBoardingForm = ({ route, navigation }) => {
                 {frequency}
               </Text>
               <Ionicons name="caret-down" size={14} color={Colors.PRIMARY} />
-            </Pressable>
+            </TouchableOpacity>
+
+            <SelectBottomSheet
+              bottomSheetOpen={bottomSheetOpenFrequency}
+              setBottomSheetOpen={setBottomSheetOpenFrequency}
+              setValue={setFrequency}
+              title={"Frequency"}
+              data={bottomSheetDataFrequency}
+            />
 
             {frequency === "One Time" || frequency === "Weekly" ? (
               <OneTimeCalendar changeOneDay={changeOneDay} oneDay={oneday} />
@@ -202,13 +241,7 @@ const PetBoardingForm = ({ route, navigation }) => {
           </View>
         </View>
       </ScrollView>
-      <CustomBottomSheet
-        bottomSheetOpen={bottomSheetOpen}
-        setBottomSheetOpen={setBottomSheetOpen}
-        setValue={setFrequency}
-        title={"Frequency"}
-        data={bottomSheetData}
-      />
+      
     </View>
   );
 };

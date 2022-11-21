@@ -7,16 +7,15 @@ import {
   ScrollView,
   TouchableOpacity,
   TextInput,
-  Image,
 } from "react-native";
 import PawAndText from "../../../components/PawAndText";
 import ButtonPrimary from "../../../components/ButtonPrimary";
-import CustomPicker from "../../../components/CustomPicker";
+import Ionicons from "react-native-vector-icons/Ionicons";
 import Feather from "react-native-vector-icons/Feather";
-
 import OneTimeCalendar from "../../../components/calendars/OneTimeCalendar";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import Colors from "../../../utils/Colors";
+import SelectBottomSheet from "../../../components/bottomsheet/SelectBottomSheet";
 
 const PetGroomingForm = ({ route }) => {
   const service = route.params.service;
@@ -25,6 +24,13 @@ const PetGroomingForm = ({ route }) => {
   const [time, setTime] = useState(new Date("2022-11-13T09:00:00.300Z"));
   const [show, setShow] = useState(false);
 
+
+  const [type, setType] = useState("Pet");
+  const [bottomSheetOpenTypes, setBottomSheetOpenTypes] = useState(false);
+  const bottomSheetDataTypes = [
+    { label: "Pet", value: "pet" },
+    { label: "Dog", value: "dog" },
+  ];
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate;
     setShow(false);
@@ -39,10 +45,7 @@ const PetGroomingForm = ({ route }) => {
     setOneDay({ [dt]: { selected: true } });
   };
 
-  const types = [
-    { label: "Pet", value: "pet" },
-    { label: "Dog", value: "dog" },
-  ];
+
 
   return (
     <View style={styles.container}>
@@ -55,12 +58,40 @@ const PetGroomingForm = ({ route }) => {
             <Text style={{ fontSize: 20, fontWeight: "600", marginBottom: 20 }}>
               Fill Informations
             </Text>
-            <CustomPicker items={types} />
+            <TouchableOpacity
+              onPress={() => {
+                setBottomSheetOpenTypes(true);
+              }}
+              style={{
+                height: 56,
+                paddingHorizontal: 20,
+                marginBottom: 20,
+                borderRadius: 12,
+                backgroundColor: Colors.DARK_BG,
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 14,
+                  fontWeight: "400",
+                  color: Colors.TEXT_GRAY,
+                }}
+              >
+                {type}
+              </Text>
+              <Ionicons name="caret-down" size={14} color={Colors.PRIMARY} />
+            </TouchableOpacity>
 
-            {/*<SpecificDaysCalendar
-                markeddate={markeddate}
-                changedMarkedDates={changedMarkedDates}
-            />*/}
+            <SelectBottomSheet
+              bottomSheetOpen={bottomSheetOpenTypes}
+              setBottomSheetOpen={setBottomSheetOpenTypes}
+              setValue={setType}
+              title={"Types"}
+              data={bottomSheetDataTypes}
+            />
             <OneTimeCalendar changeOneDay={changeOneDay} oneDay={oneday} />
             <TouchableOpacity
               onPress={() => showTimepicker()}

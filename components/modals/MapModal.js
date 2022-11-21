@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, Modal, Dimensions, Alert } from "react-native";
 import React, { useState } from "react";
 import MapView, { Marker,PROVIDER_GOOGLE } from "react-native-maps";
-import Colors from "../utils/Colors";
+import Colors from "../../utils/Colors";
 
 const MapModal = ({ modalVisible, setModalVisible, marker, setMarker }) => {
   return (

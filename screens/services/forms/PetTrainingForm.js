@@ -20,6 +20,7 @@ import CustomBottomSheet from "../../../components/bottomsheet/CustomBottomSheet
 import Colors from "../../../utils/Colors";
 import SpecificDaysCalendar from "../../../components/calendars/SpecificDaysCalendar";
 import { useApp } from "../../../context/AppProvider";
+import SelectBottomSheet from "../../../components/bottomsheet/SelectBottomSheet";
 
 const PetTrainingForm = ({ route, navigation }) => {
   const service = route.params.service;
@@ -28,21 +29,24 @@ const PetTrainingForm = ({ route, navigation }) => {
   const [time, setTime] = useState(new Date("2022-11-13T09:00:00.300Z"));
   const [show, setShow] = useState(false);
   const [markeddate, setMarkedDates] = useState({});
-  const app = useApp();
   const [frequency, setFrequency] = useState("One Time");
+  const [bottomSheetOpenFrequency, setBottomSheetOpenFrequency] =
+    useState(false);
 
-  const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
-  const bottomSheetData = [
+  const bottomSheetDataFrequency = [
     { label: "Daily", value: "Daily" },
     { label: "Weekly", value: "Weekly" },
     { label: "One Time", value: "One Time" },
     { label: "Specific dates", value: "Specific dates" },
   ];
-  const hideBottomNavigation = () => {
-    console.log("hide");
-    // Function to change navigation options
-    app.hideBottomBar();
-  };
+
+  const [type, setType] = useState("Pet");
+  const [bottomSheetOpenTypes, setBottomSheetOpenTypes] = useState(false);
+  const bottomSheetDataTypes = [
+    { label: "Pet", value: "pet" },
+    { label: "Dog", value: "dog" },
+  ];
+
 
   const changedMarkedDates = (dt) => {
     const cpy = { ...markeddate };
@@ -83,11 +87,44 @@ const PetTrainingForm = ({ route, navigation }) => {
             <Text style={{ fontSize: 20, fontWeight: "600", marginBottom: 20 }}>
               Fill Informations
             </Text>
-            <CustomPicker items={types} />
-            <Pressable
+            <TouchableOpacity
               onPress={() => {
-                hideBottomNavigation();
-                setBottomSheetOpen(true);
+                setBottomSheetOpenTypes(true);
+              }}
+              style={{
+                height: 56,
+                paddingHorizontal: 20,
+                marginBottom: 20,
+                borderRadius: 12,
+                backgroundColor: Colors.DARK_BG,
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 14,
+                  fontWeight: "400",
+                  color: Colors.TEXT_GRAY,
+                }}
+              >
+                {type}
+              </Text>
+              <Ionicons name="caret-down" size={14} color={Colors.PRIMARY} />
+            </TouchableOpacity>
+
+            <SelectBottomSheet
+              bottomSheetOpen={bottomSheetOpenTypes}
+              setBottomSheetOpen={setBottomSheetOpenTypes}
+              setValue={setType}
+              title={"Types"}
+              data={bottomSheetDataTypes}
+            />
+
+            <TouchableOpacity
+              onPress={() => {
+                setBottomSheetOpenFrequency(true);
               }}
               style={{
                 height: 56,
@@ -110,7 +147,15 @@ const PetTrainingForm = ({ route, navigation }) => {
                 {frequency}
               </Text>
               <Ionicons name="caret-down" size={14} color={Colors.PRIMARY} />
-            </Pressable>
+            </TouchableOpacity>
+
+            <SelectBottomSheet
+              bottomSheetOpen={bottomSheetOpenFrequency}
+              setBottomSheetOpen={setBottomSheetOpenFrequency}
+              setValue={setFrequency}
+              title={"Frequency"}
+              data={bottomSheetDataFrequency}
+            />
 
             {frequency === "One Time" || frequency === "Weekly" ? (
               <OneTimeCalendar changeOneDay={changeOneDay} oneDay={oneday} />
@@ -171,13 +216,6 @@ const PetTrainingForm = ({ route, navigation }) => {
           </View>
         </View>
       </ScrollView>
-      <CustomBottomSheet
-        bottomSheetOpen={bottomSheetOpen}
-        setBottomSheetOpen={setBottomSheetOpen}
-        setValue={setFrequency}
-        title={"Frequency"}
-        data={bottomSheetData}
-      />
     </View>
   );
 };

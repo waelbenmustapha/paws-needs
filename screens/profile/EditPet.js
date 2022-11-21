@@ -6,19 +6,24 @@ import {
   TextInput,
   Pressable,
   ScrollView,
+  TouchableOpacity,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import Colors from "../../utils/Colors";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import UserImageEdit from "../../components/UserImageEdit";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 import avatarimg from "../../assets/dogavatar.png";
 import CustomPicker from "../../components/CustomPicker";
 import InputText from "../../components/InputText";
 import KgIcon from "../../assets/svg/kg.svg";
+import SelectBottomSheet from "../../components/bottomsheet/SelectBottomSheet";
 const EditPet = ({ navigation, route }) => {
   const pet = route.params.pet;
-  const types = [
+  const [type, setType] = useState(pet.type);
+  const [bottomSheetOpenTypes, setBottomSheetOpenTypes] = useState(false);
+  const bottomSheetValues = [
     { label: "Dog", value: "Dog" },
     { label: "Cat", value: "Cat" },
     { label: "Rabbit", value: "Rabbit" },
@@ -33,6 +38,21 @@ const EditPet = ({ navigation, route }) => {
     { label: "Cat", value: "Cat" },
     { label: "Rabbit", value: "Rabbit" },
     { label: "Turtle", value: "Turtle" },
+  ];
+  const [gender, setGender] = useState(pet.gender);
+  const [bottomSheetOpenGender, setBottomSheetOpenGender] = useState(false);
+  const Gendersvalues = [
+    { label: "Male", value: "Male" },
+    { label: "Female", value: "Female" },
+  ];
+
+  const [details, setDetails] = useState(pet.details);
+  const [bottomSheetOpenDetails, setBottomSheetOpenDetails] = useState(false);
+  const detailsValues = [
+    { label: "Calm", value: "Calm" },
+    { label: "Agressive", value: "Agressive" },
+    { label: "Lovely", value: "Lovely" },
+    { label: "more data", value: "more data" },
   ];
 
   return (
@@ -50,53 +70,125 @@ const EditPet = ({ navigation, route }) => {
             <Text style={styles.navText}>Edit Pet</Text>
           </View>
         </View>
-        <UserImageEdit image={avatarimg} />
+        <UserImageEdit image={{uri:pet.image}} />
         <View style={{ marginTop: 20 }}>
           <InputText value={pet.name} placeholder={"Name"} />
         </View>
 
-        <View
+        <TouchableOpacity
+          onPress={() => {
+            setBottomSheetOpenTypes(true);
+          }}
           style={{
-            marginTop: 20,
             height: 56,
+            paddingHorizontal: 20,
+            marginVertical: 20,
+            borderRadius: 12,
+            backgroundColor: Colors.DARK_BG,
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
           }}
         >
-          <CustomPicker placeholder={pet.type} items={types} />
-        </View>
-        <View style={{ marginTop: 20 }}>
-          <InputText value={pet.breed} placeholder={"Breed"} />
-        </View>
-        <View
-          style={{
-            marginTop: 20,
-            height: 56,
-          }}
-        >
-          <CustomPicker placeholder={pet.gender} items={types} />
-        </View>
-        <View style={{ marginTop: 20 }}>
+          <Text
+            style={{
+              fontSize: 14,
+              fontWeight: "400",
+              color: Colors.TEXT_GRAY,
+            }}
+          >
+            {type}
+          </Text>
+          <Ionicons name="caret-down" size={14} color={Colors.PRIMARY} />
+        </TouchableOpacity>
+
+        <SelectBottomSheet
+          bottomSheetOpen={bottomSheetOpenTypes}
+          setBottomSheetOpen={setBottomSheetOpenTypes}
+          setValue={setType}
+          title={"Type"}
+          data={bottomSheetValues}
+        />
+        <InputText value={pet.breed} placeholder={"Breed"} />
+        <TouchableOpacity
+              onPress={() => {
+                setBottomSheetOpenGender(true);
+              }}
+              style={{
+                height: 56,
+                paddingHorizontal: 20,
+                marginVertical: 20,
+                borderRadius: 12,
+                backgroundColor: Colors.DARK_BG,
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 14,
+                  fontWeight: "400",
+                  color: Colors.TEXT_GRAY,
+                }}
+              >
+                {gender}
+              </Text>
+              <Ionicons name="caret-down" size={14} color={Colors.PRIMARY} />
+            </TouchableOpacity>
+
+            <SelectBottomSheet
+              bottomSheetOpen={bottomSheetOpenGender}
+              setBottomSheetOpen={setBottomSheetOpenGender}
+              setValue={setGender}
+              title={"Genders"}
+              data={Gendersvalues}
+            />
           <InputText
-          value={pet.weight.toString()}
+            value={pet.weight.toString()}
             icon={<KgIcon color={Colors.PRIMARY} />}
             placeholder={"Weight"}
           />
-        </View>
-        <View
-          style={{
-            marginTop: 20,
-            height: 56,
-          }}
-        >
-          <CustomPicker placeholder={"More Details"} items={types} />
-        </View>
-        <View style={{ marginTop: 20 }}>
+        <TouchableOpacity
+              onPress={() => {
+                setBottomSheetOpenDetails(true);
+              }}
+              style={{
+                height: 56,
+                paddingHorizontal: 20,
+                marginVertical: 20,
+                borderRadius: 12,
+                backgroundColor: Colors.DARK_BG,
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 14,
+                  fontWeight: "400",
+                  color: Colors.TEXT_GRAY,
+                }}
+              >
+                {details}
+              </Text>
+              <Ionicons name="caret-down" size={14} color={Colors.PRIMARY} />
+            </TouchableOpacity>
+
+            <SelectBottomSheet
+              bottomSheetOpen={bottomSheetOpenDetails}
+              setBottomSheetOpen={setBottomSheetOpenDetails}
+              setValue={setDetails}
+              title={"More Details"}
+              data={detailsValues}
+            />
           <TextInput
             multiline={true}
             numberOfLines={3}
             value={pet.description}
             style={[styles.input, { minHeight: 100, textAlignVertical: "top" }]}
           />
-        </View>
       </ScrollView>
       <View
         style={{
