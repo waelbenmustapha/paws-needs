@@ -1,0 +1,16 @@
+service: pwsneeds
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  memorySize: 128
+  region: eu-west-3
+  stage: ${opt:stage, 'dev'}
+functions:
+  createUser:
+    handler: src/handlers/createUser.handler
+    events:
+      - httpApi:
+          path: /users
+          method: POST
