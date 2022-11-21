@@ -10,7 +10,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "mongoose": "^6.7.2",
+    "serverless-dotenv-plugin": "^4.0.2",
     "validator": "^13.7.0"
+  },
+  "devDependencies": {
+    "serverless-offline": "^11.5.0"
   }
 }

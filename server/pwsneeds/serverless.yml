@@ -1,5 +1,8 @@
 service: pwsneeds
 frameworkVersion: '3'
+plugins:
+  - serverless-dotenv-plugin
+  - serverless-offline
 
 provider:
   name: aws
@@ -14,3 +17,15 @@ functions:
       - httpApi:
           path: /users
           method: POST
+  getUsers:
+    handler: src/handlers/users.getAll
+    events:
+      - httpApi:
+          path: /users/get
+          method: get
+  findUserByEmail:
+    handler: src/handlers/users.getByEmail
+    events:
+      - httpApi:
+          path: /users/{email}
+          method: get
