@@ -1,5 +1,5 @@
-const connectDatabase = require("../database/db");
-const User = require("../models/user");
+const connectDatabase = require("../../database/db");
+const User = require("../../models/user");
 const bcrypt = require("bcryptjs");
 module.exports.handler = async (event, context) => {
   context.callbackWaitsForEmptyEventLoop = false;

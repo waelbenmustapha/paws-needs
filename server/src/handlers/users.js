@@ -1,6 +1,7 @@
 const connectDatabase = require("../database/db");
 const User = require("../models/user");
 const bcrypt = require("bcryptjs");
+
 module.exports.getAll = async (event, context) => {
   context.callbackWaitsForEmptyEventLoop = false;
 
@@ -14,7 +15,6 @@ module.exports.getAll = async (event, context) => {
       body: JSON.stringify(users),
     };
   } catch (error) {
-    console.log(error);
     return {
       statusCode: error.statusCode || 500,
       body: JSON.stringify({ error: error.message }),
@@ -23,20 +23,22 @@ module.exports.getAll = async (event, context) => {
 };
 
 module.exports.getByEmail = async (event, context) => {
+
+  
   context.callbackWaitsForEmptyEventLoop = false;
+
+
   try {
     await connectDatabase();
     const { email } = event.pathParameters;
-    console.log(email)
     const users = await User.findOne({ email });
-    console.log(users)
 
     return {
       statusCode: 201,
       body: JSON.stringify(users),
     };
   } catch (error) {
-    console.log(error);
+    
     return {
       statusCode: error.statusCode || 500,
       body: JSON.stringify({ error: error.message }),
