@@ -10,6 +10,8 @@ provider:
   memorySize: 128
   region: eu-west-3
   stage: ${opt:stage, 'dev'}
+
+#Functions Apis
 functions:
   getAllUsers:
     handler: src/handlers/users/getAllUsers.handler
@@ -40,4 +42,61 @@ functions:
     events:
       - httpApi:
           path: /users/delete-user/{id}
+          method: DELETE
+
+  #Service Categories EndPoints
+  createServiceCategory:
+    handler: src/handlers/serviceCategory/createServiceCategory.handler
+    events:
+      - httpApi:
+          path: /servicesCategory/create
+          method: POST
+  getAllServiceCategories:
+    handler: src/handlers/serviceCategory/getAllServicesCategory.handler
+    events:
+      - httpApi:
+          path: /servicesCategory/get
+          method: GET
+  deleteServiceCategory:
+    handler: src/handlers/serviceCategory/deleteServiceCategory.handler
+    events:
+      - httpApi:
+          path: /servicesCategory/delete/{id}
+          method: DELETE
+  updateServiceCategory:
+    handler: src/handlers/serviceCategory/updateServiceCategory.handler
+    events:
+      - httpApi:
+          path: /servicesCategory/update/{id}
+          method: PUT
+  #Services EndPoints
+  createService:
+    handler: src/handlers/services/createService.handler
+    events:
+      - httpApi:
+          path: /services/create
+          method: POST
+  getAllServices:
+    handler: src/handlers/services/getAllServices.handler
+    events:
+      - httpApi:
+          path: /services/get
+          method: GET
+  getServiceByCategoryId:
+    handler: src/handlers/services/servicesByCategoryId.handler
+    events:
+      - httpApi:
+          path: /services/get-by-category-id/{id}
+          method: GET
+  updateService:
+    handler: src/handlers/services/updateService.handler
+    events:
+      - httpApi:
+          path: /services/update/{id}
+          method: PUT
+  deleteService:
+    handler: src/handlers/services/deleteService.handler
+    events:
+      - httpApi:
+          path: /services/delete/{id}
           method: DELETE

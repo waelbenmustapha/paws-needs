@@ -1,17 +1,18 @@
 const connectDatabase = require("../../database/db");
-const Service = require("../../models/service");
+const ServiceCategory = require("../../models/serviceCategory");
 
 module.exports.handler = async (event, context) => {
   context.callbackWaitsForEmptyEventLoop = false;
 
   try {
     await connectDatabase();
+    const { name, image } = JSON.parse(event.body);
 
-    const Services = await Service.find({});
+    const ServiceCategoryObj = await ServiceCategory.create({ name, image });
 
     return {
-      statusCode: 200,
-      body: JSON.stringify(Services),
+      statusCode: 201,
+      body: JSON.stringify(ServiceCategoryObj),
     };
   } catch (error) {
     return {

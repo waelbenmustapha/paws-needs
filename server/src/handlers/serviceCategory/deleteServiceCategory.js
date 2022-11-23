@@ -1,17 +1,18 @@
 const connectDatabase = require("../../database/db");
-const Service = require("../../models/service");
+const ServiceCategory = require("../../models/serviceCategory");
 
 module.exports.handler = async (event, context) => {
   context.callbackWaitsForEmptyEventLoop = false;
 
   try {
     await connectDatabase();
+    const { id } = event.pathParameters;
 
-    const Services = await Service.find({});
+     await ServiceCategory.deleteOne({_id:id});
 
     return {
       statusCode: 200,
-      body: JSON.stringify(Services),
+      body: JSON.stringify({message:"Service Category Succefully Deleted"}),
     };
   } catch (error) {
     return {

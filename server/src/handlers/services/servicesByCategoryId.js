@@ -6,8 +6,9 @@ module.exports.handler = async (event, context) => {
 
   try {
     await connectDatabase();
+    const { id } = event.pathParameters;
 
-    const Services = await Service.find({});
+    const Services = await Service.find({serviceCategory:id});
 
     return {
       statusCode: 200,
