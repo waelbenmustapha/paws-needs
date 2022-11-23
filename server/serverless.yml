@@ -1,5 +1,5 @@
 service: pwsneeds
-frameworkVersion: '3'
+frameworkVersion: "3"
 plugins:
   - serverless-dotenv-plugin
   - serverless-offline
@@ -11,21 +11,33 @@ provider:
   region: eu-west-3
   stage: ${opt:stage, 'dev'}
 functions:
+  getAllUsers:
+    handler: src/handlers/users/getAllUsers.handler
+    events:
+      - httpApi:
+          path: /users/get-all-users
+          method: get
+  findUserById:
+    handler: src/handlers/users/getOneUser.handler
+    events:
+      - httpApi:
+          path: /users/find-by-id/{id}
+          method: get
   createUser:
-    handler: src/handlers/createUser.handler
+    handler: src/handlers/users/createUser.handler
     events:
       - httpApi:
-          path: /users
+          path: /users/create-user
           method: POST
-  getUsers:
-    handler: src/handlers/users.getAll
+  updateUser:
+    handler: src/handlers/users/updateUser.handler
     events:
       - httpApi:
-          path: /users/get
-          method: get
-  findUserByEmail:
-    handler: src/handlers/users.getByEmail
+          path: /users/update-user/{id}
+          method: PUT
+  deleteUser:
+    handler: src/handlers/users/deleteUser.handler
     events:
       - httpApi:
-          path: /users/{email}
-          method: get
+          path: /users/delete-user/{id}
+          method: DELETE
