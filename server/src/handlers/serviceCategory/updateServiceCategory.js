@@ -1,17 +1,22 @@
 const connectDatabase = require("../../database/db");
-const Service = require("../../models/service");
+const ServiceCategory = require("../../models/serviceCategory");
 
 module.exports.handler = async (event, context) => {
   context.callbackWaitsForEmptyEventLoop = false;
 
   try {
     await connectDatabase();
+    const { name, image } = JSON.parse(event.body);
+    const { id } = event.pathParameters;
 
-    const Services = await Service.find({});
+    await ServiceCategory.findOneAndUpdate(
+      { _id: id },
+      { name, image }
+    );
 
     return {
       statusCode: 200,
-      body: JSON.stringify(Services),
+      body: JSON.stringify("Updated Succefully"),
     };
   } catch (error) {
     return {

@@ -6,12 +6,17 @@ module.exports.handler = async (event, context) => {
 
   try {
     await connectDatabase();
+    const { name, image } = JSON.parse(event.body);
+    const { id } = event.pathParameters;
 
-    const Services = await Service.find({});
+    await Service.findOneAndUpdate(
+      { _id: id },
+      { name, image }
+    );
 
     return {
       statusCode: 200,
-      body: JSON.stringify(Services),
+      body: JSON.stringify("Service Updated Succefully"),
     };
   } catch (error) {
     return {
