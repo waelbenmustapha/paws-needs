@@ -1,6 +1,5 @@
 const connectDatabase = require("../../database/db");
 const ServiceCategory = require("../../models/serviceCategory");
-const Service = require("../../models/service");
 module.exports.handler = async (event, context) => {
   context.callbackWaitsForEmptyEventLoop = false;
 
@@ -26,7 +25,7 @@ module.exports.handler = async (event, context) => {
   } catch (error) {
     return {
       statusCode: error.statusCode || 500,
-      body: JSON.stringify({ error: error.message }),
+      body: JSON.stringify({ success: false, error: error.message }),
     };
   }
 };

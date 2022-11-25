@@ -9,19 +9,16 @@ module.exports.handler = async (event, context) => {
     const { name, image } = JSON.parse(event.body);
     const { id } = event.pathParameters;
 
-    await Service.findOneAndUpdate(
-      { _id: id },
-      { name, image }
-    );
+    await Service.findOneAndUpdate({ _id: id }, { name, image });
 
     return {
       statusCode: 200,
       body: JSON.stringify("Service Updated Succefully"),
     };
   } catch (error) {
-    return {
+    return {    
       statusCode: error.statusCode || 500,
-      body: JSON.stringify({ error: error.message }),
+      body: JSON.stringify({ success: false, error: error.message }),
     };
   }
 };

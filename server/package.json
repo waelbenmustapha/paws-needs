@@ -10,7 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@middy/core": "^4.0.0",
     "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.7.2",
     "serverless-dotenv-plugin": "^4.0.2",
     "validator": "^13.7.0"

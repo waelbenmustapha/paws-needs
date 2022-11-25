@@ -1,7 +1,10 @@
 const connectDatabase = require("../../database/db");
 const User = require("../../models/user");
 
-module.exports.handler = async (event, context) => {
+const middy = require('@middy/core')
+
+const jwtAuthorizer = require("../../utils/authorize")
+const MyFunctionLogic = async (event, context) => {
   context.callbackWaitsForEmptyEventLoop = false;
 
   try {
@@ -20,3 +23,8 @@ module.exports.handler = async (event, context) => {
     };
   }
 };
+
+module.exports.handler = middy(MyFunctionLogic).use(jwtAuthorizer())
+
+
+  

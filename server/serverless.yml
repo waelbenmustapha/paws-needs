@@ -12,6 +12,7 @@ provider:
   stage: ${opt:stage, 'dev'}
 
 #Functions Apis
+
 functions:
   getAllUsers:
     handler: src/handlers/users/getAllUsers.handler
@@ -19,6 +20,12 @@ functions:
       - httpApi:
           path: /users/get-all-users
           method: get
+  loginUser:
+    handler: src/handlers/users/loginUser.handler
+    events:
+      - httpApi:
+          path: /users/login
+          method: get  
   findUserById:
     handler: src/handlers/users/getOneUser.handler
     events:
