@@ -14,32 +14,56 @@ provider:
 #Functions Apis
 
 functions:
-  getAllUsers:
-    handler: src/handlers/users/getAllUsers.handler
+  login:
+    handler: src/handlers/auth/login.handler
     events:
       - httpApi:
-          path: /users/get-all-users
-          method: get
-  loginUser:
-    handler: src/handlers/users/loginUser.handler
+          path: /auth/login
+          method: POST
+  signup:
+    handler: src/handlers/auth/signup.handler
     events:
       - httpApi:
-          path: /users/login
-          method: get  
-  findUserById:
-    handler: src/handlers/users/getOneUser.handler
+          path: /auth/signup
+          method: POST
+  signupProvider:
+    handler: src/handlers/auth/signupProvider.handler
     events:
       - httpApi:
-          path: /users/find-by-id/{id}
-          method: get
+          path: /auth/signup-provider
+          method: POST
   createUser:
     handler: src/handlers/users/createUser.handler
     events:
       - httpApi:
           path: /users/create-user
           method: POST
-  updateUser:
-    handler: src/handlers/users/updateUser.handler
+  getAllUsers:
+    handler: src/handlers/users/getAllUsers.handler
+    events:
+      - httpApi:
+          path: /users/get-all-users
+          method: GET
+  getCurrentUser:
+    handler: src/handlers/users/getCurrentUser.handler
+    events:
+      - httpApi:
+          path: /users/get-current-user
+          method: GET
+  findUserById:
+    handler: src/handlers/users/findUserById.handler
+    events:
+      - httpApi:
+          path: /users/find-user-by-id/{id}
+          method: GET
+  updateCurrentUser:
+    handler: src/handlers/users/updateCurrentUser.handler
+    events:
+      - httpApi:
+          path: /users/update-current-user
+          method: PUT
+  updateUserById:
+    handler: src/handlers/users/updateUserById.handler
     events:
       - httpApi:
           path: /users/update-user/{id}

@@ -1,10 +1,9 @@
 const connectDatabase = require("../../database/db");
 const User = require("../../models/user");
+const middy = require("@middy/core");
+const { verifyJWT, verifyAdmin } = require("../../middleware/authorize");
 
-const middy = require('@middy/core')
-
-const jwtAuthorizer = require("../../utils/authorize")
-const MyFunctionLogic = async (event, context) => {
+const getAllUsers = async (event, context) => {
   context.callbackWaitsForEmptyEventLoop = false;
 
   try {
@@ -24,7 +23,4 @@ const MyFunctionLogic = async (event, context) => {
   }
 };
 
-module.exports.handler = middy(MyFunctionLogic).use(jwtAuthorizer())
-
-
-  
+module.exports.handler = middy(getAllUsers).use(verifyJWT()).use(verifyAdmin());

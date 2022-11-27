@@ -1,15 +1,15 @@
 const connectDatabase = require("../../database/db");
 const User = require("../../models/user");
-const bcrypt = require("bcryptjs");
 const middy = require("@middy/core");
 const { verifyJWT, verifyAdmin } = require("../../middleware/authorize");
 
-const createUser = async (event, context) => {
+const updateUserById = async (event, context) => {
   context.callbackWaitsForEmptyEventLoop = false;
-  const obj = JSON.parse(event.body);
+  const { id } = event.pathParameters;
+  const inputData = JSON.parse(event.body);
 
   // check input data
-  if (!obj || !obj.fullname || !obj.email || !obj.password) {
+  if (!inputData || !inputData.fullname || !inputData.email) {
     return {
       statusCode: 400,
       body: JSON.stringify({
@@ -22,78 +22,71 @@ const createUser = async (event, context) => {
   // check if email is valid
   const emailRegexp =
     /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
-
-  if (!emailRegexp.test(obj.email)) {
+  if (!emailRegexp.test(inputData.email)) {
     return {
       statusCode: 400,
       body: JSON.stringify({
         success: false,
-        msg: "invalid email address",
+        msg: "Enter correct email address",
       }),
     };
   }
 
-  // Ckeck Password Length
-  if (obj.password.length < 8) {
-    return {
-      statusCode: 400,
-      body: JSON.stringify({
-        success: false,
-        msg: "password should be 8 characters or more",
-      }),
-    };
-  }
-
-  // Hash password
-  const salt = await bcrypt.genSalt(10);
-  const hashedPassword = bcrypt.hashSync(obj.password, salt);
-
-  // Create User Object
-  let newUser = new User({
-    fullname: obj.fullname,
-    email: obj.email,
-    password: hashedPassword,
+  // create a new user object
+  let newUser = {
+    fullname: inputData.fullname,
+    email: inputData.email,
     phoneNumber: null,
+    profile_pic:
+      "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__480.png",
+    address: {
+      name: null,
+      street: null,
+      city: null,
+      longitude: null,
+      latitude: null,
+    },
     role: "user",
     status: "active",
-  });
+  };
 
   try {
     await connectDatabase();
 
-    // Ckeck if user with this email exist
-    const user = await User.findOne({ email: newUser.email });
+    // check if there is a user exist with the same email entred
+    const user = await User.findOne({
+      $and: [{ _id: { $ne: id } }, { email: newUser.email }],
+    });
 
     if (user) {
       return {
         statusCode: 400,
         body: JSON.stringify({
           success: false,
-          msg: "Email already exist",
+          msg: "email already been used",
         }),
       };
     }
 
-    // save data
-    const savedData = await User.create(newUser);
+    // ckeck if user user exist with this id then save data
+    const savedData = await User.findByIdAndUpdate({ _id: id }, newUser);
     if (!savedData) {
       return {
-        statusCode: 500,
+        statusCode: 404,
         body: JSON.stringify({
           success: false,
-          msg: "Something went wrong",
+          msg: "user not found",
         }),
       };
     }
     return {
-      statusCode: 201,
+      statusCode: 200,
       body: JSON.stringify({
         success: true,
-        msg: "user created successfuly",
+        msg: "user updated successfuly",
       }),
     };
   } catch (error) {
-    console.log(error);
     return {
       statusCode: error.statusCode || 500,
       body: JSON.stringify({ success: false, error: error.message }),
@@ -101,4 +94,6 @@ const createUser = async (event, context) => {
   }
 };
 
-module.exports.handler = middy(createUser).use(verifyJWT()).use(verifyAdmin());
+module.exports.handler = middy(updateUserById)
+  .use(verifyJWT())
+  .use(verifyAdmin());
