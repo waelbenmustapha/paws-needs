@@ -1,0 +1,10 @@
+.rowtbl:hover {
+  cursor: pointer;
+  background-color: #ececec !important;
+}
+.tdstyle {
+  border-bottom: 1px solid #dee2e6;
+  padding: 15px;
+  width: 1%;
+  border-right: 1px solid #dee2e6;
+}

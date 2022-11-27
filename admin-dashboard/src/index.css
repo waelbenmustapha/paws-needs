@@ -1,0 +1,23 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap");
+
+/* html {
+  scroll-behavior: smooth;
+} */
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+  color: #0f2837;
+}
+
+@layer utilities {
+  .trapezoid-clip-path {
+    clip-path: polygon(0 0, 100% 0, 90% 100%, 10% 100%);
+  }
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

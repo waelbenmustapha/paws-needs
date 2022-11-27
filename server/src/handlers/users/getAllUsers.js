@@ -10,12 +10,25 @@ const MyFunctionLogic = async (event, context) => {
   try {
     await connectDatabase();
 
-    const users = await User.find();
+    const page = event.queryStringParameters.page || 0;
+    const perpage = event.queryStringParameters.perpage || 5;
+    const sort = event.queryStringParameters.sort || "_id";
+    const asc = event.queryStringParameters.asc || 1;
+    const users = await User.find({},{isAdmin:0,password:0})
+      .skip(page * perpage)
+      .limit(perpage)
+      .sort({ [sort]: asc });
 
     return {
       statusCode: 200,
-      body: JSON.stringify(users),
+      body: JSON.stringify({
+        data: users,
+        page,
+        perpage,
+        total: await User.count(),
+      }),
     };
+  
   } catch (error) {
     return {
       statusCode: error.statusCode || 500,
@@ -24,7 +37,7 @@ const MyFunctionLogic = async (event, context) => {
   }
 };
 
-module.exports.handler = middy(MyFunctionLogic).use(jwtAuthorizer())
+module.exports.handler = middy(MyFunctionLogic)
 
 
   

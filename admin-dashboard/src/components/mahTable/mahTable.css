@@ -1,0 +1,24 @@
+.tablecontainer {
+  width: 100%;
+  border: 1px solid #dee2e6;
+}
+.trstyle {
+  text-align: left;
+  border-bottom: 1px solid #ff9619;
+  padding: 15px;
+  border-right: 1px solid #dee2e6;
+}
+.filterpagination {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+.centered {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}

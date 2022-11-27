@@ -7,7 +7,6 @@ plugins:
 provider:
   name: aws
   runtime: nodejs16.x
-  memorySize: 128
   region: eu-west-3
   stage: ${opt:stage, 'dev'}
 

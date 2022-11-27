@@ -1,0 +1,77 @@
+.custom-table td:first-child,
+.custom-table th:first-child {
+  border-radius: 5px 0 0 5px;
+}
+
+.custom-table td:last-child,
+.custom-table th:last-child {
+  border-radius: 0 5px 5px 0;
+}
+
+.custom-table th:first-child {
+  padding-left: 0px;
+}
+.custom-table th:last-child {
+  padding-right: 0px;
+}
+
+/* width */
+.scrollNavbar::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Handle */
+.scrollNavbar::-webkit-scrollbar-thumb {
+  background: rgb(214, 214, 214);
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+.scrollNavbar::-webkit-scrollbar-thumb:hover {
+  background: #727272;
+}
+
+.tablecontainer {
+  width: 100%;
+  border: 1px solid #dee2e6;
+}
+.trstyle {
+  text-align: left;
+  border-bottom: 1px solid #ff9619;
+  padding: 15px;
+  border-right: 1px solid #dee2e6;
+}
+.filterpagination {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+.centered {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.iconhover:hover {
+  color: #EB5A3C;
+  transform: scale(1.2);
+
+}
+.iconhover {
+  transition: all .2s ease-in-out;
+  height: 40px;
+  width: 40px;
+}
+.rowtbl:hover {
+  cursor: pointer;
+  background-color: #ececec !important;
+}
+.tdstyle {
+  border-bottom: 1px solid #dee2e6;
+  padding: 15px;
+  width: 1%;
+  border-right: 1px solid #dee2e6;
+}

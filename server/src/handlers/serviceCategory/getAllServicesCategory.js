@@ -6,22 +6,25 @@ module.exports.handler = async (event, context) => {
   try {
     await connectDatabase();
 
-    const serviceCategories = await ServiceCategory.find({});
-    /*
-    for (i = 0; i < serviceCategories.length; i++) {
-      const servicescount = await Service.find({
-        serviceCategory: serviceCategories[i]._id,
-      }).count();
-      serviceCategories[i] = {
-        ...serviceCategories[i].toObject(),
-        count: servicescount,
-      };
-    }
-*/
+    const page = event.queryStringParameters.page || 0;
+    const perpage = event.queryStringParameters.perpage || 5;
+    const sort = event.queryStringParameters.sort || "_id";
+    const asc = event.queryStringParameters.asc || 1;
+    const serviceCategoriesList = await ServiceCategory.find({}, { services: 0 })
+      .skip(page * perpage)
+      .limit(perpage)
+      .sort({ [sort]: asc });
+
     return {
       statusCode: 200,
-      body: JSON.stringify(serviceCategories),
+      body: JSON.stringify({
+        data: serviceCategoriesList,
+        page,
+        perpage,
+        total: await ServiceCategory.count(),
+      }),
     };
+    
   } catch (error) {
     return {
       statusCode: error.statusCode || 500,

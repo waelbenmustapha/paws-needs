@@ -10,6 +10,7 @@ const ServiceCategorySchema = new mongoose.Schema({
     required: [true, "Please Add an Image"],
   },
   services: [{ type: mongoose.Schema.Types.ObjectId, ref: "Service" }],
-});
+},
+{ timestamps: true });
 
 module.exports = mongoose.model("ServiceCategory", ServiceCategorySchema);
