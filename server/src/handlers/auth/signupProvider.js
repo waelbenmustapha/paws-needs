@@ -1,10 +1,8 @@
 const connectDatabase = require("../../database/db");
 const User = require("../../models/user");
 const bcrypt = require("bcryptjs");
-const middy = require("@middy/core");
-const { verifyJWT, verifyAdmin } = require("../../middleware/authorize");
 
-const createUser = async (event, context) => {
+module.exports.handler = async (event, context) => {
   context.callbackWaitsForEmptyEventLoop = false;
   const obj = JSON.parse(event.body);
 
@@ -19,10 +17,9 @@ const createUser = async (event, context) => {
     };
   }
 
-  // check if email is valid
+  // check email is valid or not
   const emailRegexp =
     /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
-
   if (!emailRegexp.test(obj.email)) {
     return {
       statusCode: 400,
@@ -33,7 +30,7 @@ const createUser = async (event, context) => {
     };
   }
 
-  // Ckeck Password Length
+  // check password length
   if (obj.password.length < 8) {
     return {
       statusCode: 400,
@@ -48,21 +45,19 @@ const createUser = async (event, context) => {
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = bcrypt.hashSync(obj.password, salt);
 
-  // Create User Object
+  // create new user object with new data
   let newUser = new User({
     fullname: obj.fullname,
     email: obj.email,
     password: hashedPassword,
+    role: "provider",
     phoneNumber: null,
-    role: "user",
-    status: "active",
   });
 
   try {
     await connectDatabase();
 
-    // Ckeck if user with this email exist
-    const user = await User.findOne({ email: newUser.email });
+    const user = await User.findOne({ email: newUser.email, role: "provider" });
 
     if (user) {
       return {
@@ -74,7 +69,6 @@ const createUser = async (event, context) => {
       };
     }
 
-    // save data
     const savedData = await User.create(newUser);
     if (!savedData) {
       return {
@@ -89,7 +83,7 @@ const createUser = async (event, context) => {
       statusCode: 201,
       body: JSON.stringify({
         success: true,
-        msg: "user created successfuly",
+        msg: "provider account created successfuly",
       }),
     };
   } catch (error) {
@@ -100,5 +94,3 @@ const createUser = async (event, context) => {
     };
   }
 };
-
-module.exports.handler = middy(createUser).use(verifyJWT()).use(verifyAdmin());

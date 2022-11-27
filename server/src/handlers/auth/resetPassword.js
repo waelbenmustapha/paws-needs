@@ -1,17 +1,22 @@
 const connectDatabase = require("../../database/db");
 const User = require("../../models/user");
+const jwt = require("jsonwebtoken");
 const middy = require("@middy/core");
-const { verifyJWT, verifyAdmin } = require("../../middleware/authorize");
+const { verifyJWT } = require("../../middleware/authorize");
 
-const deleteUser = async (event, context) => {
+const resetPassword = async (event, context) => {
   context.callbackWaitsForEmptyEventLoop = false;
-  const { id } = event.pathParameters;
+  const token = event.headers.authorization.replace("Bearer ", "");
 
   try {
     await connectDatabase();
 
-    const savedData = await User.findByIdAndDelete({ _id: id });
-    if (!savedData) {
+    // get user id from token
+    const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
+
+    const user = await User.findOne({ _id: decoded.data._id });
+
+    if (!user) {
       return {
         statusCode: 404,
         body: JSON.stringify({
@@ -20,15 +25,12 @@ const deleteUser = async (event, context) => {
         }),
       };
     }
+
     return {
       statusCode: 200,
-      body: JSON.stringify({
-        success: true,
-        msg: "user deleted successfuly",
-      }),
+      body: JSON.stringify(user),
     };
   } catch (error) {
-    console.log(error);
     return {
       statusCode: error.statusCode || 500,
       body: JSON.stringify({ success: false, error: error.message }),
@@ -36,4 +38,4 @@ const deleteUser = async (event, context) => {
   }
 };
 
-module.exports.handler = middy(deleteUser).use(verifyJWT()).use(verifyAdmin());
+module.exports.handler = middy(resetPassword).use(verifyJWT());

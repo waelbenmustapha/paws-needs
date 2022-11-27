@@ -16,6 +16,7 @@ const UserSchema = new mongoose.Schema(
     },
     password: {
       type: String,
+      trim: true,
       required: [true, "please add a password"],
       minLength: 8,
       select: false,
@@ -27,10 +28,17 @@ const UserSchema = new mongoose.Schema(
       longitude: { type: Number, required: false, default: null },
       latitude: { type: Number, required: false, default: null },
     },
+    phoneNumber: { type: String, required: false, default: null },
     profile_pic: { type: String, required: false, default: null },
-    isAdmin: {
-      type: Boolean,
-      default: false,
+    role: {
+      type: String,
+      default: "user",
+      enum: ["user", "provider", "admin"],
+    },
+    status: {
+      type: String,
+      default: "active",
+      enum: ["active", "suspended", "blocked"],
     },
   },
   { timestamps: true }

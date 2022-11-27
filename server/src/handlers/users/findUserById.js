@@ -1,12 +1,15 @@
 const connectDatabase = require("../../database/db");
 const User = require("../../models/user");
+const middy = require("@middy/core");
+const { verifyJWT, verifyAdmin } = require("../../middleware/authorize");
 
-module.exports.handler = async (event, context) => {
+const findUserById = async (event, context) => {
   context.callbackWaitsForEmptyEventLoop = false;
   const { id } = event.pathParameters;
 
   try {
     await connectDatabase();
+
     const user = await User.findOne({ _id: id });
 
     if (!user) {
@@ -30,3 +33,7 @@ module.exports.handler = async (event, context) => {
     };
   }
 };
+
+module.exports.handler = middy(findUserById)
+  .use(verifyJWT())
+  .use(verifyAdmin());
