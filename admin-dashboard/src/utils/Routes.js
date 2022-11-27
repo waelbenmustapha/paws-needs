@@ -15,7 +15,6 @@ import Events from "../screens/usersScreens/Events";
 import UserPannel from "../screens/usersScreens/UserPannel";
 import UserProfile from "../screens/usersScreens/UserProfile";
 import EditMain from "../screens/usersScreens/EditProfile/EditMain";
-import Services from "../screens/dashboardScreens/settings/Services";
 import Pets from "../screens/dashboardScreens/pets/Pets";
 import ServicesCategories from "../screens/dashboardScreens/servicesCategories/ServicesCategories";
 
