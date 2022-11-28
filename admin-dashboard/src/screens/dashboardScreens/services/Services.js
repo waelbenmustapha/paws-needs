@@ -7,7 +7,7 @@ import { ReactComponent as Add } from "../../../assets/svg/add.svg";
 import { Link } from "react-router-dom";
 import { useGetAllServices } from "../../../apis/services/useGetAllServices";
 function Services() {
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [perPage, setPerPage] = useState(5);
 
   const fields = ["#ID", "Name", "Image", "Category"];

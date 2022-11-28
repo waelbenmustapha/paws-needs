@@ -1,40 +1,27 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ReactComponent as Student } from "../../../assets/svg/student.svg";
-import axios from "axios";
 import { useAppContext } from "../../../Context/AppContext";
-import congratsImage from "../../../assets/images/congrats.png";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import InputText from "../../../components/InputText";
 import { useCreateUser } from "../../../apis/users/useCreateUser";
+import { useCreateServiceCategory } from "../../../apis/servicesCategories/useAddServiceCategory";
 import { Oval } from "react-loader-spinner";
 
-function AddUser() {
+function AddServiceCategory() {
   const context = useAppContext();
   const navigate = useNavigate();
 
-  const [data, setData] = useState({ email: "", password: "", fullname: "" });
-  const { mutateAsync: fnadduser,isLoading } = useCreateUser();
+  const [data, setData] = useState({ name: "", image: "" });
+  const { mutateAsync: fnaddServiceCategory,isLoading } = useCreateServiceCategory();
   function isValidEmail(email) {
     return /\S+@\S+\.\S+/.test(email);
   }
 
   function handleSubmitUser() {
     console.log(data);
-    if (
-      data.email.length > 0 &&
-      data.password.length > 0 &&
-      data.fullname.length > 0
-    ) {
-      if (!isValidEmail(data.email)) {
-        toast.error("please enter a valid email");
-      } else if (data.password.length < 8) {
-        toast.error("password must be longer than 8 characters");
-      } else {
-        console.log("mrigel");
-        fnadduser(data).then(() => navigate("/dashboard/users"));
-      }
+    if (data.name.length > 0 ) {
+      fnaddServiceCategory(data).then(() => navigate("/dashboard/services-categories"));
     } else {
       toast.error("please fill all the input");
     }
@@ -44,7 +31,7 @@ function AddUser() {
       <div>
         <ToastContainer />
       </div>
-      <div className="w-full min-h-screen p-6 2lg:p-14 text-main-text">
+      <div className=" relative w-full min-h-screen p-6 2lg:p-14 text-main-text">
       {isLoading&&<div className="centered">
               <Oval
                 heigth="120"
@@ -56,15 +43,15 @@ function AddUser() {
               />
             </div>}
         <p className="text-xs mb-2">
-          <Link to={"/dashboard/users"}>Users</Link> &gt;{" "}
-          <Link to={"/dashboard/users-add"}>Add New User</Link>
+          <Link to={"/dashboard/services-categories"}>Service Categories</Link> &gt;{" "}
+          <Link to={"/dashboard/service-category-add"}>Add New Service Category</Link>
         </p>
-        <p className="mb-10 font-bold text-tiny lg:text-2xl">Add New User</p>
+        <p className="mb-10 font-bold text-tiny lg:text-2xl">Add New Service Category</p>
         <p className="mb-2 font-bold text-tiny lg:text-base">
-          New User Profile
+          New Service Category
         </p>
         <p className="mb-9 text-[#87949B] text-xs lg:text-tiny">
-          Fill in the details of the user using the sections below
+          Fill in the details of the service category using the sections below
         </p>
         <div className="w-full h-[1px] mb-9 border-devider-color border-b-1"></div>
 
@@ -75,31 +62,24 @@ function AddUser() {
               <div className="flex-initial min-w-[400px] max-w-[500px] mb-[20px]">
                 <InputText
                   type="text"
-                  labelText="Full Name"
+                  labelText="Name"
                   onChange={(e) =>
-                    setData({ ...data, fullname: e.target.value })
+                    setData({ ...data, name: e.target.value })
                   }
-                  id="fullname"
+                  id="name"
                 />
               </div>
               <div className="flex-initial min-w-[400px] max-w-[500px] mb-[20px]">
                 <InputText
-                  type="email"
-                  labelText="Email"
-                  onChange={(e) => setData({ ...data, email: e.target.value })}
-                  id="email"
-                />
-              </div>
-              <div className="flex-initial min-w-[400px] max-w-[500px] mb-[20px]">
-                <InputText
-                  type="password"
-                  labelText="Password"
+                  type="text"
+                  labelText="Image"
                   onChange={(e) =>
-                    setData({ ...data, password: e.target.value })
+                    setData({ ...data, image: e.target.value })
                   }
-                  id="password"
+                  id="image"
                 />
               </div>
+             
             </div>
             <div></div>
           </div>
@@ -127,7 +107,7 @@ function AddUser() {
               }}
               className="flex flex-row flex-nowrap justify-center items-center rounded-[4px] min-w-[88px] min-h-[33px] px-4 py-2 ml-3 text-white font-bold text-center text-xxs 2lg:text-xs lg:text-tiny outline-none"
             >
-              <span>Create User</span>
+              <span>Create Service Category</span>
             </button>
           </div>
         </div>
@@ -136,4 +116,4 @@ function AddUser() {
   );
 }
 
-export default AddUser;
+export default AddServiceCategory;

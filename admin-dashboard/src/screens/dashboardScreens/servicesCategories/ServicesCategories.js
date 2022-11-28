@@ -4,13 +4,15 @@ import { ReactComponent as Add } from "../../../assets/svg/add.svg";
 import Select from "react-select";
 import { ReactComponent as Edit } from "../../../assets/svg/edit.svg";
 import { ReactComponent as Delete } from "../../../assets/svg/bin.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Pagination from "../../../components/pagination/Pagination";
 import { useGetAllServicesCategories } from "../../../apis/servicesCategories/useGetAllServicesCategories";
+import { useDeleteServiceCategory } from "../../../apis/servicesCategories/useDeleteServiceCategory";
 function ServicesCategories() {
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [perPage, setPerPage] = useState(5);
-
+  const navigate = useNavigate()
+  const {mutateAsync:fndeleteservicecategory,isLoading:isloadingdel}=useDeleteServiceCategory()
   const rowStyle = (index) => {
     return {
       backgroundColor: index % 2 == 0 ? "#f2f2f2" : "white",
@@ -48,13 +50,13 @@ function ServicesCategories() {
   return (
     <div className="w-full min-h-screen p-6 2lg:p-14">
       <p className="text-xs mb-2">
-        <Link to={"/dashboard/users"}>Services Categories</Link> &gt;
+        <Link to={"/dashboard/services-categories"}>Services Categories</Link> &gt;
       </p>
       <div className="mb-10 flex flex-row justify-between items-center">
         <p className="font-bold text-tiny lg:text-2xl">Services Categories</p>
         <div className="flex flex-row flex-nowrap justify-center items-center">
           <Link
-            to={"/dashboard/users-add"}
+            to={"/dashboard/service-category-add"}
             style={{
               border: `2px solid #EB5A3C`,
               backgroundColor: "#EB5A3C",
@@ -68,7 +70,7 @@ function ServicesCategories() {
       </div>
       <div className="mt-7">
         <div style={{ position: "relative" }}>
-          {isFetching && (
+          {(isFetching||isloadingdel) && (
             <div className="centered">
               <Oval
                 heigth="120"
@@ -112,9 +114,11 @@ function ServicesCategories() {
                   {new Date(el.updatedAt).toDateString()}
                 </td>
                 <td className="tdstyle" align="center">
-                  <Edit className="iconhover" />
+                  <Edit onClick={() => {
+                navigate("/dashboard/service-category-edit", { state: el });
+              }} className="iconhover" />
                 </td>
-                <td className="tdstyle" align="center">
+                <td onClick={()=>fndeleteservicecategory(el._id).then(()=>refetch())} className="tdstyle" align="center">
                   <Delete className="iconhover" />
                 </td>
               </tr>
@@ -128,9 +132,9 @@ function ServicesCategories() {
                   isSearchable={false}
                   defaultValue={{ label: perPage, value: perPage }}
                   onChange={(el) => {
-                    if (page > Math.ceil(data.data.total / el.value) - 1) {
+                    if (page > Math.ceil(data.data.total / el.value)) {
                       setPerPage(el.value);
-                      setPage(Math.ceil(data.data.total / el.value) - 1);
+                      setPage(Math.ceil(data.data.total / el.value));
                     } else {
                       setPerPage(el.value);
                     }

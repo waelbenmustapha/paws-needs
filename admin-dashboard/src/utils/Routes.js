@@ -17,6 +17,8 @@ import UserProfile from "../screens/usersScreens/UserProfile";
 import EditMain from "../screens/usersScreens/EditProfile/EditMain";
 import Pets from "../screens/dashboardScreens/pets/Pets";
 import ServicesCategories from "../screens/dashboardScreens/servicesCategories/ServicesCategories";
+import AddServiceCategory from "../screens/dashboardScreens/servicesCategories/AddServiceCategory";
+import EditServiceCategory from "../screens/dashboardScreens/servicesCategories/EditServiceCategory";
 
 export const authRoutes = [
   {
@@ -47,6 +49,14 @@ export const dashboardRoutes = [
   {
     path: "users-add",
     component: <AddUser />,
+  },
+  {
+    path: "service-category-add",
+    component: <AddServiceCategory />,
+  },
+  {
+    path: "service-category-edit",
+    component: <EditServiceCategory />,
   },
   {
     path: "users-edit",

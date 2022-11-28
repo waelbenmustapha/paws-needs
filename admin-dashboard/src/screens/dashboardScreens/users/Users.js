@@ -5,13 +5,15 @@ import { ReactComponent as Add } from "../../../assets/svg/add.svg";
 import Select from "react-select";
 import { ReactComponent as Edit } from "../../../assets/svg/edit.svg";
 import { ReactComponent as Delete } from "../../../assets/svg/bin.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useGetAllUsers } from "../../../apis/users/useGetAllUsers";
 import Pagination from "../../../components/pagination/Pagination";
+import { useDeleteUser } from "../../../apis/users/useDeleteUser";
 function Users() {
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [perPage, setPerPage] = useState(5);
-
+  const {mutateAsync:fndeleteuser,isLoading:isLoadingdel} = useDeleteUser()
+  const navigate = useNavigate()
   const rowStyle = (index) => {
     return {
       backgroundColor: index % 2 == 0 ? "#f2f2f2" : "white",
@@ -51,7 +53,7 @@ function Users() {
   return (
     <div className="w-full min-h-screen p-6 2lg:p-14">
       <p className="text-xs mb-2">
-        <Link to={"/dashboard/users"}>Users</Link> &gt;
+        <Link to={"/dashboard/users"}>Users </Link> &gt;
       </p>
       <div className="mb-10 flex flex-row justify-between items-center">
         <p className="font-bold text-tiny lg:text-2xl">All Users</p>
@@ -71,7 +73,7 @@ function Users() {
       </div>
       <div className="mt-7">
         <div style={{ position: "relative" }}>
-          {isFetching && (
+          {(isFetching||isLoadingdel) && (
             <div className="centered">
               <Oval
                 heigth="120"
@@ -95,22 +97,32 @@ function Users() {
               <th className="trstyle">Email</th>
               <th className="trstyle">Address</th>
               <th className="trstyle">Picture</th>
+              <th className="trstyle">Pets</th>
               <th className="trstyle">createdAt</th>
               <th className="trstyle">updatedAt</th>
               <th className="trstyle">Edit</th>
               <th className="trstyle">Delete</th>
             </tr>
             {data.data.data.map((el, index) => (
-              <tr className="rowtbl" index={index} style={rowStyle(index)}>
-                <td  className="tdstyle">{el._id}</td>
+              <tr   className="rowtbl" index={index} style={rowStyle(index)}>
+                <td className="tdstyle">{el._id}</td>
                 <td className="tdstyle">{el.fullname}</td>
                 <td className="tdstyle">{el.email}</td>
-                <td className="tdstyle">{el.address.name}</td>
                 <td className="tdstyle">
+                  <p>{el.address.name}</p>
+                  <p>{el.address.street}</p>
+                  <p>{el.address.city}</p>
+                </td>
+                <td className="tdstyle" align="center">
                   <img
-                    style={{ width: "100px", height: "100px" }}
+                    style={{ maxWidth: "100px", aspectRatio: 1 / 1 }}
                     src="https://cdn-icons-png.flaticon.com/512/147/147144.png"
                   />
+                </td>
+                <td className="tdstyle">
+                  {el.pets?.map((el) => (
+                    <p>pet</p>
+                  ))}
                 </td>
                 <td className="tdstyle">
                   {new Date(el.createdAt).toDateString()}
@@ -118,10 +130,12 @@ function Users() {
                 <td className="tdstyle">
                   {new Date(el.updatedAt).toDateString()}
                 </td>
-                <td className="tdstyle" align="center">
-                  <Edit  className="iconhover"/>
+                <td onClick={() => {
+                navigate("/dashboard/users-edit", { state: el });
+              }} className="tdstyle" align="center">
+                  <Edit className="iconhover" />
                 </td>
-                <td className="tdstyle" align="center">
+                <td onClick={()=>fndeleteuser(el._id).then(()=>refetch())} className="tdstyle" align="center">
                   <Delete  className="iconhover" />
                 </td>
               </tr>
@@ -135,9 +149,9 @@ function Users() {
                   isSearchable={false}
                   defaultValue={{ label: perPage, value: perPage }}
                   onChange={(el) => {
-                    if (page > Math.ceil(data.data.total / el.value) - 1) {
+                    if (page > Math.ceil(data.data.total / el.value) ) {
                       setPerPage(el.value);
-                      setPage(Math.ceil(data.data.total / el.value) - 1);
+                      setPage(Math.ceil(data.data.total / el.value) );
                     } else {
                       setPerPage(el.value);
                     }

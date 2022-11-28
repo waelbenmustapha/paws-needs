@@ -30,6 +30,7 @@ const UserSchema = new mongoose.Schema(
     },
     phoneNumber: { type: String, required: false, default: null },
     profile_pic: { type: String, required: false, default: null },
+    pets:[{ type: mongoose.Schema.Types.ObjectId, ref: "Pet" }],
     role: {
       type: String,
       default: "user",
