@@ -20,12 +20,12 @@ export const AuthProvider = ({ children }) => {
     setTimeout(() => setTimer(false), 0);
   }, []);
 
-  const login = (user) => {
+  const saveAsyncUser = (user) => {
     storeDataObj("user", user);
     setUser(user);
   };
 
-  const logout = () => {
+  const removeAsyncUserFrom = () => {
     setUser(null);
     AsyncStorage.removeItem("user");
   };
@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }) => {
     return <Loading />;
   }
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, saveAsyncUser, removeAsyncUserFrom }}>
       {children}
     </AuthContext.Provider>
   );

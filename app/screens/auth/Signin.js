@@ -83,7 +83,7 @@ const Signin = ({ navigation }) => {
           <View style={{ width: "100%", marginBottom: 32 }}>
             <ButtonPrimary
               title="Sign in with password"
-              fnc={() => navigation.navigate("signin-with-email")}
+              onPress={() => navigation.navigate("signin-with-email")}
             />
           </View>
           <View style={[styles.row, { marginBottom: 32 }]}>

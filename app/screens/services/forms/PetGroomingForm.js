@@ -24,7 +24,6 @@ const PetGroomingForm = ({ route }) => {
   const [time, setTime] = useState(new Date("2022-11-13T09:00:00.300Z"));
   const [show, setShow] = useState(false);
 
-
   const [type, setType] = useState("Pet");
   const [bottomSheetOpenTypes, setBottomSheetOpenTypes] = useState(false);
   const bottomSheetDataTypes = [
@@ -44,8 +43,6 @@ const PetGroomingForm = ({ route }) => {
   const changeOneDay = (dt) => {
     setOneDay({ [dt]: { selected: true } });
   };
-
-
 
   return (
     <View style={styles.container}>
@@ -140,7 +137,7 @@ const PetGroomingForm = ({ route }) => {
           </View>
 
           <View style={{ marginHorizontal: 20, marginVertical: 28 }}>
-            <ButtonPrimary title={"Send Request"} fnc={() => {}} />
+            <ButtonPrimary title={"Send Request"} />
           </View>
         </View>
       </ScrollView>

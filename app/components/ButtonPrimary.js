@@ -2,10 +2,10 @@ import React from "react";
 import { Pressable, Text, StyleSheet } from "react-native";
 import Colors from "../utils/Colors";
 
-const ButtonPrimary = ({ title, fnc }) => {
+const ButtonPrimary = ({ title, ...rest }) => {
   return (
     <Pressable
-      onPress={fnc}
+      {...rest}
       style={({ pressed }) => [
         {
           backgroundColor: pressed ? Colors.PRIMARY_DARK : Colors.PRIMARY,

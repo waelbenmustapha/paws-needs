@@ -8,8 +8,10 @@ import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 SplashScreen.preventAutoHideAsync();
+const queryClient = new QueryClient();
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -36,23 +38,25 @@ export default function App() {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <BottomSheetModalProvider>
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: "#fff",
-          }}
-          onLayout={onLayoutRootView}
-        >
-          <Expostatus style="dark" translucent={true} />
+      <QueryClientProvider client={queryClient}>
+        <BottomSheetModalProvider>
+          <View
+            style={{
+              flex: 1,
+              backgroundColor: "#fff",
+            }}
+            onLayout={onLayoutRootView}
+          >
+            <Expostatus style="dark" translucent={true} />
 
-          <NavigationContainer>
-            <AuthProvider>
-              <MainStack />
-            </AuthProvider>
-          </NavigationContainer>
-        </View>
-      </BottomSheetModalProvider>
+            <NavigationContainer>
+              <AuthProvider>
+                <MainStack />
+              </AuthProvider>
+            </NavigationContainer>
+          </View>
+        </BottomSheetModalProvider>
+      </QueryClientProvider>
     </GestureHandlerRootView>
   );
 }

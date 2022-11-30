@@ -238,7 +238,7 @@ const PetTransportForm = ({ route, navigation }) => {
           </View>
 
           <View style={{ marginHorizontal: 20, marginVertical: 28 }}>
-            <ButtonPrimary title={"Send Request"} fnc={() => {}} />
+            <ButtonPrimary title={"Send Request"} />
           </View>
         </View>
       </ScrollView>

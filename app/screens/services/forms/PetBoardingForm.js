@@ -7,7 +7,6 @@ import {
   ScrollView,
   TouchableOpacity,
   TextInput,
-
 } from "react-native";
 import PawAndText from "../../../components/PawAndText";
 import ButtonPrimary from "../../../components/ButtonPrimary";
@@ -29,7 +28,7 @@ const PetBoardingForm = ({ route, navigation }) => {
   const [markeddate, setMarkedDates] = useState({});
   const [modalVisible, setModalVisible] = useState(false);
   const [marker, setMarker] = useState(null);
-  
+
   const [frequency, setFrequency] = useState("One Time");
   const [bottomSheetOpenFrequency, setBottomSheetOpenFrequency] =
     useState(false);
@@ -71,8 +70,6 @@ const PetBoardingForm = ({ route, navigation }) => {
     setOneDay({ [dt]: { selected: true } });
   };
 
- 
-
   return (
     <View style={styles.container}>
       <MapModal
@@ -83,7 +80,7 @@ const PetBoardingForm = ({ route, navigation }) => {
       />
       <View style={styles.nav}>
         <PawAndText title={service.name} Component={() => <></>} />
-      </View> 
+      </View>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.content}>
           <View style={{ paddingHorizontal: 20 }}>
@@ -237,11 +234,10 @@ const PetBoardingForm = ({ route, navigation }) => {
           </View>
 
           <View style={{ marginHorizontal: 20, marginVertical: 28 }}>
-            <ButtonPrimary title={"Send Request"} fnc={() => {}} />
+            <ButtonPrimary title={"Send Request"} />
           </View>
         </View>
       </ScrollView>
-      
     </View>
   );
 };

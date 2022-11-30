@@ -44,8 +44,6 @@ const VetAppointmentForm = ({ route }) => {
     setOneDay({ [dt]: { selected: true } });
   };
 
-  
-
   return (
     <View style={styles.container}>
       <View style={styles.nav}>
@@ -92,7 +90,6 @@ const VetAppointmentForm = ({ route }) => {
               data={bottomSheetDataTypes}
             />
 
-          
             <OneTimeCalendar changeOneDay={changeOneDay} oneDay={oneday} />
             <TouchableOpacity
               onPress={() => showTimepicker()}
@@ -141,7 +138,7 @@ const VetAppointmentForm = ({ route }) => {
           </View>
 
           <View style={{ marginHorizontal: 20, marginVertical: 28 }}>
-            <ButtonPrimary title={"Send Request"} fnc={() => {}} />
+            <ButtonPrimary title={"Send Request"} />
           </View>
         </View>
       </ScrollView>

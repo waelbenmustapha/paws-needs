@@ -47,7 +47,6 @@ const PetTrainingForm = ({ route, navigation }) => {
     { label: "Dog", value: "dog" },
   ];
 
-
   const changedMarkedDates = (dt) => {
     const cpy = { ...markeddate };
     if (cpy.hasOwnProperty(dt)) {
@@ -212,7 +211,7 @@ const PetTrainingForm = ({ route, navigation }) => {
           </View>
 
           <View style={{ marginHorizontal: 20, marginVertical: 28 }}>
-            <ButtonPrimary title={"Send Request"} fnc={() => {}} />
+            <ButtonPrimary title={"Send Request"} />
           </View>
         </View>
       </ScrollView>

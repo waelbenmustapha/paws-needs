@@ -2,8 +2,10 @@ const connectDatabase = require("../../database/db");
 const User = require("../../models/user");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const middy = require("middy");
+const { cors } = require("middy/middlewares");
 
-module.exports.handler = async (event, context) => {
+const login = async (event, context) => {
   context.callbackWaitsForEmptyEventLoop = false;
   const inputData = JSON.parse(event.body);
 
@@ -79,9 +81,22 @@ module.exports.handler = async (event, context) => {
     // return success response
     return {
       statusCode: 200,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Credentials": true,
+      },
       body: JSON.stringify({
         success: true,
         token: generatedJWT,
+        data: {
+          fullname: user.fullname,
+          email: user.email,
+          address: user.address,
+          phoneNumber: user.phoneNumber,
+          profile_pic: user.profile_pic,
+          pets: user.pets,
+          role: user.role,
+        },
       }),
     };
   } catch (error) {
@@ -91,3 +106,5 @@ module.exports.handler = async (event, context) => {
     };
   }
 };
+
+module.exports.handler = middy(login).use(cors());
