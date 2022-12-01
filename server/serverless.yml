@@ -4,6 +4,13 @@ plugins:
   - serverless-dotenv-plugin
   - serverless-offline
 
+custom:
+  serverless-offline:
+    httpPort: 3000
+    port: 3000
+    host: 0.0.0.0
+
+
 provider:
   name: aws
   runtime: nodejs16.x
@@ -81,6 +88,12 @@ functions:
       - httpApi:
           path: /servicesCategory/create
           method: POST
+  getAllServiceCategoriesPaginated:
+    handler: src/handlers/serviceCategory/getAllServicesCategoryPaginated.handler
+    events:
+      - httpApi:
+          path: /servicesCategoryPaginated/get
+          method: GET
   getAllServiceCategories:
     handler: src/handlers/serviceCategory/getAllServicesCategory.handler
     events:

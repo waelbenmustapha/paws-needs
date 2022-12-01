@@ -3,7 +3,7 @@ import axios from "axios";
 
 const fetch = (page, perPage) => {
   return axios.get(
-    `http://localhost:3000/servicesCategory/get?page=${page}&perpage=${perPage}`,
+    `http://localhost:3000/servicesCategoryPaginated/get?page=${page}&perpage=${perPage}`,
     {
       headers: {
         Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6IjYzODNiZmQyZWJlMGQyNTYyODBiMDJiOSIsImZ1bGxuYW1lIjoic2FiZXIiLCJlbWFpbCI6InNhYmVyQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiJ9LCJpYXQiOjE2Njk2NDYwNDksImV4cCI6MTY2OTczMjQ0OX0.CSYm22FRizZ_IrlyaRhRTy_IC94rdn-Rn-eK35Czo6E`,

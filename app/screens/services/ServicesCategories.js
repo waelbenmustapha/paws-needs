@@ -6,12 +6,15 @@ import {
   StatusBar,
   Dimensions,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PawAndText from "../../components/PawAndText";
 import SearchAndFilter from "../../components/SearchAndFilter";
 import ServiceCategoryCard from "../../components/ServiceCategoryCard";
+import { useGetAllServicesCategories } from "../../apis/serviceCategories/useGetAllServicesCategories";
 
-const Services = () => {
+const ServicesCategories = () => {
+  const { data, isError, isLoading } = useGetAllServicesCategories();
+
   const [services, setServices] = useState([
     {
       name: "Vet Appointment",
@@ -56,6 +59,14 @@ const Services = () => {
       location: "Dubai",
     },
   ]);
+  if (isLoading) {
+    return (
+      <View>
+        <Text>Loading</Text>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
       <View style={{ paddingHorizontal: 20 }}>
@@ -65,6 +76,7 @@ const Services = () => {
             return <></>;
           }}
         />
+        {data.data.map((el)=><Text>{el._id}</Text>)}
         <View style={{ marginVertical: 20 }}>
           <SearchAndFilter placeholder={"Search for a service"} />
         </View>
@@ -80,7 +92,7 @@ const Services = () => {
           {services.map((el, index) => (
             <ServiceCategoryCard
               width={Dimensions.get("window").width / 2 - 30}
-              height={(Dimensions.get("window").width / 2 - 30)+30}
+              height={Dimensions.get("window").width / 2 - 30 + 30}
               locationright={10}
               locationtop={10}
               service={el}
@@ -99,4 +111,4 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
 });
-export default Services;
+export default ServicesCategories;
