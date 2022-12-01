@@ -19,6 +19,8 @@ provider:
 
 #Functions Apis
 
+#Auth EndPoints
+#-------------------------------------------------------
 functions:
   login:
     handler: src/handlers/auth/login.handler
@@ -38,6 +40,8 @@ functions:
       - httpApi:
           path: /auth/signup-provider
           method: POST
+#Users EndPoints
+#-------------------------------------------------------
   createUser:
     handler: src/handlers/users/createUser.handler
     events:
@@ -81,7 +85,8 @@ functions:
           path: /users/delete-user/{id}
           method: DELETE
 
-  #Service Categories EndPoints
+#Service Categories EndPoints
+#-------------------------------------------------------
   createServiceCategory:
     handler: src/handlers/serviceCategory/createServiceCategory.handler
     events:
@@ -112,7 +117,8 @@ functions:
       - httpApi:
           path: /servicesCategory/update/{id}
           method: PUT
-  #Services EndPoints
+#Services EndPoints
+#-------------------------------------------------------
   createService:
     handler: src/handlers/services/createService.handler
     events:
@@ -143,3 +149,35 @@ functions:
       - httpApi:
           path: /services/delete/{id}
           method: DELETE
+#Pets EndPoints
+#-------------------------------------------------------
+  createPet:
+    handler: src/handlers/pets/createPet.handler
+    events:
+      - httpApi:
+          path: /pets/create
+          method: POST
+  deletePet:
+    handler: src/handlers/pets/deletePet.handler
+    events:
+      - httpApi:
+          path: /pets/delete/{id}
+          method: DELETE
+  userPets:
+    handler: src/handlers/pets/getUserPets.handler
+    events:
+      - httpApi:
+          path: /pets/user-pets/{id}
+          method: GET
+  updatePet:
+    handler: src/handlers/pets/updatePet.handler
+    events:
+      - httpApi:
+          path: /pets/update/{id}
+          method: PUT
+  AllPets:
+    handler: src/handlers/pets/getAllPets.handler
+    events:
+      - httpApi:
+          path: /pets/get-all
+          method: GET

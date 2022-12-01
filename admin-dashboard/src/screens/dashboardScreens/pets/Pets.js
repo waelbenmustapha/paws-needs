@@ -8,10 +8,12 @@ import { Link } from "react-router-dom";
 import { useGetAllUsers } from "../../../apis/users/useGetAllUsers";
 import Pagination from "../../../components/pagination/Pagination";
 import { useGetAllServices } from "../../../apis/services/useGetAllServices";
+import { useGetAllPets } from "../../../apis/pets/useGetAllPets";
 function Pets() {
   const [page, setPage] = useState(1);
   const [perPage, setPerPage] = useState(5);
-
+  const [search,setSearch]=useState();
+  const [searchConfirm,setSearchConfirm]=useState()
   const rowStyle = (index) => {
     return {
       backgroundColor: index % 2 == 0 ? "#f2f2f2" : "white",
@@ -24,9 +26,10 @@ function Pets() {
     { value: 25, label: 25 },
   ];
 
-  const { isLoading, isError, data, refetch, isFetching } = useGetAllServices(
+  const { isLoading, isError, data, refetch, isFetching } = useGetAllPets(
     page,
-    perPage
+    perPage,
+    searchConfirm
   );
 
   if (isLoading) {
@@ -69,6 +72,8 @@ function Pets() {
           </Link>
         </div>
       </div>
+      <input onChange={(e)=>setSearch(e.target.value)} style={{border:"1px solid black"}}/>
+      <button onClick={()=>setSearchConfirm(search)}>search</button>
       <div className="mt-7">
         <div style={{ position: "relative" }}>
           {isFetching && (
@@ -104,14 +109,14 @@ function Pets() {
                 <td className="tdstyle">{el._id}</td>
                 <td className="tdstyle">{el.name}</td>
                 <td className="tdstyle">{el.serviceCategory?.name}</td>
-           
+
                 <td className="tdstyle" align="center">
                   <img
                     style={{ maxWidth: "100px", aspectRatio: 1 / 1 }}
                     src="https://cdn-icons-png.flaticon.com/512/147/147144.png"
                   />
                 </td>
-                
+
                 <td className="tdstyle">
                   {new Date(el.createdAt).toDateString()}
                 </td>
@@ -135,9 +140,9 @@ function Pets() {
                   isSearchable={false}
                   defaultValue={{ label: perPage, value: perPage }}
                   onChange={(el) => {
-                    if (page > Math.ceil(data.data.total / el.value) ) {
+                    if (page > Math.ceil(data.data.total / el.value)) {
                       setPerPage(el.value);
-                      setPage(Math.ceil(data.data.total / el.value) );
+                      setPage(Math.ceil(data.data.total / el.value));
                     } else {
                       setPerPage(el.value);
                     }
@@ -161,4 +166,3 @@ function Pets() {
 }
 
 export default Pets;
-
