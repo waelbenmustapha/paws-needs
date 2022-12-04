@@ -19,6 +19,8 @@ import Pets from "../screens/dashboardScreens/pets/Pets";
 import ServicesCategories from "../screens/dashboardScreens/servicesCategories/ServicesCategories";
 import AddServiceCategory from "../screens/dashboardScreens/servicesCategories/AddServiceCategory";
 import EditServiceCategory from "../screens/dashboardScreens/servicesCategories/EditServiceCategory";
+import AddPet from "../screens/dashboardScreens/pets/AddPet";
+import EditPet from "../screens/dashboardScreens/pets/EditPet";
 
 export const authRoutes = [
   {
@@ -53,6 +55,14 @@ export const dashboardRoutes = [
   {
     path: "service-category-add",
     component: <AddServiceCategory />,
+  },
+  {
+    path: "pet-add",
+    component: <AddPet />,
+  },
+  {
+    path: "pet-edit",
+    component: <EditPet />,
   },
   {
     path: "service-category-edit",

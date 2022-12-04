@@ -93,12 +93,6 @@ functions:
       - httpApi:
           path: /servicesCategory/create
           method: POST
-  getAllServiceCategoriesPaginated:
-    handler: src/handlers/serviceCategory/getAllServicesCategoryPaginated.handler
-    events:
-      - httpApi:
-          path: /servicesCategoryPaginated/get
-          method: GET
   getAllServiceCategories:
     handler: src/handlers/serviceCategory/getAllServicesCategory.handler
     events:

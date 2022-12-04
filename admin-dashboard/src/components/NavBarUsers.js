@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../Context/AuthContext";
+import jwt_decode from "jwt-decode";
+
 import { useAppContext } from "../Context/AppContext";
 import { classNames } from "../components/shared/Utils";
 import { ReactComponent as NotificationIcon } from "../assets/svg/Ring.svg";

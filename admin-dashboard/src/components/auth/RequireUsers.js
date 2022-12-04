@@ -6,7 +6,7 @@ import { Navigate } from 'react-router-dom';
 function RequireUser({children}) {
     const auth = useAuth()
    
-    if (jwt_decode(auth.user).role!=="USER") {
+    if (jwt_decode(auth.user).data.role!=="user") {
         return <Navigate to="/dashboard" />
     }
     return children

@@ -1,26 +1,23 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAppContext } from "../../../Context/AppContext";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import InputText from "../../../components/InputText";
-import { useCreateServiceCategory } from "../../../apis/servicesCategories/useCreateServiceCategory";
 import { Oval } from "react-loader-spinner";
+import { useUpdatePet } from "../../../apis/pets/useUpdatePet";
 
-function AddServiceCategory() {
+function EditPet() {
   const context = useAppContext();
   const navigate = useNavigate();
+  const { state } = useLocation();
 
-  const [data, setData] = useState({ name: "", image: "" });
-  const { mutateAsync: fnaddServiceCategory,isLoading } = useCreateServiceCategory();
-  function isValidEmail(email) {
-    return /\S+@\S+\.\S+/.test(email);
-  }
-
+  const [data, setData] = useState({ ...state });
+  const { mutateAsync: fnUpdatePet,isLoading } = useUpdatePet();
   function handleSubmitUser() {
     console.log(data);
     if (data.name.length > 0 ) {
-      fnaddServiceCategory(data).then(() => navigate("/dashboard/services-categories"));
+        fnUpdatePet(data).then(() => navigate("/dashboard/pets")).catch((err)=>alert("Something is wrong"));
     } else {
       toast.error("please fill all the input");
     }
@@ -42,25 +39,26 @@ function AddServiceCategory() {
               />
             </div>}
         <p className="text-xs mb-2">
-          <Link to={"/dashboard/services-categories"}>Service Categories</Link> &gt;{" "}
-          <Link to={"/dashboard/service-category-add"}>Add New Service Category</Link>
+          <Link to={"/dashboard/pets"}>Pets</Link> &gt;{" "}
+          <Link to={"/dashboard/pet-edit"}>Edit Pet</Link>
         </p>
-        <p className="mb-10 font-bold text-tiny lg:text-2xl">Add New Service Category</p>
+        <p className="mb-10 font-bold text-tiny lg:text-2xl">Edit Pet</p>
         <p className="mb-2 font-bold text-tiny lg:text-base">
-          New Service Category
+          Edit Pet
         </p>
         <p className="mb-9 text-[#87949B] text-xs lg:text-tiny">
-          Fill in the details of the service category using the sections below
+          Fill in the details of pet using the sections below
         </p>
         <div className="w-full h-[1px] mb-9 border-devider-color border-b-1"></div>
 
         <div className="w-full flex flex-col items-start mb-9">
           
           <div className="w-[80%] mt-[25px] ">
-            <div className="flex flex-col flex-wrap items-start gap-4 ">
+          <div className="flex flex-col flex-wrap items-start gap-4 ">
               <div className="flex-initial min-w-[400px] max-w-[500px] mb-[20px]">
                 <InputText
                   type="text"
+                  value={data.name}
                   labelText="Name"
                   onChange={(e) =>
                     setData({ ...data, name: e.target.value })
@@ -71,13 +69,41 @@ function AddServiceCategory() {
               <div className="flex-initial min-w-[400px] max-w-[500px] mb-[20px]">
                 <InputText
                   type="text"
+                  labelText="Type"
+
+                  value={data.type}
+
+                  onChange={(e) =>
+                    setData({ ...data, type: e.target.value })
+                  }
+                  id="type"
+                />
+              </div>
+              <div className="flex-initial min-w-[400px] max-w-[500px] mb-[20px]">
+                <InputText
+                  type="text"
+                  value={data.breed}
+
+                  labelText="Breed"
+                  onChange={(e) =>
+                    setData({ ...data, breed: e.target.value })
+                  }
+                  id="breed"
+                />
+              </div>
+              <div className="flex-initial min-w-[400px] max-w-[500px] mb-[20px]">
+                <InputText
+                  type="text"
                   labelText="Image"
+                  value={data.image}
+
                   onChange={(e) =>
                     setData({ ...data, image: e.target.value })
                   }
                   id="image"
                 />
               </div>
+              
              
             </div>
             <div></div>
@@ -106,7 +132,7 @@ function AddServiceCategory() {
               }}
               className="flex flex-row flex-nowrap justify-center items-center rounded-[4px] min-w-[88px] min-h-[33px] px-4 py-2 ml-3 text-white font-bold text-center text-xxs 2lg:text-xs lg:text-tiny outline-none"
             >
-              <span>Create Service Category</span>
+              <span>Edit Pet</span>
             </button>
           </div>
         </div>
@@ -115,4 +141,4 @@ function AddServiceCategory() {
   );
 }
 
-export default AddServiceCategory;
+export default EditPet;

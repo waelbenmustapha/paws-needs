@@ -4,16 +4,19 @@ import { ReactComponent as Add } from "../../../assets/svg/add.svg";
 import Select from "react-select";
 import { ReactComponent as Edit } from "../../../assets/svg/edit.svg";
 import { ReactComponent as Delete } from "../../../assets/svg/bin.svg";
-import { Link } from "react-router-dom";
-import { useGetAllUsers } from "../../../apis/users/useGetAllUsers";
+import { Link, useNavigate } from "react-router-dom";
+import { ReactComponent as SearchIcon } from "../../../assets/svg/search-line.svg";
 import Pagination from "../../../components/pagination/Pagination";
-import { useGetAllServices } from "../../../apis/services/useGetAllServices";
 import { useGetAllPets } from "../../../apis/pets/useGetAllPets";
+import { useDeletePet } from "../../../apis/pets/useDeletePet";
 function Pets() {
   const [page, setPage] = useState(1);
   const [perPage, setPerPage] = useState(5);
-  const [search,setSearch]=useState();
-  const [searchConfirm,setSearchConfirm]=useState()
+  const [search, setSearch] = useState();
+  const [searchConfirm, setSearchConfirm] = useState();
+  const navigate = useNavigate()
+  const {mutateAsync:fndeletePet,isLoading:isloadingdel}=useDeletePet()
+
   const rowStyle = (index) => {
     return {
       backgroundColor: index % 2 == 0 ? "#f2f2f2" : "white",
@@ -54,13 +57,13 @@ function Pets() {
   return (
     <div className="w-full min-h-screen p-6 2lg:p-14">
       <p className="text-xs mb-2">
-        <Link to={"/dashboard/users"}>Pets</Link> &gt;
+        <Link to={"/dashboard/pets"}>Pets</Link> &gt;
       </p>
       <div className="mb-10 flex flex-row justify-between items-center">
         <p className="font-bold text-tiny lg:text-2xl">All Pets</p>
         <div className="flex flex-row flex-nowrap justify-center items-center">
           <Link
-            to={"/dashboard/users-add"}
+            to={"/dashboard/pet-add"}
             style={{
               border: `2px solid #EB5A3C`,
               backgroundColor: "#EB5A3C",
@@ -72,11 +75,30 @@ function Pets() {
           </Link>
         </div>
       </div>
-      <input onChange={(e)=>setSearch(e.target.value)} style={{border:"1px solid black"}}/>
-      <button onClick={()=>setSearchConfirm(search)}>search</button>
+      <div
+        style={{
+          border: "1px solid rgb(207 212 215 /0.7)",
+          padding: "10px",
+          borderRadius: "8px",
+        }}
+        className="flex flex-nowrap w-fit items-center"
+      >
+        <input
+          className="text-[10px] lg:text-xs 2lg:text-tiny xl:text-base border-none outline-none w-[150px] lg:w-[220px] h-full bg-transparent"
+          type="text"
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Search for users or rewards"
+        />
+        <SearchIcon
+          onClick={() => setSearchConfirm(search)}
+          color="rgb(235, 90, 60)"
+          className="relative w-[15px] cursor-pointer h-[15px] lg:w-[24px] lg:h-[24px]"
+        />
+      </div>
+
       <div className="mt-7">
         <div style={{ position: "relative" }}>
-          {isFetching && (
+          {(isFetching  || isloadingdel)&& (
             <div className="centered">
               <Oval
                 heigth="120"
@@ -97,8 +119,10 @@ function Pets() {
             >
               <th className="trstyle">#ID </th>
               <th className="trstyle">Name</th>
+              <th className="trstyle">Type</th>
+              <th className="trstyle">Breed</th>
               <th className="trstyle">Image</th>
-              <th className="trstyle">Category</th>
+              <th className="trstyle">Owner</th>
               <th className="trstyle">createdAt</th>
               <th className="trstyle">updatedAt</th>
               <th className="trstyle">Edit</th>
@@ -108,7 +132,8 @@ function Pets() {
               <tr className="rowtbl" index={index} style={rowStyle(index)}>
                 <td className="tdstyle">{el._id}</td>
                 <td className="tdstyle">{el.name}</td>
-                <td className="tdstyle">{el.serviceCategory?.name}</td>
+                <td className="tdstyle">{el.type}</td>
+                <td className="tdstyle">{el.breed}</td>
 
                 <td className="tdstyle" align="center">
                   <img
@@ -116,7 +141,12 @@ function Pets() {
                     src="https://cdn-icons-png.flaticon.com/512/147/147144.png"
                   />
                 </td>
-
+                <td className="tdstyle" align="center">
+                <p>{el.user.fullname}</p>
+                <p>{el.user.email}</p>
+                <p>{el.user.phoneNumber}</p>
+                  
+                </td>
                 <td className="tdstyle">
                   {new Date(el.createdAt).toDateString()}
                 </td>
@@ -124,9 +154,11 @@ function Pets() {
                   {new Date(el.updatedAt).toDateString()}
                 </td>
                 <td className="tdstyle" align="center">
-                  <Edit className="iconhover" />
+                  <Edit onClick={() => {
+                navigate("/dashboard/pet-edit", { state: el });
+              }}  className="iconhover" />
                 </td>
-                <td className="tdstyle" align="center">
+                <td onClick={()=>fndeletePet(el._id).then(()=>refetch())} className="tdstyle" align="center">
                   <Delete className="iconhover" />
                 </td>
               </tr>

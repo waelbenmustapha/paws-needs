@@ -6,7 +6,7 @@ import { Navigate } from 'react-router-dom';
 function RequireAdmin({children}) {
     const auth = useAuth()
    
-    if (jwt_decode(auth.user).role!=="ADMIN") {
+    if (jwt_decode(auth.user).data.role!=="admin") {
         return <Navigate to="/home" />
     }
     return children

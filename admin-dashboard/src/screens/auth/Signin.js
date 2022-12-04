@@ -17,12 +17,13 @@ function Signin() {
   const handleLogin = async () => {
     if (email.length > 0 && pwd.length > 0) {
       axios
-        .post("https://authmockk.herokuapp.com/login", {
+        .post("http://localhost:3000/auth/login", {
           email: email,
           password: pwd,
         })
         .then(function (response) {
           if (response.status === 200) {
+            console.log(response)
             console.log(response.data.token);
             auth.login(response.data.token);
             navigate("/dashboard/home");
@@ -46,9 +47,7 @@ function Signin() {
         <div className="h-full bg-side-group-colors bg-repeat-y w-[180px]"></div>
       </div>
       <div className="w-[100%] md:w-[47%] relative p-16">
-        <div className="w-[45px] h-[45px] absolute top-0 right-4">
-          <GroupColors className="w-full h-full" />
-        </div>
+     
         <div className="bg-bottom-group-colors bg-repeat-x w-full h-[20px] absolute bottom-0 right-0"></div>
         <div className="relative flex flex-col justify-center h-full w-fit">
           <img src={logo} alt="logo" className="w-[200px] h-[77px] mb-[50px]" />
