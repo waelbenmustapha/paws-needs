@@ -123,6 +123,8 @@ function Users() {
               <th className="trstyle">Address</th>
               <th className="trstyle">Picture</th>
               <th className="trstyle">Pets</th>
+              <th className="trstyle">Role</th>
+              <th className="trstyle">Status</th>
               <th className="trstyle">createdAt</th>
               <th className="trstyle">updatedAt</th>
               <th className="trstyle">Edit</th>
@@ -149,6 +151,9 @@ function Users() {
                     <p>{pet.name}</p>
                   ))}
                 </td>
+                <td className="tdstyle">{el.role}</td>
+                <td className="tdstyle" style={{color:el.status==="active"?"green":"red"}}>{el.status}</td>
+
                 <td className="tdstyle">
                   {new Date(el.createdAt).toDateString()}
                 </td>
