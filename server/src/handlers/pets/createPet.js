@@ -7,8 +7,8 @@ module.exports.handler = async (event, context) => {
 
   try {
     await connectDatabase();
-    const { name, type, breed, userId } = JSON.parse(event.body);
-    if (!name || !type || !breed || !userId) {
+    const { name, type, breed, userId,image } = JSON.parse(event.body);
+    if (!name || !type || !breed || !userId || !image) {
       return {
         statusCode: 400,
         body: JSON.stringify({
@@ -32,6 +32,7 @@ module.exports.handler = async (event, context) => {
       name,
       type,
       breed,
+      image,
       user: userId,
     });
 

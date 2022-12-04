@@ -4,6 +4,7 @@ import { ReactComponent as Add } from "../../../assets/svg/add.svg";
 import Select from "react-select";
 import { ReactComponent as Edit } from "../../../assets/svg/edit.svg";
 import { ReactComponent as Delete } from "../../../assets/svg/bin.svg";
+import { ReactComponent as SearchIcon } from "../../../assets/svg/search-line.svg";
 import { Link, useNavigate } from "react-router-dom";
 import Pagination from "../../../components/pagination/Pagination";
 import { useGetAllServicesCategories } from "../../../apis/servicesCategories/useGetAllServicesCategories";
@@ -11,6 +12,8 @@ import { useDeleteServiceCategory } from "../../../apis/servicesCategories/useDe
 function ServicesCategories() {
   const [page, setPage] = useState(1);
   const [perPage, setPerPage] = useState(5);
+  const [search, setSearch] = useState();
+  const [searchConfirm, setSearchConfirm] = useState();
   const navigate = useNavigate()
   const {mutateAsync:fndeleteservicecategory,isLoading:isloadingdel}=useDeleteServiceCategory()
   const rowStyle = (index) => {
@@ -26,7 +29,7 @@ function ServicesCategories() {
   ];
 
   const { isLoading, isError, data, refetch, isFetching } =
-    useGetAllServicesCategories(page, perPage);
+    useGetAllServicesCategories(page, perPage,searchConfirm);
 
   if (isLoading) {
     return (
@@ -68,6 +71,26 @@ function ServicesCategories() {
           </Link>
         </div>
       </div>
+      <div
+        style={{
+          border: "1px solid rgb(207 212 215 /0.7)",
+          padding: "10px",
+          borderRadius: "8px",
+        }}
+        className="flex flex-nowrap w-fit items-center"
+      >
+        <input
+          className="text-[10px] lg:text-xs 2lg:text-tiny xl:text-base border-none outline-none w-[150px] lg:w-[220px] h-full bg-transparent"
+          type="text"
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Search for users or rewards"
+        />
+        <SearchIcon
+          onClick={() => setSearchConfirm(search)}
+          color="rgb(235, 90, 60)"
+          className="relative w-[15px] cursor-pointer h-[15px] lg:w-[24px] lg:h-[24px]"
+        />
+      </div>
       <div className="mt-7">
         <div style={{ position: "relative" }}>
           {(isFetching||isloadingdel) && (
@@ -101,9 +124,9 @@ function ServicesCategories() {
               <tr className="rowtbl" index={index} style={rowStyle(index)}>
                 <td className="tdstyle">{el._id}</td>
                 <td className="tdstyle">{el.name}</td>
-                <td className="tdstyle">
+                <td className="tdstyle" align="center">
                   <img
-                    style={{ width: "100px", height: "100px" }}
+                    style={{ maxWidth: "100px", aspectRatio: 1 / 1 }}
                     src="https://cdn-icons-png.flaticon.com/512/147/147144.png"
                   />
                 </td>

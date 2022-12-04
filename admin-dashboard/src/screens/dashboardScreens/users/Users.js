@@ -4,6 +4,8 @@ import { Oval } from "react-loader-spinner";
 import { ReactComponent as Add } from "../../../assets/svg/add.svg";
 import Select from "react-select";
 import { ReactComponent as Edit } from "../../../assets/svg/edit.svg";
+import { ReactComponent as SearchIcon } from "../../../assets/svg/search-line.svg";
+
 import { ReactComponent as Delete } from "../../../assets/svg/bin.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { useGetAllUsers } from "../../../apis/users/useGetAllUsers";
@@ -12,6 +14,8 @@ import { useDeleteUser } from "../../../apis/users/useDeleteUser";
 function Users() {
   const [page, setPage] = useState(1);
   const [perPage, setPerPage] = useState(5);
+  const [search, setSearch] = useState();
+  const [searchConfirm, setSearchConfirm] = useState();
   const {mutateAsync:fndeleteuser,isLoading:isLoadingdel} = useDeleteUser()
   const navigate = useNavigate()
   const rowStyle = (index) => {
@@ -28,7 +32,8 @@ function Users() {
 
   const { isLoading, isError, data, refetch, isFetching } = useGetAllUsers(
     page,
-    perPage
+    perPage,
+    searchConfirm
   );
 
   if (isLoading) {
@@ -71,6 +76,26 @@ function Users() {
           </Link>
         </div>
       </div>
+      <div
+        style={{
+          border: "1px solid rgb(207 212 215 /0.7)",
+          padding: "10px",
+          borderRadius: "8px",
+        }}
+        className="flex flex-nowrap w-fit items-center"
+      >
+        <input
+          className="text-[10px] lg:text-xs 2lg:text-tiny xl:text-base border-none outline-none w-[150px] lg:w-[220px] h-full bg-transparent"
+          type="text"
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Search for users or rewards"
+        />
+        <SearchIcon
+          onClick={() => setSearchConfirm(search)}
+          color="rgb(235, 90, 60)"
+          className="relative w-[15px] cursor-pointer h-[15px] lg:w-[24px] lg:h-[24px]"
+        />
+      </div>
       <div className="mt-7">
         <div style={{ position: "relative" }}>
           {(isFetching||isLoadingdel) && (
@@ -98,6 +123,8 @@ function Users() {
               <th className="trstyle">Address</th>
               <th className="trstyle">Picture</th>
               <th className="trstyle">Pets</th>
+              <th className="trstyle">Role</th>
+              <th className="trstyle">Status</th>
               <th className="trstyle">createdAt</th>
               <th className="trstyle">updatedAt</th>
               <th className="trstyle">Edit</th>
@@ -120,10 +147,13 @@ function Users() {
                   />
                 </td>
                 <td className="tdstyle">
-                  {el.pets?.map((el) => (
-                    <p>pet</p>
+                  {el.pets?.map((pet) => (
+                    <p>{pet.name}</p>
                   ))}
                 </td>
+                <td className="tdstyle">{el.role}</td>
+                <td className="tdstyle" style={{color:el.status==="active"?"green":"red"}}>{el.status}</td>
+
                 <td className="tdstyle">
                   {new Date(el.createdAt).toDateString()}
                 </td>

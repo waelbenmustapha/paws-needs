@@ -1,5 +1,6 @@
 const connectDatabase = require("../../database/db");
 const User = require("../../models/user");
+const Pet = require("../../models/pet");
 const middy = require("@middy/core");
 const { verifyJWT, verifyAdmin } = require("../../middleware/authorize");
 
@@ -9,27 +10,42 @@ const getAllUsers = async (event, context) => {
   try {
     await connectDatabase();
 
-    const page = event.queryStringParameters?.page-1 || 0;
-    const perpage = event.queryStringParameters?.perpage || 5;
-    const sort = event.queryStringParameters?.sort || "_id";
-    const asc = event.queryStringParameters?.asc || 1;
-    console.log(page)
-    console.log(perpage)
-    const users = await User.find({},{isAdmin:0,password:0})
-      .skip(page * perpage)
-      .limit(perpage)
-      .sort({ [sort]: asc });
+    if (event.queryStringParameters) {
+      const page = event.queryStringParameters?.page - 1 || 0;
+      const perpage = event.queryStringParameters?.perpage || 5;
+      const sort = event.queryStringParameters?.sort || "_id";
+      const asc = event.queryStringParameters?.asc || 1;
+      const search = event.queryStringParameters.search;
 
-    return {
-      statusCode: 200,
-      body: JSON.stringify({
-        data: users,
-        page,
-        perpage,
-        total: await User.count(),
-      }),
-    };
-  
+      const users = await User.find(
+        search ? { $text: { $search: search } } : {},
+        { password: 0 }
+      )
+        .populate("pets")
+        .skip(page * perpage)
+        .limit(perpage)
+        .sort({ [sort]: asc });
+
+      return {
+        statusCode: 200,
+        body: JSON.stringify({
+          data: users,
+          page,
+          perpage,
+          total: await User.count(search ? { $text: { $search: search } } : {}),
+        }),
+      };
+    } else {
+      const users = await User.find({}, { password: 0 }).populate("pets");
+
+      return {
+        statusCode: 200,
+        body: JSON.stringify({
+          success: true,
+          data: users,
+        }),
+      };
+    }
   } catch (error) {
     return {
       statusCode: error.statusCode || 500,

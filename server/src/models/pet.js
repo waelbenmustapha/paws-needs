@@ -10,6 +10,10 @@ const PetSchema = new mongoose.Schema(
       type: String,
       required: [true, "Please Add a type"],
     },
+    image: {
+      type: String,
+      required: [true, "Please Add an Image"],
+    },
     breed: {
         type: String,
         required: [true, "Please Add an Image"],

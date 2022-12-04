@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { ReactComponent as SearchIcon } from "../assets/svg/search-line.svg";
+import jwt_decode from "jwt-decode";
 import { ReactComponent as Hamburger } from "../assets/svg/align-left.svg";
 import { ReactComponent as ArrowDownIcon } from "../assets/svg/ArrowDown.svg";
 import avatar from "../assets/images/avatar.png";
@@ -29,6 +30,7 @@ const NavButton = ({ icon, color, isUnread, dotColor }) => (
 const NavBar = ({ isSideBarOpen, setIsSideBarOpen }) => {
   const context = useAppContext();
   const auth = useAuth();
+  const user = jwt_decode(auth.user).data;
   const [profileMenuActive, setProfileMenuActive] = useState(false);
   const [notifMenuActive, setNotifMenuActive] = useState(false);
   const [messagesMenuActive, setMessagesMenuActive] = useState(false);
@@ -36,37 +38,7 @@ const NavBar = ({ isSideBarOpen, setIsSideBarOpen }) => {
   return (
     <>
       <div className="md:flex hidden flex-nowrap justify-between h-[55px]  lg:h-[86px] border-devider-color border-b-1 pl-6 pr-6 relative">
-        <div className="flex flex-nowrap items-center">
-          <MainSearchComponent
-            showSearch={context.showSearch}
-            setShowSearch={context.setShowSearch}
-            keyword={keyword}
-          />
-
-          <NavButton
-            title="Search"
-            color={context.mainColor}
-            icon={
-              <SearchIcon className="relative w-[15px] h-[15px] lg:w-[24px] lg:h-[24px]" />
-            }
-          />
-          <input
-            className="text-[10px] lg:text-xs 2lg:text-tiny xl:text-base border-none outline-none w-[150px] lg:w-[320px] h-full bg-transparent"
-            type="text"
-            onClick={(e) => {
-              if (e.target.value.length > 0) context.setShowSearch(true);
-            }}
-            onChange={(e) => {
-              setKeyword(e.target.value);
-              if (e.target.value.length === 0) {
-                context.setShowSearch(false);
-              } else {
-                context.setShowSearch(true);
-              }
-            }}
-            placeholder="Search for users or rewards"
-          />
-        </div>
+        <div></div>
         <div className="flex flex-nowrap justify-center content-center my-auto mx-0">
           
          
@@ -92,7 +64,7 @@ const NavBar = ({ isSideBarOpen, setIsSideBarOpen }) => {
               />
               <p className="hidden sm:flex flex-nowrap items-center">
                 <span className="font-bold text-main-text text-xxs lg:text-xs 2lg:text-tiny xl:text-base">
-                  Mohammed Abdullah
+                  {user.fullname}
                 </span>
                 <ArrowDownIcon
                   style={{ color: context.mainColor }}

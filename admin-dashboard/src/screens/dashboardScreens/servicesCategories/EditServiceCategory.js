@@ -5,14 +5,14 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import InputText from "../../../components/InputText";
 import { Oval } from "react-loader-spinner";
-import { useEditServiceCategory } from "../../../apis/servicesCategories/useEditServiceCategory";
+import { useUpdateServiceCategory } from "../../../apis/servicesCategories/useUpdateServiceCategory";
 
 function EditServiceCategory() {
   const context = useAppContext();
   const navigate = useNavigate();
   const { state } = useLocation();
   const [data, setData] = useState({ ...state });
-  const { mutateAsync: fneditServiceCategory,isLoading } = useEditServiceCategory();
+  const { mutateAsync: fneditServiceCategory,isLoading } = useUpdateServiceCategory();
 
 
   function handleSubmitUser() {

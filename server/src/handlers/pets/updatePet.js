@@ -21,11 +21,7 @@ module.exports.handler = async (event, context) => {
       };
     }
 
-    const PetObj = await Pet.create({
-      name,
-      type,
-      breed,
-    });
+  
     await Pet.findOneAndUpdate({ _id: id }, { name, type, breed });
 
     

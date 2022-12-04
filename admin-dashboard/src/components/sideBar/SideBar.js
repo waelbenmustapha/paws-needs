@@ -1,7 +1,6 @@
 import React, { useRef, useState } from "react";
 import { sidebarRoutes } from "../../utils/Routes";
 import MenuElement from "./MenuElement";
-import { ReactComponent as Sidebooks } from "../../assets/svg/sidebooks.svg";
 import { Link } from "react-router-dom";
 import { useAppContext } from "../../Context/AppContext";
 import { classNames } from "../shared/Utils";
@@ -44,7 +43,6 @@ function SideBar({ isSideBarOpen, setIsSideBarOpen }) {
             />
           ))}
         </div>
-        <Sidebooks className="mt-[28px] lg:mt-[30px] xl:mt-[100px]  min-h-[150px]  place-self-start" />
       </div>
       {isSideBarOpen && (
         <div className="flex flex-col justify-between fixed top-0 left-0 mt-[100px] md:hidden z-50 h-[calc(100%-100px)] w-screen  bg-white ">
