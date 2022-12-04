@@ -47,8 +47,8 @@ module.exports.handler = async (event, context) => {
 
   // Create User Object
   let newUser = new User({
-    fullname: obj.fullname,
-    email: obj.email,
+    fullname: obj.fullname.trim(),
+    email: obj.email.trim().toLowerCase(),
     password: hashedPassword,
     phoneNumber: null,
   });
@@ -81,7 +81,7 @@ module.exports.handler = async (event, context) => {
       };
     }
     return {
-      statusCode: 201,
+      statusCode: 200,
       body: JSON.stringify({
         success: true,
         msg: "account created successfuly",

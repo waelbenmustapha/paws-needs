@@ -35,8 +35,8 @@ module.exports.handler = async (event, context) => {
   // handle login
   try {
     await connectDatabase();
-
-    const user = await User.findOne({ email: inputData.email }).select(
+    const emailLowerCase = inputData.email.trim().toLowerCase();
+    const user = await User.findOne({ email: emailLowerCase }).select(
       "+password"
     );
     // if user doesn't exist show error message
@@ -76,12 +76,16 @@ module.exports.handler = async (event, context) => {
       { expiresIn: "24h" }
     );
 
+    // delete password from user object
+    const userNoPass = user.toObject();
+    delete userNoPass["password"];
     // return success response
     return {
       statusCode: 200,
       body: JSON.stringify({
         success: true,
         token: generatedJWT,
+        user: userNoPass,
       }),
     };
   } catch (error) {

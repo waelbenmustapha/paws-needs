@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Pressable,
-  ScrollView,
-  Keyboard,
-} from "react-native";
+import { View, Text, StyleSheet, Pressable, ScrollView } from "react-native";
 import Colors from "../../utils/Colors";
 import ReturnNavBar from "../../components/ReturnNavBar";
 import ButtonPrimary from "../../components/ButtonPrimary";
@@ -14,80 +7,39 @@ import InputText from "../../components/InputText";
 import Envelope from "../../assets/svg/envelope.svg";
 import Phone from "../../assets/svg/phone.svg";
 import Person from "../../assets/svg/person-outline.svg";
-// import { Envelope } from "./Icons";
+import { Formik } from "formik";
+import * as yup from "yup";
+import { useSignup } from "../../apis/auth/useSignup";
 
 const SignupWithEmail = ({ navigation }) => {
-  const [inputs, setInputs] = useState({
-    email: "",
-    fullname: "",
-    phone: "",
-    password: "",
-    confirmPassword: "",
+  const signUpValidationSchema = yup.object().shape({
+    fullname: yup.string().required("Full name is required"),
+    phoneNumber: yup
+      .string()
+      .matches(/(\d){8}\b/, "Enter a valid phone number")
+      .required("Phone number is required"),
+    email: yup
+      .string()
+      .email("Please enter valid email")
+      .required("Email is required"),
+    password: yup
+      .string()
+      .matches(/\w*[a-z]\w*/, "Password must have a small letter")
+      .matches(/\w*[A-Z]\w*/, "Password must have a capital letter")
+      .matches(/\d/, "Password must have a number")
+      .matches(
+        /[!@#$%^&*()\-_"=+{}; :,<.>]/,
+        "Password must have a special character"
+      )
+      .min(8, ({ min }) => `Password must be at least ${min} characters`)
+      .required("Password is required"),
+    confirmPassword: yup
+      .string()
+      .oneOf([yup.ref("password")], "Passwords do not match")
+      .required("Confirm password is required"),
   });
-  const [errors, setErrors] = useState({});
-  const [loading, setLoading] = useState(false);
 
-  const validate = () => {
-    Keyboard.dismiss();
-    let isValid = true;
-
-    // checking fullname validation
-    if (!inputs.fullname) {
-      handleError("Please input fullname", "fullname");
-      isValid = false;
-    }
-
-    // checking email validation
-    const emailRegexp =
-      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
-    if (!inputs.email) {
-      handleError("Please input email", "email");
-      isValid = false;
-    } else if (!emailRegexp.test(inputs.email)) {
-      handleError("Please input a valid email", "email");
-      isValid = false;
-    }
-
-    // checking phone validation
-    const phoneRegEx = /^[0-9]{8,}$/;
-    if (!inputs.phone) {
-      handleError("Please enter your phone number", "phone");
-      isValid = false;
-    } else if (!phoneRegEx.test(inputs.phone)) {
-      handleError("Please enter a correct phone number", "phone");
-      isValid = false;
-    }
-
-    // checking password validation
-    if (!inputs.password) {
-      handleError("Please input password", "password");
-      isValid = false;
-    } else if (inputs.password.length < 8) {
-      handleError("Min password length of 8", "password");
-      isValid = false;
-    }
-
-    // checking confirm password validation
-    if (!inputs.confirmPassword) {
-      handleError("Please confirm your password", "confirmPassword");
-      isValid = false;
-    } else if (inputs.confirmPassword != inputs.password) {
-      handleError("Password does not match", "confirmPassword");
-      isValid = false;
-    }
-
-    // submit the form if is valid
-    if (isValid) {
-      // register();
-    }
-  };
-
-  const handleOnchange = (text, input) => {
-    setInputs((prevState) => ({ ...prevState, [input]: text }));
-  };
-  const handleError = (error, input) => {
-    setErrors((prevState) => ({ ...prevState, [input]: error }));
-  };
+  const { isLoading, mutateAsync: SignUpUser } = useSignup();
 
   return (
     <View style={styles.container}>
@@ -95,54 +47,120 @@ const SignupWithEmail = ({ navigation }) => {
         <View style={styles.content}>
           <ReturnNavBar navigation={navigation} />
           <Text style={styles.headerText}>Sign Up</Text>
-          <View style={{ marginBottom: 20 }}>
-            <InputText
-              onChangeText={(text) => handleOnchange(text, "fullname")}
-              onFocus={() => handleError(null, "fullname")}
-              error={errors.fullname}
-              placeholder={"Full Name"}
-              icon={<Person width={20} height={20} color={Colors.PRIMARY} />}
-            />
-          </View>
-          <View style={{ marginBottom: 20 }}>
-            <InputText
-              onChangeText={(text) => handleOnchange(text, "email")}
-              onFocus={() => handleError(null, "email")}
-              error={errors.email}
-              placeholder={"Email"}
-              icon={<Envelope width={20} height={20} color={Colors.PRIMARY} />}
-            />
-          </View>
-          <View style={{ marginBottom: 20 }}>
-            <InputText
-              onChangeText={(text) => handleOnchange(text, "phone")}
-              onFocus={() => handleError(null, "phone")}
-              error={errors.phone}
-              placeholder={"Phone Number"}
-              icon={<Phone width={20} height={20} color={Colors.PRIMARY} />}
-            />
-          </View>
-          <View style={{ marginBottom: 20 }}>
-            <InputText
-              onChangeText={(text) => handleOnchange(text, "password")}
-              onFocus={() => handleError(null, "password")}
-              error={errors.password}
-              isPassword={true}
-              placeholder={"Password"}
-            />
-          </View>
-          <View style={{ marginBottom: 32 }}>
-            <InputText
-              onChangeText={(text) => handleOnchange(text, "confirmPassword")}
-              onFocus={() => handleError(null, "confirmPassword")}
-              error={errors.confirmPassword}
-              isPassword={true}
-              placeholder={"Confirm Password"}
-            />
-          </View>
-          <View style={{ width: "100%", marginBottom: 32 }}>
-            <ButtonPrimary title="Sign Up" onPress={() => validate()} />
-          </View>
+          <Formik
+            initialValues={{
+              fullname: "",
+              phoneNumber: "",
+              email: "",
+              password: "",
+              confirmPassword: "",
+            }}
+            validationSchema={signUpValidationSchema}
+            onSubmit={(values) => SignUpUser(values)}
+          >
+            {({
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              values,
+              errors,
+              touched,
+              isValid,
+            }) => (
+              <>
+                <View style={{ marginBottom: 20 }}>
+                  <InputText
+                    name="fullname"
+                    placeholder={"Full Name"}
+                    onChangeText={handleChange("fullname")}
+                    onBlur={handleBlur("fullname")}
+                    value={values.fullname}
+                    icon={
+                      <Person width={20} height={20} color={Colors.PRIMARY} />
+                    }
+                  />
+                  {errors.fullname && touched.fullname && (
+                    <Text style={{ fontSize: 12, color: "red", marginTop: 7 }}>
+                      {errors.fullname}
+                    </Text>
+                  )}
+                </View>
+                <View style={{ marginBottom: 20 }}>
+                  <InputText
+                    name="email"
+                    placeholder={"Email"}
+                    keyboardType="email-address"
+                    onChangeText={handleChange("email")}
+                    onBlur={handleBlur("email")}
+                    value={values.email}
+                    icon={
+                      <Envelope width={20} height={20} color={Colors.PRIMARY} />
+                    }
+                  />
+                  {errors.email && touched.email && (
+                    <Text style={{ fontSize: 12, color: "red", marginTop: 7 }}>
+                      {errors.email}
+                    </Text>
+                  )}
+                </View>
+                <View style={{ marginBottom: 20 }}>
+                  <InputText
+                    name="phoneNumber"
+                    placeholder={"Phone Number"}
+                    onChangeText={handleChange("phoneNumber")}
+                    onBlur={handleBlur("phoneNumber")}
+                    value={values.phoneNumber}
+                    icon={
+                      <Phone width={20} height={20} color={Colors.PRIMARY} />
+                    }
+                  />
+                  {errors.phoneNumber && touched.phoneNumber && (
+                    <Text style={{ fontSize: 12, color: "red", marginTop: 7 }}>
+                      {errors.phoneNumber}
+                    </Text>
+                  )}
+                </View>
+                <View style={{ marginBottom: 20 }}>
+                  <InputText
+                    name="password"
+                    placeholder={"Password"}
+                    onChangeText={handleChange("password")}
+                    onBlur={handleBlur("password")}
+                    value={values.password}
+                    isPassword={true}
+                  />
+                  {errors.password && touched.password && (
+                    <Text style={{ fontSize: 12, color: "red", marginTop: 7 }}>
+                      {errors.password}
+                    </Text>
+                  )}
+                </View>
+                <View style={{ marginBottom: 32 }}>
+                  <InputText
+                    name="confirmPassword"
+                    placeholder={"Confirm Password"}
+                    onChangeText={handleChange("confirmPassword")}
+                    onBlur={handleBlur("confirmPassword")}
+                    value={values.confirmPassword}
+                    isPassword={true}
+                  />
+                  {errors.confirmPassword && touched.confirmPassword && (
+                    <Text style={{ fontSize: 12, color: "red", marginTop: 7 }}>
+                      {errors.confirmPassword}
+                    </Text>
+                  )}
+                </View>
+                <View style={{ width: "100%", marginBottom: 32 }}>
+                  <ButtonPrimary
+                    title={isLoading ? "Loading..." : "Sign Up"}
+                    onPress={handleSubmit}
+                    disabled={!isValid}
+                  />
+                </View>
+              </>
+            )}
+          </Formik>
+
           <View
             style={[styles.row, { marginBottom: 32, justifyContent: "center" }]}
           >

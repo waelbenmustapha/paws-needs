@@ -15,25 +15,30 @@ const AuthContext = createContext(null);
 export const AuthProvider = ({ children }) => {
   const [timer, setTimer] = useState(true);
   const [user, setUser] = useState("loading");
+
   useEffect(() => {
     getDataObj("user").then((res) => setUser(res));
     setTimeout(() => setTimer(false), 0);
   }, []);
 
+  // save user in async storage
   const saveAsyncUser = (user) => {
     storeDataObj("user", user);
     setUser(user);
   };
 
-  const removeAsyncUserFrom = () => {
+  // remove user from async storage
+  const removeAsyncUser = () => {
     setUser(null);
     AsyncStorage.removeItem("user");
   };
+
   if (user === "loading" || timer) {
     return <Loading />;
   }
+
   return (
-    <AuthContext.Provider value={{ user, saveAsyncUser, removeAsyncUserFrom }}>
+    <AuthContext.Provider value={{ user, saveAsyncUser, removeAsyncUser }}>
       {children}
     </AuthContext.Provider>
   );

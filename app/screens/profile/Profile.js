@@ -37,7 +37,7 @@ const Profile = ({ navigation }) => {
             navigation.navigate("address");
           }}
         >
-          <Text>Adress</Text>
+          <Text>Address</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={{ borderWidth: 1, padding: 5, marginBottom: 20 }}
@@ -50,7 +50,7 @@ const Profile = ({ navigation }) => {
         <TouchableOpacity
           style={{ borderWidth: 1, padding: 5, marginBottom: 20 }}
           onPress={() => {
-            auth.logout();
+            auth.removeAsyncUser();
           }}
         >
           <Text>Logout</Text>

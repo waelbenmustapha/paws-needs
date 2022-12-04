@@ -1,18 +1,15 @@
 import { View, Text, StyleSheet, Pressable, ScrollView } from "react-native";
 import React from "react";
 import Colors from "../../utils/Colors";
-import { useAuth } from "../../context/AuthProvider";
 import ReturnNavBar from "../../components/ReturnNavBar";
 import ButtonPrimary from "../../components/ButtonPrimary";
 import InputText from "../../components/InputText";
 import Envelope from "../../assets/svg/envelope.svg";
 import { Formik } from "formik";
 import * as yup from "yup";
-import { login } from "../../apis/service";
-import { useMutation } from "@tanstack/react-query";
+import { useSignin } from "../../apis/auth/useSignin";
 
 const SigninWithEmail = ({ navigation }) => {
-  const auth = useAuth();
   const loginValidationSchema = yup.object().shape({
     email: yup
       .string()
@@ -24,17 +21,8 @@ const SigninWithEmail = ({ navigation }) => {
       .required("Password is required"),
   });
 
-  const mutation = useMutation(login, {
-    onSuccess: () => {
-      // navigation.navigate("App");
-      // auth.saveAsyncUser(data);
-      console.log("data");
-    },
-  });
-  const sendFormData = (values) => {
-    // mutation.mutate(values);
-    login(values);
-  };
+  const { isLoading, mutateAsync: SigninUser } = useSignin();
+
   return (
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -44,7 +32,7 @@ const SigninWithEmail = ({ navigation }) => {
           <Formik
             initialValues={{ email: "", password: "" }}
             validationSchema={loginValidationSchema}
-            onSubmit={(values) => sendFormData(values)}
+            onSubmit={(values) => SigninUser(values)}
           >
             {({
               handleChange,
@@ -74,6 +62,7 @@ const SigninWithEmail = ({ navigation }) => {
                     </Text>
                   )}
                 </View>
+
                 <View style={{ marginBottom: 12 }}>
                   <InputText
                     name="password"
@@ -104,7 +93,7 @@ const SigninWithEmail = ({ navigation }) => {
                 </Pressable>
                 <View style={{ width: "100%", marginBottom: 32 }}>
                   <ButtonPrimary
-                    title="Sign In"
+                    title={isLoading ? "Loading..." : "Sign In"}
                     onPress={handleSubmit}
                     disabled={!isValid}
                   />
