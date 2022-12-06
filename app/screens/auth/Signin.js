@@ -23,7 +23,18 @@ const Signin = ({ navigation }) => {
             source={require("../../assets/social-signin.png")}
           />
           <Text style={styles.text}>Let’s get you in</Text>
-          <Pressable style={[styles.social_button, styles.row]}>
+          <Pressable
+            onPress={() => {
+              console.log("facebook");
+            }}
+            style={({ pressed }) => [
+              {
+                backgroundColor: pressed ? "#fafafa" : "#fff",
+              },
+              styles.social_button,
+              styles.row,
+            ]}
+          >
             <Image
               style={styles.icon}
               source={require("../../assets/facebook.png")}
@@ -32,14 +43,36 @@ const Signin = ({ navigation }) => {
               Continue with Facebook
             </Text>
           </Pressable>
-          <Pressable style={[styles.social_button, styles.row]}>
+          <Pressable
+            onPress={() => {
+              console.log("google");
+            }}
+            style={({ pressed }) => [
+              {
+                backgroundColor: pressed ? "#fafafa" : "#fff",
+              },
+              styles.social_button,
+              styles.row,
+            ]}
+          >
             <Image
               style={styles.icon}
               source={require("../../assets/google.png")}
             />
             <Text style={styles.social_button_text}>Continue with Google</Text>
           </Pressable>
-          <Pressable style={[styles.social_button, styles.row]}>
+          <Pressable
+            onPress={() => {
+              console.log("apple");
+            }}
+            style={({ pressed }) => [
+              {
+                backgroundColor: pressed ? "#fafafa" : "#fff",
+              },
+              styles.social_button,
+              styles.row,
+            ]}
+          >
             <Image
               style={styles.icon}
               source={require("../../assets/apple.png")}
