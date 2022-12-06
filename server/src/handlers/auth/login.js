@@ -27,7 +27,7 @@ module.exports.handler = async (event, context) => {
       statusCode: 400,
       body: JSON.stringify({
         success: false,
-        msg: "invalid email address",
+        msg: "Invalid email address",
       }),
     };
   }

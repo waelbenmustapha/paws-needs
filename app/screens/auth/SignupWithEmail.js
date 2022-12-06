@@ -7,6 +7,7 @@ import InputText from "../../components/InputText";
 import Envelope from "../../assets/svg/envelope.svg";
 import Phone from "../../assets/svg/phone.svg";
 import Person from "../../assets/svg/person-outline.svg";
+import CloseFillIcon from "../../assets/svg/close-fill.svg";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { useSignup } from "../../apis/auth/useSignup";
@@ -38,8 +39,9 @@ const SignupWithEmail = ({ navigation }) => {
       .oneOf([yup.ref("password")], "Passwords do not match")
       .required("Confirm password is required"),
   });
+  const [apiError, setApiError] = useState("");
 
-  const { isLoading, mutateAsync: SignUpUser } = useSignup();
+  const { isLoading, mutateAsync: SignUpUser } = useSignup({ setApiError });
 
   return (
     <View style={styles.container}>
@@ -47,6 +49,40 @@ const SignupWithEmail = ({ navigation }) => {
         <View style={styles.content}>
           <ReturnNavBar navigation={navigation} />
           <Text style={styles.headerText}>Sign Up</Text>
+
+          {apiError ? (
+            <View
+              style={{
+                width: "100%",
+                marginBottom: 32,
+                backgroundColor: "rgba(234, 0, 0, 0.1)",
+                padding: 12,
+                borderRadius: 5,
+                flexDirection: "row",
+                alignItems: "center",
+              }}
+            >
+              <CloseFillIcon
+                onPress={() => setApiError("")}
+                width={20}
+                height={20}
+                color={"red"}
+              />
+              <View style={{ flex: 1, alignItems: "center" }}>
+                <Text
+                  style={{
+                    fontSize: 12,
+                    fontWeight: "400",
+                    color: "red",
+                    marginLeft: 12,
+                  }}
+                >
+                  {apiError}
+                </Text>
+              </View>
+            </View>
+          ) : null}
+
           <Formik
             initialValues={{
               fullname: "",

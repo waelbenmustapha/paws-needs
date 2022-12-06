@@ -12,7 +12,7 @@ module.exports.handler = async (event, context) => {
       statusCode: 400,
       body: JSON.stringify({
         success: false,
-        msg: "Enter all fields",
+        msg: "Enter all fields!!",
       }),
     };
   }
@@ -25,7 +25,7 @@ module.exports.handler = async (event, context) => {
       statusCode: 400,
       body: JSON.stringify({
         success: false,
-        msg: "invalid email address",
+        msg: "Invalid email address!!",
       }),
     };
   }
@@ -36,7 +36,7 @@ module.exports.handler = async (event, context) => {
       statusCode: 400,
       body: JSON.stringify({
         success: false,
-        msg: "password should be 8 characters or more",
+        msg: "Password should be 8 characters or more...",
       }),
     };
   }
@@ -64,7 +64,7 @@ module.exports.handler = async (event, context) => {
         statusCode: 400,
         body: JSON.stringify({
           success: false,
-          msg: "Email already exist",
+          msg: "Account with this email already exist.",
         }),
       };
     }
@@ -76,15 +76,15 @@ module.exports.handler = async (event, context) => {
         statusCode: 500,
         body: JSON.stringify({
           success: false,
-          msg: "Something went wrong",
+          msg: "Something went wrong!!",
         }),
       };
     }
     return {
-      statusCode: 200,
+      statusCode: 201,
       body: JSON.stringify({
         success: true,
-        msg: "account created successfuly",
+        msg: "Account created successfuly.",
       }),
     };
   } catch (error) {
