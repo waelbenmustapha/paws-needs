@@ -6,12 +6,14 @@ export const useSignup = ({ setApiError }) => {
   const navigation = useNavigation();
   return useMutation(signup, {
     onSuccess: (result) => {
-      if (result.status == 201 && result.data.success == true) {
-        navigation.navigate("signin-with-email");
-      } else {
-        // console.log(result.status);
-        // console.log(result.data);
-        setApiError(result.data.msg);
+      if (result) {
+        if (result.status == 201 && result.data.success == true) {
+          navigation.navigate("signin-with-email");
+        } else {
+          // console.log(result.status);
+          // console.log(result.data);
+          setApiError(result.data.msg);
+        }
       }
     },
     onError: (error) => {

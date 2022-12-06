@@ -1,105 +1,218 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  StatusBar,
-  TextInput,
-  Image,
-  Pressable,
-  ScrollView,
-} from "react-native";
-import React from "react";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
+import React, { useEffect, useState } from "react";
 import Colors from "../../utils/Colors";
-import AntDesign from "react-native-vector-icons/AntDesign";
 import UserImageEdit from "../../components/UserImageEdit";
+import InputText from "../../components/InputText";
 import avatarimg from "../../assets/avatar.png";
+import Envelope from "../../assets/svg/envelope.svg";
+import Phone from "../../assets/svg/phone.svg";
+import Person from "../../assets/svg/person-outline.svg";
+import CloseFillIcon from "../../assets/svg/close-fill.svg";
+import LocationFillIcon from "../../assets/svg/location.svg";
+import { useAuth } from "../../context/AuthProvider";
+import { Formik } from "formik";
+import * as yup from "yup";
+import ButtonPrimary from "../../components/ButtonPrimary";
+import ReturnNavBar from "../../components/ReturnNavBar";
+import { useEditProfile } from "../../apis/user/useEditProfile";
+
 const EditProfile = ({ navigation }) => {
+  const auth = useAuth();
+  const [userData, setUserData] = useState(null);
+  const [token, setToken] = useState(null);
+
+  async function getUser() {
+    const data = await auth.getAsyncUser();
+    setUserData(data.user);
+    setToken(data.token);
+  }
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
+  const profileValidationSchema = yup.object().shape({
+    fullname: yup.string().required("Full name is required"),
+    phoneNumber: yup
+      .string()
+      .matches(/(\d){8}\b/, "Enter a valid phone number")
+      .required("Phone number is required"),
+    address: yup.string().required("Address is required"),
+    email: yup
+      .string()
+      .email("Please enter valid email")
+      .required("Email is required"),
+  });
+
+  const [apiError, setApiError] = useState("");
+
+  const { isLoading, mutateAsync: EditProfile } = useEditProfile({
+    setApiError,
+  });
+
   return (
     <View style={styles.container}>
-      <ScrollView>
-        <View style={styles.nav}>
-          <View style={styles.row}>
-            <AntDesign
-              onPress={() => navigation.goBack()}
-              style={styles.icon}
-              name="arrowleft"
-              size={24}
-              color={Colors.PRIMARY}
-            />
-            <Text style={styles.navText}>Edit Profile</Text>
-          </View>
-        </View>
-        <UserImageEdit image={avatarimg} />
-        <View style={styles.inputContainer}>
-          <TextInput placeholder={"Email"} style={{ flex: 1 }} />
-          <Image
-            resizeMode="center"
-            source={require("../../assets/mail.png")}
-            style={{ width: 20 }}
-          />
-        </View>
-        <View style={styles.inputContainer}>
-          <TextInput placeholder={"Name"} style={{ flex: 1 }} />
-        </View>
-
-        <View style={styles.inputContainer}>
-          <TextInput placeholder={"Address Linked"} style={{ flex: 1 }} />
-          <Image
-            resizeMode="center"
-            source={require("../../assets/locationorange.png")}
-            style={{ width: 20 }}
-          />
-        </View>
-        <View style={styles.inputContainer}>
-          <Text style={{ color: "grey", marginRight: 5 }}>+971</Text>
-          <TextInput placeholder={"Phone Number"} style={{ flex: 1 }} />
-          <Image
-            resizeMode="center"
-            source={require("../../assets/mail.png")}
-            style={{ width: 20 }}
-          />
-        </View>
-      </ScrollView>
-      <View
-        style={{
-          backgroundColor: "#fff",
-          paddingTop: 20,
-          marginTop: 20,
-          paddingBottom: 36,
+      <ReturnNavBar
+        title={"Edit Profile"}
+        arrowColor={Colors.PRIMARY}
+        navigation={navigation}
+      />
+      <Formik
+        initialValues={{
+          fullname: "",
+          email: "",
+          address: "",
+          phoneNumber: "",
         }}
+        validationSchema={profileValidationSchema}
+        onSubmit={(values) => EditProfile(values)}
       >
-        <Pressable
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "center",
-            height: 58,
-            borderRadius: 100,
-            backgroundColor: Colors.PRIMARY,
+        {({
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          values,
+          errors,
+          touched,
+          isValid,
+        }) => (
+          <>
+            <ScrollView showsVerticalScrollIndicator={false}>
+              <View style={{ paddingVertical: 40 }}>
+                <View style={{ marginBottom: 32 }}>
+                  <UserImageEdit image={avatarimg} />
+                </View>
 
-            shadowColor: "#F77E34",
-            shadowOffset: {
-              width: 0,
-              height: 9,
-            },
-            shadowOpacity: 0.48,
-            shadowRadius: 11.95,
+                {apiError ? (
+                  <View
+                    style={{
+                      width: "100%",
+                      marginBottom: 32,
+                      backgroundColor: "rgba(234, 0, 0, 0.1)",
+                      padding: 12,
+                      borderRadius: 5,
+                      flexDirection: "row",
+                      alignItems: "center",
+                    }}
+                  >
+                    <CloseFillIcon
+                      onPress={() => setApiError("")}
+                      width={20}
+                      height={20}
+                      color={"red"}
+                    />
+                    <View style={{ flex: 1, alignItems: "center" }}>
+                      <Text
+                        style={{
+                          fontSize: 12,
+                          fontWeight: "400",
+                          color: "red",
+                          marginLeft: 12,
+                        }}
+                      >
+                        {apiError}
+                      </Text>
+                    </View>
+                  </View>
+                ) : null}
 
-            elevation: 18,
-          }}
-        >
-          <Text
-            numberOfLines={1}
-            style={{
-              fontSize: 18,
-              fontWeight: "700",
-              color: "#fff",
-            }}
-          >
-            Update
-          </Text>
-        </Pressable>
-      </View>
+                <View style={{ marginBottom: 20 }}>
+                  <InputText
+                    name="fullname"
+                    placeholder={"Full Name"}
+                    onChangeText={handleChange("fullname")}
+                    onBlur={handleBlur("fullname")}
+                    value={values.fullname}
+                    // error={errors.fullname && touched.fullname}
+                    icon={
+                      <Person width={20} height={20} color={Colors.PRIMARY} />
+                    }
+                  />
+                  {errors.fullname && touched.fullname && (
+                    <Text style={{ fontSize: 12, color: "red", marginTop: 7 }}>
+                      {errors.fullname}
+                    </Text>
+                  )}
+                </View>
+                <View style={{ marginBottom: 20 }}>
+                  <InputText
+                    name="email"
+                    placeholder={"Email"}
+                    keyboardType="email-address"
+                    onChangeText={handleChange("email")}
+                    onBlur={handleBlur("email")}
+                    value={values.email}
+                    // error={errors.email && touched.email}
+                    icon={
+                      <Envelope width={20} height={20} color={Colors.PRIMARY} />
+                    }
+                  />
+                  {errors.email && touched.email && (
+                    <Text style={{ fontSize: 12, color: "red", marginTop: 7 }}>
+                      {errors.email}
+                    </Text>
+                  )}
+                </View>
+                <View style={{ marginBottom: 20 }}>
+                  <InputText
+                    name="address"
+                    placeholder={"Address Linked"}
+                    onChangeText={handleChange("address")}
+                    onBlur={handleBlur("address")}
+                    value={values.address}
+                    // error={errors.address && touched.address}
+                    icon={
+                      <LocationFillIcon
+                        width={20}
+                        height={20}
+                        color={Colors.PRIMARY}
+                      />
+                    }
+                  />
+                  {errors.address && touched.address && (
+                    <Text style={{ fontSize: 12, color: "red", marginTop: 7 }}>
+                      {errors.address}
+                    </Text>
+                  )}
+                </View>
+                <View style={{ marginBottom: 20 }}>
+                  <InputText
+                    name="phoneNumber"
+                    placeholder={"Phone Number"}
+                    onChangeText={handleChange("phoneNumber")}
+                    onBlur={handleBlur("phoneNumber")}
+                    value={values.phoneNumber}
+                    // error={errors.phoneNumber && touched.phoneNumber}
+                    icon={
+                      <Phone width={20} height={20} color={Colors.PRIMARY} />
+                    }
+                  />
+                  {errors.phoneNumber && touched.phoneNumber && (
+                    <Text style={{ fontSize: 12, color: "red", marginTop: 7 }}>
+                      {errors.phoneNumber}
+                    </Text>
+                  )}
+                </View>
+              </View>
+            </ScrollView>
+            <View
+              style={{
+                backgroundColor: "#fff",
+                paddingTop: 20,
+                paddingBottom: 32,
+              }}
+            >
+              <View style={{ width: "100%" }}>
+                <ButtonPrimary
+                  title={isLoading ? "Loading..." : "Update"}
+                  onPress={handleSubmit}
+                  disabled={!isValid}
+                />
+              </View>
+            </View>
+          </>
+        )}
+      </Formik>
     </View>
   );
 };
@@ -107,25 +220,10 @@ const EditProfile = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingHorizontal: 20,
     backgroundColor: "#fff",
-    padding: 20,
-    paddingTop: 0,
-    justifyContent: "space-between",
   },
   row: { flexDirection: "row", alignItems: "center" },
-  nav: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingTop: StatusBar.currentHeight + 20,
-    paddingBottom: 20,
-  },
-  navText: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: Colors.TEXT,
-  },
-  icon: { paddingVertical: 5, paddingRight: 10 },
   inputContainer: {
     width: "100%",
     height: 56,
