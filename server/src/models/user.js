@@ -21,16 +21,12 @@ const UserSchema = new mongoose.Schema(
       minLength: 8,
       select: false,
     },
-    address: {
-      name: { type: String, required: false, default: null },
-      street: { type: String, required: false, default: null },
-      city: { type: String, required: false, default: null },
-      longitude: { type: Number, required: false, default: null },
-      latitude: { type: Number, required: false, default: null },
-    },
+
+    addresses: [{ type: mongoose.Schema.Types.ObjectId, ref: "Address" }],
+
     phoneNumber: { type: String, required: false, default: null },
     profile_pic: { type: String, required: false, default: null },
-    pets:[{ type: mongoose.Schema.Types.ObjectId, ref: "Pet" }],
+    pets: [{ type: mongoose.Schema.Types.ObjectId, ref: "Pet" }],
     role: {
       type: String,
       default: "user",

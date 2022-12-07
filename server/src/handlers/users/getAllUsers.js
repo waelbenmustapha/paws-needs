@@ -22,6 +22,7 @@ const getAllUsers = async (event, context) => {
         { password: 0 }
       )
         .populate("pets")
+        .populate("addresses")
         .skip(page * perpage)
         .limit(perpage)
         .sort({ [sort]: asc });
@@ -36,7 +37,9 @@ const getAllUsers = async (event, context) => {
         }),
       };
     } else {
-      const users = await User.find({}, { password: 0 }).populate("pets");
+      const users = await User.find({}, { password: 0 })
+        .populate("pets")
+        .populate("addresses");
 
       return {
         statusCode: 200,

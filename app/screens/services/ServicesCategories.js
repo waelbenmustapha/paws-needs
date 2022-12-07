@@ -76,7 +76,6 @@ const ServicesCategories = () => {
             return <></>;
           }}
         />
-        {data.data.map((el)=><Text>{el._id}</Text>)}
         <View style={{ marginVertical: 20 }}>
           <SearchAndFilter placeholder={"Search for a service"} />
         </View>
