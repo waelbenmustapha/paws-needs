@@ -10,7 +10,13 @@ const updateCurrentUser = async (event, context) => {
   const inputData = JSON.parse(event.body);
 
   // check input data
-  if (!inputData || !inputData.fullname || !inputData.email) {
+  if (
+    !inputData ||
+    !inputData.fullname ||
+    !inputData.email ||
+    !inputData.address ||
+    !inputData.phoneNumber
+  ) {
     return {
       statusCode: 400,
       body: JSON.stringify({
@@ -37,7 +43,7 @@ const updateCurrentUser = async (event, context) => {
   let newUser = {
     fullname: inputData.fullname,
     email: inputData.email,
-    phoneNumber: null,
+    phoneNumber: inputData.phoneNumber,
     profile_pic:
       "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__480.png",
     address: {
@@ -64,7 +70,7 @@ const updateCurrentUser = async (event, context) => {
         statusCode: 400,
         body: JSON.stringify({
           success: false,
-          msg: "email already been used",
+          msg: "Email already been used",
         }),
       };
     }
@@ -79,7 +85,7 @@ const updateCurrentUser = async (event, context) => {
         statusCode: 404,
         body: JSON.stringify({
           success: false,
-          msg: "user not found",
+          msg: "User not found",
         }),
       };
     }
@@ -87,7 +93,7 @@ const updateCurrentUser = async (event, context) => {
       statusCode: 200,
       body: JSON.stringify({
         success: true,
-        msg: "user updated successfuly",
+        msg: "Account updated successfuly",
       }),
     };
   } catch (error) {

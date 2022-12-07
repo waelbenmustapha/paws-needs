@@ -63,11 +63,6 @@ const InputText = ({
           <View style={styles.icon}>{icon}</View>
         ) : null}
       </View>
-      {error && (
-        <Text style={{ marginTop: 7, color: "#ff0000", fontSize: 12 }}>
-          {error}
-        </Text>
-      )}
     </View>
   );
 };

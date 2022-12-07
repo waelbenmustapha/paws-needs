@@ -1,10 +1,11 @@
 import { View, Text, StyleSheet, Pressable, ScrollView } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import Colors from "../../utils/Colors";
 import ReturnNavBar from "../../components/ReturnNavBar";
 import ButtonPrimary from "../../components/ButtonPrimary";
 import InputText from "../../components/InputText";
 import Envelope from "../../assets/svg/envelope.svg";
+import CloseFillIcon from "../../assets/svg/close-fill.svg";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { useSignin } from "../../apis/auth/useSignin";
@@ -21,7 +22,9 @@ const SigninWithEmail = ({ navigation }) => {
       .required("Password is required"),
   });
 
-  const { isLoading, mutateAsync: SigninUser } = useSignin();
+  const [apiError, setApiError] = useState("");
+
+  const { isLoading, mutateAsync: SigninUser } = useSignin({ setApiError });
 
   return (
     <View style={styles.container}>
@@ -29,6 +32,40 @@ const SigninWithEmail = ({ navigation }) => {
         <View style={styles.content}>
           <ReturnNavBar navigation={navigation} />
           <Text style={styles.headerText}>Sign In</Text>
+
+          {apiError ? (
+            <View
+              style={{
+                width: "100%",
+                marginBottom: 32,
+                backgroundColor: "rgba(234, 0, 0, 0.1)",
+                padding: 12,
+                borderRadius: 5,
+                flexDirection: "row",
+                alignItems: "center",
+              }}
+            >
+              <CloseFillIcon
+                onPress={() => setApiError("")}
+                width={20}
+                height={20}
+                color={"red"}
+              />
+              <View style={{ flex: 1, alignItems: "center" }}>
+                <Text
+                  style={{
+                    fontSize: 12,
+                    fontWeight: "400",
+                    color: "red",
+                    marginLeft: 12,
+                  }}
+                >
+                  {apiError}
+                </Text>
+              </View>
+            </View>
+          ) : null}
+
           <Formik
             initialValues={{ email: "", password: "" }}
             validationSchema={loginValidationSchema}
