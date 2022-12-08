@@ -33,18 +33,15 @@ const SelectBottomSheet = ({
   const openBottomSheet = () => {
     bottomSheetRef.current?.present();
     setBottomSheetOpen(true);
-    console.log("bottom sheet opened");
   };
 
   const closeBottomSheet = () => {
     bottomSheetRef.current?.dismiss();
     setBottomSheetOpen(false);
-    console.log("bottom sheet closed");
   };
 
   // callbacks
   const handleSheetChanges = useCallback((index) => {
-    console.log("handleSheetChanges", index);
     if (index === -1) {
       closeBottomSheet();
     }

@@ -1,5 +1,5 @@
 const connectDatabase = require("../../database/db");
-const Pet = require("../../models/pet");
+const Address = require("../../models/address");
 const User = require("../../models/user");
 
 module.exports.handler = async (event, context) => {
@@ -7,34 +7,22 @@ module.exports.handler = async (event, context) => {
 
   try {
     await connectDatabase();
-    const {
-      name,
-      type,
-      breed,
-      userId,
-      image,
-      gender,
-      weight,
-      moredetails,
-      description,
-    } = JSON.parse(event.body);
-    console.log({
-      name,
-      type,
-      breed,
-      userId,
-      image,
-      gender,
-      weight,
-      moredetails,
-      description,
-    });
-    if (!name || !type || !breed || !userId || !gender || !weight) {
+    const { name, street, area, building, longitude, latitude, userId } =
+      JSON.parse(event.body);
+    if (
+      !name ||
+      !street ||
+      !area ||
+      !building ||
+      !longitude ||
+      !latitude ||
+      !userId
+    ) {
       return {
         statusCode: 400,
         body: JSON.stringify({
           success: false,
-          msg: "Enter all required fields",
+          msg: "Enter all fields",
         }),
       };
     }
@@ -49,19 +37,17 @@ module.exports.handler = async (event, context) => {
         }),
       };
     }
-    const PetObj = await Pet.create({
+    const AddressObj = await Address.create({
       name,
-      type,
-      breed,
-      image,
-      gender,
-      weight,
-      moredetails,
-      description,
+      street,
+      area,
+      building,
+      longitude,
+      latitude,
       user: userId,
     });
 
-    user.pets.push(PetObj);
+    user.addresses.push(AddressObj);
     user.save();
     return {
       statusCode: 201,

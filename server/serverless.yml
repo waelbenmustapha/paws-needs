@@ -175,3 +175,35 @@ functions:
       - httpApi:
           path: /pets/get-all
           method: GET
+  #Pets EndPoints
+  #-------------------------------------------------------
+  createAddress:
+    handler: src/handlers/addresses/createAddress.handler
+    events:
+      - httpApi:
+          path: /address/create
+          method: POST
+  deleteAddress:
+    handler: src/handlers/addresses/deleteAddress.handler
+    events:
+      - httpApi:
+          path: /address/delete/{id}
+          method: DELETE
+  userAddresses:
+    handler: src/handlers/addresses/getUserAddresses.handler
+    events:
+      - httpApi:
+          path: /address/user-addresses/{id}
+          method: GET
+  updateAddress:
+    handler: src/handlers/addresses/updateAddress.handler
+    events:
+      - httpApi:
+          path: /address/update/{id}
+          method: PUT
+  AllAddresses:
+    handler: src/handlers/addresses/getAllAddresses.handler
+    events:
+      - httpApi:
+          path: /address/get-all
+          method: GET

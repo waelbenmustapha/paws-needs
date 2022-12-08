@@ -1,9 +1,7 @@
 const connectDatabase = require("../../database/db");
-const { verifyJWT } = require("../../middleware/authorize");
-const Pet = require("../../models/pet");
-const middy = require("@middy/core");
+const Address = require("../../models/address");
 
-const userPets = async (event, context) => {
+module.exports.handler = async (event, context) => {
   context.callbackWaitsForEmptyEventLoop = false;
 
   try {
@@ -11,11 +9,11 @@ const userPets = async (event, context) => {
     
     const { id } = event.pathParameters;
 
-    const pets = await Pet.find({user:id});
+    const addresses = await Address.find({user:id});
 
     return {
       statusCode: 200,
-      body: JSON.stringify(pets),
+      body: JSON.stringify(addresses),
     };
   } catch (error) {
     return {
@@ -24,5 +22,3 @@ const userPets = async (event, context) => {
     };
   }
 };
-
-module.exports.handler = middy(userPets).use(verifyJWT());

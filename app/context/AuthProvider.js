@@ -28,6 +28,11 @@ export const AuthProvider = ({ children }) => {
     return user;
   };
 
+  const getAsyncUserId =  () => {
+    
+    return user.user._id;
+    
+  };
   // remove user from async storage
   const removeAsyncUser = () => {
     setUser(null);
@@ -45,7 +50,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, saveAsyncUser, getAsyncUser, removeAsyncUser }}
+      value={{ user, saveAsyncUser, getAsyncUser,getAsyncUserId, removeAsyncUser }}
     >
       {children}
     </AuthContext.Provider>

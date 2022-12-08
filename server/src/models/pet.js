@@ -15,9 +15,25 @@ const PetSchema = new mongoose.Schema(
       required: [true, "Please Add an Image"],
     },
     breed: {
+      type: String,
+      required: [true, "Please Add an Image"],
+    },
+    gender: {
+      type: String,
+      enum: ["Male", "Female"],
+      required: [true, "Please Pick gender"]
+    },
+    weight: { type: Number, required: [true, "Please Insert Weight"] },
+    description: {
+      type: String,
+      required: false,
+    },
+    moredetails: [
+      {
         type: String,
-        required: [true, "Please Add an Image"],
+        required: false,
       },
+    ],
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",

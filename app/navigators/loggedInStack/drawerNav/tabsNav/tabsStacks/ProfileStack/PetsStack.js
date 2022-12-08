@@ -1,8 +1,9 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import MyPets from "../../../../../../screens/profile/MyPets";
-import AddPet from "../../../../../../screens/profile/AddPet";
-import EditPet from "../../../../../../screens/profile/EditPet";
+import MyPets from "../../../../../../screens/profile/pets/MyPets";
+import EditPet from "../../../../../../screens/profile/pets/EditPet";
+import AddPet from "../../../../../../screens/profile/pets/AddPet";
+
 
 const Stack = createNativeStackNavigator();
 

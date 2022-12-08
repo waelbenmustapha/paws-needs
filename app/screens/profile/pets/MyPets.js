@@ -6,33 +6,39 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React from "react";
-import Colors from "../../utils/Colors";
+import Colors from "../../../utils/Colors";
 import AntDesign from "react-native-vector-icons/AntDesign";
+import { useGetUserPets } from "../../../apis/pets/useGetUserPets";
+import { useAuth } from "../../../context/AuthProvider";
+import { useFocusEffect } from "@react-navigation/native";
 
 const MyPets = ({ navigation }) => {
-  const pets = [
-    {
-      name: "kaloub",
-      type: "Dog",
-      breed: "chiwawa",
-      gender: "male",
-      image:"https://post.medicalnewstoday.com/wp-content/uploads/sites/3/2020/02/322868_1100-800x825.jpg",
-      weight: 6,
-      details: "agressive",
-      description: "a small dog that like to bite people",
-    },
-    {
-      name: "9atousa",
-      type: "Cat",
-      breed: "siamese ",
-      gender: "female",
-      image:"https://s36537.pcdn.co/wp-content/uploads/2015/06/600px-russian-blue-sleepy.jpg.optimal.jpg",
-      weight: 2,
-      details: "lovely",
-      description: "kitty cat",
-    },
-  ];
+  const auth = useAuth();
 
+  const id = auth.getAsyncUserId();
+
+  const { data, isLoading, isError, isRefetching, refetch } =
+    useGetUserPets(id);
+  useFocusEffect(
+    React.useCallback(() => {
+      refetch();
+    }, [])
+  );
+
+  if (isLoading) {
+    return (
+      <View>
+        <Text>Loading</Text>
+      </View>
+    );
+  }
+  if (isError) {
+    return (
+      <View>
+        <Text>Error</Text>
+      </View>
+    );
+  }
   return (
     <View style={styles.container}>
       <View style={styles.nav}>
@@ -47,7 +53,8 @@ const MyPets = ({ navigation }) => {
           <Text style={styles.navText}>My Pets</Text>
         </View>
       </View>
-      {pets.map((el) => (
+      {isRefetching && <Text>Refetching</Text>}
+      {data.map((el) => (
         <TouchableOpacity
           onPress={() => navigation.navigate("editpet", { pet: el })}
           style={{
@@ -56,7 +63,7 @@ const MyPets = ({ navigation }) => {
             padding: 10,
             borderRadius: 10,
           }}
-          key={el.name}
+          key={el._id}
         >
           <Text>{el.name}</Text>
         </TouchableOpacity>

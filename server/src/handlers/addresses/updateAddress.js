@@ -1,5 +1,5 @@
 const connectDatabase = require("../../database/db");
-const Pet = require("../../models/pet");
+const Adress = require("../../models/address");
 const User = require("../../models/user");
 
 module.exports.handler = async (event, context) => {
@@ -7,31 +7,31 @@ module.exports.handler = async (event, context) => {
 
   try {
     await connectDatabase();
+    const { name, street, area, building, longitude, latitude } = JSON.parse(
+      event.body
+    );
     const { id } = event.pathParameters;
 
-    const {
-      name,
-      type,
-      breed,
-      image,
-      gender,
-      weight,
-      moredetails,
-      description,
-    } = JSON.parse(event.body);
-    if (!name || !type || !breed || !gender || !weight) {
+    if (
+      !name ||
+      !street ||
+      !area ||
+      !building ||
+      !longitude ||
+      !latitude 
+    ) {
       return {
         statusCode: 400,
         body: JSON.stringify({
           success: false,
-          msg: "Enter all required fields",
+          msg: "Enter all fields",
         }),
       };
     }
 
-    await Pet.findOneAndUpdate(
+    await Adress.findOneAndUpdate(
       { _id: id },
-      { name, type, breed, image, gender, weight, moredetails, description }
+      {name, street, area, building, longitude, latitude  }
     );
 
     return {

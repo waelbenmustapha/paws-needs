@@ -34,7 +34,7 @@ const Profile = ({ navigation }) => {
         <TouchableOpacity
           style={{ borderWidth: 1, padding: 5, marginBottom: 20 }}
           onPress={() => {
-            navigation.navigate("address");
+            navigation.navigate("addresses-stack");
           }}
         >
           <Text>Address</Text>

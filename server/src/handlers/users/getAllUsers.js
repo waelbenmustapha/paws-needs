@@ -1,6 +1,7 @@
 const connectDatabase = require("../../database/db");
 const User = require("../../models/user");
 const Pet = require("../../models/pet");
+const Address = require("../../models/address");
 const middy = require("@middy/core");
 const { verifyJWT, verifyAdmin } = require("../../middleware/authorize");
 

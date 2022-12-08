@@ -59,13 +59,7 @@ const ServicesCategories = () => {
       location: "Dubai",
     },
   ]);
-  if (isLoading) {
-    return (
-      <View>
-        <Text>Loading</Text>
-      </View>
-    );
-  }
+
 
   return (
     <View style={styles.container}>
