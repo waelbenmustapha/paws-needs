@@ -6,7 +6,7 @@ module.exports = connectDatabase = async () => {
   if (conn == null) {
     console.log("Creating a new Connection to the Database");
     conn = await mongoose.connect(process.env.DB, {
-      serverSelectionTimeoutMS: 5000,
+      serverSelectionTimeoutMS: 15000,
     });
     return conn;
   }

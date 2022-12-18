@@ -50,7 +50,7 @@ module.exports.handler = async (event, context) => {
     fullname: obj.fullname.trim(),
     email: obj.email.trim().toLowerCase(),
     password: hashedPassword,
-    phoneNumber: null,
+    phoneNumber: obj.phoneNumber,
   });
 
   try {

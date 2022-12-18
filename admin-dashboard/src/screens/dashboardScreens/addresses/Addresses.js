@@ -8,14 +8,15 @@ import { Link, useNavigate } from "react-router-dom";
 import { ReactComponent as SearchIcon } from "../../../assets/svg/search-line.svg";
 import Pagination from "../../../components/pagination/Pagination";
 import { useGetAllPets } from "../../../apis/pets/useGetAllPets";
-import { useDeletePet } from "../../../apis/pets/useDeletePet";
-function Pets() {
+import { useDeleteAddress } from "../../../apis/addresses/useDeleteAddress";
+import { useGetAllAddresses } from "../../../apis/addresses/useGetAllAddresses";
+function Addresses() {
   const [page, setPage] = useState(1);
   const [perPage, setPerPage] = useState(5);
   const [search, setSearch] = useState();
   const [searchConfirm, setSearchConfirm] = useState();
   const navigate = useNavigate()
-  const {mutateAsync:fndeletePet,isLoading:isloadingdel}=useDeletePet()
+  const {mutateAsync:fndeletePet,isLoading:isloadingdel}=useDeleteAddress()
 
   const rowStyle = (index) => {
     return {
@@ -29,7 +30,7 @@ function Pets() {
     { value: 25, label: 25 },
   ];
 
-  const { isLoading, isError, data, refetch, isFetching } = useGetAllPets(
+  const { isLoading, isError, data, refetch, isFetching } = useGetAllAddresses(
     page,
     perPage,
     searchConfirm
@@ -57,13 +58,13 @@ function Pets() {
   return (
     <div className="w-full min-h-screen p-6 2lg:p-14">
       <p className="text-xs mb-2">
-        <Link to={"/dashboard/pets"}>Pets</Link> &gt;
+        <Link to={"/dashboard/addresses"}>Addresses</Link> &gt;
       </p>
       <div className="mb-10 flex flex-row justify-between items-center">
-        <p className="font-bold text-tiny lg:text-2xl">All Pets</p>
+        <p className="font-bold text-tiny lg:text-2xl">All Addresses</p>
         <div className="flex flex-row flex-nowrap justify-center items-center">
           <Link
-            to={"/dashboard/pet-add"}
+            to={"/dashboard/address-add"}
             style={{
               border: `2px solid #EB5A3C`,
               backgroundColor: "#EB5A3C",
@@ -71,7 +72,7 @@ function Pets() {
             className="flex h-[44px] p-[7px] flex-row flex-nowrap justify-center items-center rounded-[4px] ml-3 text-white font-bold text-center outline-none"
           >
             <Add className="h-[20px] w-[20px] mr-[10px]" />
-            <span className="text-[12px]">Add New Pet</span>
+            <span className="text-[12px]">Add New Address</span>
           </Link>
         </div>
       </div>
@@ -119,37 +120,24 @@ function Pets() {
             >
               <th className="trstyle">#ID </th>
               <th className="trstyle">Name</th>
-              <th className="trstyle">Type</th>
-              <th className="trstyle">Breed</th>
-              <th className="trstyle">Gender</th>
-              <th className="trstyle">Weight</th>
-              <th className="trstyle">Description</th>
-              <th className="trstyle">More Details</th>
-              <th className="trstyle">Image</th>
-              <th className="trstyle">Owner</th>
+              <th className="trstyle">Area</th>
+              <th className="trstyle">Street</th>
+              <th className="trstyle">Building</th>
+              <th className="trstyle">User</th>
               <th className="trstyle">createdAt</th>
               <th className="trstyle">updatedAt</th>
               <th className="trstyle">Edit</th>
               <th className="trstyle">Delete</th>
             </tr>
             {data.data.data.map((el, index) => (
-              <tr className="rowtbl" index={index} style={rowStyle(index)}>
+              <tr className="rowtbl" index={el._id} style={rowStyle(index)}>
                 <td className="tdstyle">{el._id}</td>
                 <td className="tdstyle">{el.name}</td>
-                <td className="tdstyle">{el.type}</td>
-                <td className="tdstyle">{el.breed}</td>
-                <td className="tdstyle">{el.gender}</td>
-                <td className="tdstyle">{el.weight}</td>
-                <td className="tdstyle">{el.description}</td>
-                <td className="tdstyle">{el.moredetails.map((el)=><p>{el}</p>)}</td>
-                
+                <td className="tdstyle">{el.area}</td>
+                <td className="tdstyle">{el.street}</td>
 
-                <td className="tdstyle" align="center">
-                  <img
-                    style={{ maxWidth: "100px", aspectRatio: 1 / 1 }}
-                    src="https://cdn-icons-png.flaticon.com/512/147/147144.png"
-                  />
-                </td>
+                <td className="tdstyle">{el.building}</td>
+
                 <td className="tdstyle" align="center">
                 <p>{el.user.fullname}</p>
                 <p>{el.user.email}</p>
@@ -164,7 +152,7 @@ function Pets() {
                 </td>
                 <td className="tdstyle" align="center">
                   <Edit onClick={() => {
-                navigate("/dashboard/pet-edit", { state: el });
+                navigate("/dashboard/address-edit", { state: el });
               }}  className="iconhover" />
                 </td>
                 <td onClick={()=>fndeletePet(el._id).then(()=>refetch())} className="tdstyle" align="center">
@@ -206,4 +194,4 @@ function Pets() {
   );
 }
 
-export default Pets;
+export default Addresses;

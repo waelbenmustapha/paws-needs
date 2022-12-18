@@ -5,39 +5,26 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import InputText from "../../../components/InputText";
 import { Oval } from "react-loader-spinner";
-import { useCreatePet } from "../../../apis/pets/useCreatePet";
-import Select from "react-select";
+import { useCreateAddress } from "../../../apis/addresses/useCreateAddress";
+import MapView from "../../../components/MapView";
 
-function AddPet() {
+function AddAddress() {
   const context = useAppContext();
   const navigate = useNavigate();
-  const moredetailsdata = [
-    { label: "Neutered/Sprayed", value: "Neutered/Sprayed" },
-    { label: "Vaccinated", value: "Vaccinated" },
-    { label: "Friendly with dogs", value: "Friendly with dogs" },
-    { label: "Friendly with cats", value: "Friendly with cats" },
-    { label: "Friendly with kids", value: "Friendly with kids" },
-    { label: "Microchipped", value: "Microchipped" },
-  ];
-
+  const [marker, setMarker] = useState(null);
   const [data, setData] = useState({
     name: "",
-    image: "",
-    type: "",
-    breed: "",
-    gender: "",
-    weight: "",
-    moredetails: [],
-    description: "",
+    area: "",
+    street: "",
+    building: "",
     userId: "",
   });
-  const { mutateAsync: fnaddPet, isLoading } = useCreatePet();
+  const { mutateAsync: fnaddPet, isLoading } = useCreateAddress();
 
   function handleSubmitUser() {
-    console.log(data);
     if (data.name.length > 0) {
-      fnaddPet(data)
-        .then(() => navigate("/dashboard/pets"))
+      fnaddPet({ ...data, latitude: marker?.lat, longitude: marker?.lng })
+        .then(() => navigate("/dashboard/addresses"))
         .catch((err) => alert("Something is wrong"));
     } else {
       toast.error("please fill all the input");
@@ -62,13 +49,13 @@ function AddPet() {
           </div>
         )}
         <p className="text-xs mb-2">
-          <Link to={"/dashboard/pets"}>Pets</Link> &gt;{" "}
-          <Link to={"/dashboard/pet-add"}>Add New Pet</Link>
+          <Link to={"/dashboard/addresses"}>Address</Link> &gt;{" "}
+          <Link to={"/dashboard/address-add"}>Add New Address</Link>
         </p>
-        <p className="mb-10 font-bold text-tiny lg:text-2xl">Add New Pet</p>
-        <p className="mb-2 font-bold text-tiny lg:text-base">New Pet</p>
+        <p className="mb-10 font-bold text-tiny lg:text-2xl">Add New Address</p>
+        <p className="mb-2 font-bold text-tiny lg:text-base">New Address</p>
         <p className="mb-9 text-[#87949B] text-xs lg:text-tiny">
-          Fill in the details of the pets using the sections below
+          Fill in the details of the Address using the sections below
         </p>
         <div className="w-full h-[1px] mb-9 border-devider-color border-b-1"></div>
 
@@ -86,66 +73,33 @@ function AddPet() {
               <div className="flex-initial min-w-[400px] max-w-[500px] mb-[20px]">
                 <InputText
                   type="text"
-                  labelText="Type"
-                  onChange={(e) => setData({ ...data, type: e.target.value })}
-                  id="type"
+                  labelText="Area"
+                  onChange={(e) => setData({ ...data, area: e.target.value })}
+                  id="area"
                 />
               </div>
               <div className="flex-initial min-w-[400px] max-w-[500px] mb-[20px]">
                 <InputText
                   type="text"
-                  labelText="Breed"
-                  onChange={(e) => setData({ ...data, breed: e.target.value })}
-                  id="breed"
-                />
-              </div>
-
-              <p>Gender</p>
-              <div
-                style={{
-                  flexDirection: "row",
-                  display: "flex",
-                  justifyContent: "center",
-                  gap: "20px",
-                }}
-                onChange={(e) => setData({ ...data, gender: e.target.value })}
-              >
-                <div>
-                  <input type="radio" value="Male" name="gender" /> Male
-                </div>
-                <div>
-                  <input type="radio" value="Female" name="gender" /> Female
-                </div>
-              </div>
-
-              <div className="flex-initial min-w-[400px] max-w-[500px] mb-[20px]">
-                <InputText
-                  type="text"
-                  labelText="Weight"
-                  onChange={(e) => setData({ ...data, weight: e.target.value })}
-                  id="weight"
+                  labelText="Street"
+                  onChange={(e) => setData({ ...data, street: e.target.value })}
+                  id="street"
                 />
               </div>
               <div className="flex-initial min-w-[400px] max-w-[500px] mb-[20px]">
                 <InputText
                   type="text"
-                  labelText="Description"
+                  labelText="Building"
                   onChange={(e) =>
-                    setData({ ...data, description: e.target.value })
+                    setData({ ...data, building: e.target.value })
                   }
-                  id="description"
+                  id="building"
                 />
               </div>
+              <p>Gps Location</p>
+
+              <MapView marker={marker} setMarker={setMarker} />
               <div className="flex-initial min-w-[400px] max-w-[500px] mb-[20px]">
-                <InputText
-                  type="text"
-                  labelText="Image"
-                  onChange={(e) => setData({ ...data, image: e.target.value })}
-                  id="image"
-                />
-              </div>
-             
-              <div className="flex-initial min-w-[400px]  max-w-[500px] mb-[20px]">
                 <InputText
                   type="text"
                   labelText="UserId"
@@ -153,15 +107,6 @@ function AddPet() {
                   id="userId"
                 />
               </div>
-              <Select
-                isMulti
-                placeholder="more details"
-                name="more details"
-                  onChange={(e) => setData({ ...data, moredetails: e.map((el)=>el.value) })}
-                options={moredetailsdata}
-                className="basic-multi-select min-w-[400px] z-10 max-w-[500px]"
-                classNamePrefix="select"
-              />
             </div>
             <div></div>
           </div>
@@ -171,7 +116,7 @@ function AddPet() {
         <div className="w-full flex justify-end items-center">
           <div className="flex flex-row flex-nowrap justify-center items-center">
             <Link
-              to={"/dashboard/users"}
+              to={"/dashboard/addresses"}
               style={{
                 border: `2px solid ${context.mainColor}`,
                 color: context.mainColor,
@@ -189,7 +134,7 @@ function AddPet() {
               }}
               className="flex flex-row flex-nowrap justify-center items-center rounded-[4px] min-w-[88px] min-h-[33px] px-4 py-2 ml-3 text-white font-bold text-center text-xxs 2lg:text-xs lg:text-tiny outline-none"
             >
-              <span>Create Pet</span>
+              <span>Create Address</span>
             </button>
           </div>
         </div>
@@ -198,4 +143,4 @@ function AddPet() {
   );
 }
 
-export default AddPet;
+export default AddAddress;

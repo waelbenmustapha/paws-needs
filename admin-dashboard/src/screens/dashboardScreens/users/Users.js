@@ -120,6 +120,7 @@ function Users() {
               <th className="trstyle">#ID </th>
               <th className="trstyle">Name</th>
               <th className="trstyle">Email</th>
+              <th className="trstyle">Phone Number</th>
               <th className="trstyle">Address</th>
               <th className="trstyle">Picture</th>
               <th className="trstyle">Pets</th>
@@ -135,10 +136,11 @@ function Users() {
                 <td className="tdstyle">{el._id}</td>
                 <td className="tdstyle">{el.fullname}</td>
                 <td className="tdstyle">{el.email}</td>
+                <td className="tdstyle">{el.phoneNumber}</td>
                 <td className="tdstyle">
-                  <p>{el.address.name}</p>
-                  <p>{el.address.street}</p>
-                  <p>{el.address.city}</p>
+                {el.addresses?.map((pet) => (
+                    <p>{pet.name}</p>
+                  ))}
                 </td>
                 <td className="tdstyle" align="center">
                   <img

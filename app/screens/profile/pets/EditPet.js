@@ -24,6 +24,8 @@ import ButtonPrimary from "../../../components/ButtonPrimary";
 import { useCreatePet } from "../../../apis/pets/useCreatePet";
 import { useAuth } from "../../../context/AuthProvider";
 import { useEditPet } from "../../../apis/pets/useEditPet";
+import SelectMultipleBottomSheet from "../../../components/bottomsheet/SelectMultipleBottomSheet";
+import ReturnNavBar from "../../../components/ReturnNavBar";
 const EditPet = ({ navigation, route }) => {
   const [apiError, setApiError] = useState("");
   const auth = useAuth();
@@ -63,29 +65,25 @@ const EditPet = ({ navigation, route }) => {
     { label: "Female", value: "Female" },
   ];
 
+  const [itemSelected, setItemSelected] = useState(petToEdit.moredetails);
   const [bottomSheetOpenDetails, setBottomSheetOpenDetails] = useState(false);
   const detailsValues = [
-    { label: "Calm", value: "Calm" },
-    { label: "Agressive", value: "Agressive" },
-    { label: "Exampledata", value: "Exampledata" },
-    { label: "more data", value: "more data" },
+    { label: "Neutered/Sprayed", value: "Neutered/Sprayed" },
+    { label: "Vaccinated", value: "Vaccinated" },
+    { label: "Friendly with dogs", value: "Friendly with dogs" },
+    { label: "Friendly with cats", value: "Friendly with cats" },
+    { label: "Friendly with kids", value: "Friendly with kids" },
+    { label: "Microchipped", value: "Microchipped" },
   ];
+ 
 
   return (
     <View style={styles.container}>
-      <ScrollView>
-        <View style={styles.nav}>
-          <View style={styles.row}>
-            <AntDesign
-              onPress={() => navigation.goBack()}
-              style={styles.icon}
-              name="arrowleft"
-              size={24}
-              color={Colors.PRIMARY}
-            />
-            <Text style={styles.navText}>Edit Pet</Text>
-          </View>
-        </View>
+       <ReturnNavBar
+        title={"Edit Pet"}
+        arrowColor={Colors.PRIMARY}
+        navigation={navigation}
+      />
         <Formik
           initialValues={{
             name: petToEdit.name,
@@ -95,13 +93,12 @@ const EditPet = ({ navigation, route }) => {
             image: petToEdit.empty,
             gender: petToEdit.gender,
             weight: petToEdit.weight.toString(),
-            moredetails: petToEdit.moredetails,
             description: petToEdit.description,
           }}
           validationSchema={profileValidationSchema}
           onSubmit={(values) => {
             console.log(values);
-            fnEdit({ ...values, _id: petToEdit._id })
+            fnEdit({ ...values, _id: petToEdit._id,moredetails:itemSelected })
               .then((result) => {
                 if (result.success == true) {
                   navigation.navigate("mypets");
@@ -301,35 +298,33 @@ const EditPet = ({ navigation, route }) => {
                     )}
                   </View>
                   <TouchableOpacity
-                    onPress={() => {
-                      setBottomSheetOpenDetails(true);
-                    }}
-                    style={{
-                      height: 56,
-                      paddingHorizontal: 20,
-                      marginBottom: 20,
-                      borderRadius: 12,
-                      backgroundColor: Colors.DARK_BG,
-                      flexDirection: "row",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    <Text
-                      style={{
-                        fontSize: 14,
-                        fontWeight: "400",
-                        color: Colors.TEXT_GRAY,
-                      }}
-                    >
-                      {values.moredetails}
-                    </Text>
-                    <Ionicons
-                      name="caret-down"
-                      size={14}
-                      color={Colors.PRIMARY}
-                    />
-                  </TouchableOpacity>
+              onPress={() => {
+                setBottomSheetOpenDetails(true);
+              }}
+              style={{
+                height: 56,
+                paddingHorizontal: 20,
+                marginBottom: 20,
+                borderRadius: 12,
+                backgroundColor: Colors.DARK_BG,
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 14,
+                  fontWeight: "400",
+                  color: Colors.TEXT_GRAY,
+                }}
+              >
+                {itemSelected.length === 0
+                  ? "More Details"
+                  : itemSelected.map((el) => el + " - ")}
+              </Text>
+              <Ionicons name="caret-down" size={14} color={Colors.PRIMARY} />
+            </TouchableOpacity>
                   <TextInput
                     multiline={true}
                     name="description"
@@ -380,17 +375,17 @@ const EditPet = ({ navigation, route }) => {
                 title={"Genders"}
                 data={Gendersvalues}
               />
-              <SelectBottomSheet
+              <SelectMultipleBottomSheet
+              itemSelected={itemSelected}
+              setItemSelected={setItemSelected}
                 bottomSheetOpen={bottomSheetOpenDetails}
                 setBottomSheetOpen={setBottomSheetOpenDetails}
-                setValue={handleChange("moredetails")}
                 title={"More Details"}
                 data={detailsValues}
               />
             </>
           )}
         </Formik>
-      </ScrollView>
     </View>
   );
 };
