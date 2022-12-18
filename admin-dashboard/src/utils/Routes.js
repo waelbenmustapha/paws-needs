@@ -21,6 +21,9 @@ import AddServiceCategory from "../screens/dashboardScreens/servicesCategories/A
 import EditServiceCategory from "../screens/dashboardScreens/servicesCategories/EditServiceCategory";
 import AddPet from "../screens/dashboardScreens/pets/AddPet";
 import EditPet from "../screens/dashboardScreens/pets/EditPet";
+import Addresses from "../screens/dashboardScreens/addresses/Addresses";
+import AddAddress from "../screens/dashboardScreens/addresses/AddAddress";
+import EditAddress from "../screens/dashboardScreens/addresses/EditAddress";
 
 export const authRoutes = [
   {
@@ -42,9 +45,9 @@ export const usersRoutes = [
     component: <UserProfile />,
   },
   {
-    path:"edit-profile",
-    component:<EditMain/>
-  }
+    path: "edit-profile",
+    component: <EditMain />,
+  },
 ];
 
 export const dashboardRoutes = [
@@ -65,6 +68,14 @@ export const dashboardRoutes = [
     component: <EditPet />,
   },
   {
+    path: "address-add",
+    component: <AddAddress />,
+  },
+  {
+    path: "address-edit",
+    component: <EditAddress />,
+  },
+  {
     path: "service-category-edit",
     component: <EditServiceCategory />,
   },
@@ -72,7 +83,6 @@ export const dashboardRoutes = [
     path: "users-edit",
     component: <EditUser />,
   },
-
 
   {
     path: "users-profile",
@@ -94,7 +104,7 @@ export const sidebarRoutes = [
     component: <Users />,
     icon: users,
   },
-  
+
   {
     name: "Pets",
     path: "pets",
@@ -102,7 +112,13 @@ export const sidebarRoutes = [
     icon: users,
   },
 
-  
+  {
+    name: "Addresses",
+    path: "addresses",
+    component: <Addresses />,
+    icon: users,
+  },
+
   /*{
     name: "Services",
     path: "services",
@@ -110,7 +126,7 @@ export const sidebarRoutes = [
     icon: settings,
   },
 */
-    
+
   {
     name: "Service Categories",
     path: "services-categories",

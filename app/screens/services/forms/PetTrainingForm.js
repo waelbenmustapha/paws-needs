@@ -47,6 +47,8 @@ const PetTrainingForm = ({ route, navigation }) => {
     { label: "Dog", value: "dog" },
   ];
 
+
+
   const changedMarkedDates = (dt) => {
     const cpy = { ...markeddate };
     if (cpy.hasOwnProperty(dt)) {
@@ -70,10 +72,7 @@ const PetTrainingForm = ({ route, navigation }) => {
     setOneDay({ [dt]: { selected: true } });
   };
 
-  const types = [
-    { label: "Pet", value: "pet" },
-    { label: "Dog", value: "dog" },
-  ];
+
 
   return (
     <View style={styles.container}>
@@ -197,17 +196,7 @@ const PetTrainingForm = ({ route, navigation }) => {
               />
             )}
 
-            <View style={{ marginBottom: 20 }}>
-              <TextInput
-                multiline={true}
-                numberOfLines={3}
-                placeholder={"More Details"}
-                style={[
-                  styles.input,
-                  { minHeight: 100, textAlignVertical: "top" },
-                ]}
-              />
-            </View>
+           
           </View>
 
           <View style={{ marginHorizontal: 20, marginVertical: 28 }}>

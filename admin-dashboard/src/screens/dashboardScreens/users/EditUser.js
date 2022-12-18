@@ -93,7 +93,57 @@ function EditUser() {
                   id="email"
                 />
               </div>
-              
+              <div className="flex-initial min-w-[400px] max-w-[500px] mb-[20px]">
+                <InputText
+                  type="text"
+                  value={data.phoneNumber}
+
+                  labelText="Phone Number"
+                  onChange={(e) => setData({ ...data, phoneNumber: e.target.value })}
+                  id="phoneNumber"
+                />
+              </div>
+              <p>Status</p>
+              <div
+                style={{
+                  flexDirection: "row",
+                  display: "flex",
+                  justifyContent: "center",
+                  gap: "20px",
+                }}
+                
+                onChange={(e) => setData({ ...data, status: e.target.value })}
+              >
+                <div>
+                  <input
+                  defaultChecked={data.status==="active"}
+                    type="radio"
+                    value="active"
+                    name="gender"
+                  />{" "}
+                  active
+                </div>
+                <div>
+                  <input
+                    type="radio"
+                    defaultChecked={data.status==="suspended"}
+
+                    value="suspended"
+                    name="gender"
+                  />{" "}
+                  suspended
+                </div>
+                <div>
+                  <input
+                    type="radio"
+                    defaultChecked={data.status==="blocked"}
+
+                    value="blocked"
+                    name="gender"
+                  />{" "}
+                  blocked
+                </div>
+              </div>
             </div>
             <div></div>
           </div>

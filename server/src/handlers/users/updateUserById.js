@@ -33,29 +33,14 @@ const updateUserById = async (event, context) => {
   }
 
   // create a new user object
-  let newUser = {
-    fullname: inputData.fullname,
-    email: inputData.email,
-    phoneNumber: null,
-    profile_pic:
-      "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__480.png",
-    address: {
-      name: null,
-      street: null,
-      city: null,
-      longitude: null,
-      latitude: null,
-    },
-    role: "user",
-    status: "active",
-  };
+  
 
   try {
     await connectDatabase();
 
     // check if there is a user exist with the same email entred
     const user = await User.findOne({
-      $and: [{ _id: { $ne: id } }, { email: newUser.email }],
+      $and: [{ _id: { $ne: id } }, { email: inputData.email }],
     });
 
     if (user) {
@@ -69,7 +54,7 @@ const updateUserById = async (event, context) => {
     }
 
     // ckeck if user user exist with this id then save data
-    const savedData = await User.findByIdAndUpdate({ _id: id }, newUser);
+    const savedData = await User.findByIdAndUpdate({ _id: id }, inputData);
     if (!savedData) {
       return {
         statusCode: 404,

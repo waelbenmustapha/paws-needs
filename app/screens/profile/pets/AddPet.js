@@ -23,6 +23,7 @@ import { Formik } from "formik";
 import ButtonPrimary from "../../../components/ButtonPrimary";
 import { useCreatePet } from "../../../apis/pets/useCreatePet";
 import { useAuth } from "../../../context/AuthProvider";
+import SelectMultipleBottomSheet from "../../../components/bottomsheet/SelectMultipleBottomSheet";
 const AddPet = ({ navigation }) => {
   const [apiError, setApiError] = useState("");
   const auth = useAuth();
@@ -61,7 +62,7 @@ const AddPet = ({ navigation }) => {
     { label: "Male", value: "Male" },
     { label: "Female", value: "Female" },
   ];
-
+  const [itemSelected, setItemSelected] = useState([]);
   const [bottomSheetOpenDetails, setBottomSheetOpenDetails] = useState(false);
   const detailsValues = [
     { label: "Neutered/Sprayed", value: "Neutered/Sprayed" },
@@ -102,7 +103,7 @@ const AddPet = ({ navigation }) => {
           validationSchema={profileValidationSchema}
           onSubmit={(values) => {
             console.log(values);
-            fnCreate(values)
+            fnCreate({...values,moredetails:itemSelected})
               .then((result) => {
 
                 if (result.success == true) {
@@ -299,35 +300,42 @@ const AddPet = ({ navigation }) => {
                     )}
                   </View>
                   <TouchableOpacity
-                    onPress={() => {
-                      setBottomSheetOpenDetails(true);
-                    }}
-                    style={{
-                      height: 56,
-                      paddingHorizontal: 20,
-                      marginBottom: 20,
-                      borderRadius: 12,
-                      backgroundColor: Colors.DARK_BG,
-                      flexDirection: "row",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    <Text
-                      style={{
-                        fontSize: 14,
-                        fontWeight: "400",
-                        color: Colors.TEXT_GRAY,
-                      }}
-                    >
-                      {values.moredetails}
-                    </Text>
-                    <Ionicons
-                      name="caret-down"
-                      size={14}
-                      color={Colors.PRIMARY}
-                    />
-                  </TouchableOpacity>
+              onPress={() => {
+                setBottomSheetOpenDetails(true);
+              }}
+              style={{
+                height: 56,
+                paddingHorizontal: 20,
+                marginBottom: 20,
+                borderRadius: 12,
+                backgroundColor: Colors.DARK_BG,
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 14,
+                  fontWeight: "400",
+                  color: Colors.TEXT_GRAY,
+                }}
+              >
+                {itemSelected.length === 0
+                  ? "More Details"
+                  : itemSelected.map((el) => el + " - ")}
+              </Text>
+              <Ionicons name="caret-down" size={14} color={Colors.PRIMARY} />
+            </TouchableOpacity>
+
+            <SelectMultipleBottomSheet
+              itemSelected={itemSelected}
+              setItemSelected={setItemSelected}
+              bottomSheetOpen={bottomSheetOpenDetails}
+              setBottomSheetOpen={setBottomSheetOpenDetails}
+              title={"More Details"}
+              data={detailsValues}
+            />
                   <TextInput
                     multiline={true}
                     name="description"
@@ -357,7 +365,7 @@ const AddPet = ({ navigation }) => {
               >
                 <View style={{ width: "100%" }}>
                   <ButtonPrimary
-                    title={isLoading ? "Loading..." : "Update"}
+                    title={isLoading ? "Loading..." : "Create"}
                     onPress={handleSubmit}
                     disabled={!isValid||isLoading}
                   />
@@ -378,13 +386,7 @@ const AddPet = ({ navigation }) => {
                 title={"Genders"}
                 data={Gendersvalues}
               />
-              <SelectBottomSheet
-                bottomSheetOpen={bottomSheetOpenDetails}
-                setBottomSheetOpen={setBottomSheetOpenDetails}
-                setValue={handleChange("moredetails")}
-                title={"More Details"}
-                data={detailsValues}
-              />
+            
             </>
           )}
         </Formik>

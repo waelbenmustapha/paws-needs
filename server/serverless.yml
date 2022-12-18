@@ -16,6 +16,8 @@ provider:
   runtime: nodejs16.x
   region: eu-west-3
   stage: ${opt:stage, 'dev'}
+  memorySize: 4096 # optional, in MB, default is 1024
+  timeout: 20 # optional, in seconds, default is 6
 
 #Functions Apis
 
