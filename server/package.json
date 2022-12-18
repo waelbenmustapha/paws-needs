@@ -11,7 +11,9 @@
   "license": "ISC",
   "dependencies": {
     "@middy/core": "^4.0.0",
+    "axios": "^1.2.1",
     "bcryptjs": "^2.4.3",
+    "google-auth-library": "^8.7.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.7.2",
     "serverless-dotenv-plugin": "^4.0.2",

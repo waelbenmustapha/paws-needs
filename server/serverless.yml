@@ -10,7 +10,6 @@ custom:
     port: 3000
     host: 0.0.0.0
 
-
 provider:
   name: aws
   runtime: nodejs16.x
@@ -40,8 +39,20 @@ functions:
       - httpApi:
           path: /auth/signup-provider
           method: POST
-#Users EndPoints
-#-------------------------------------------------------
+  facebookLogin:
+    handler: src/handlers/auth/facebookLogin.handler
+    events:
+      - httpApi:
+          path: /auth/facebook-login
+          method: POST
+  googleLogin:
+    handler: src/handlers/auth/googleLogin.handler
+    events:
+      - httpApi:
+          path: /auth/google-login
+          method: POST
+  #Users EndPoints
+  #-------------------------------------------------------
   createUser:
     handler: src/handlers/users/createUser.handler
     events:
@@ -85,8 +96,8 @@ functions:
           path: /users/delete-user/{id}
           method: DELETE
 
-#Service Categories EndPoints
-#-------------------------------------------------------
+  #Service Categories EndPoints
+  #-------------------------------------------------------
   createServiceCategory:
     handler: src/handlers/serviceCategory/createServiceCategory.handler
     events:
@@ -111,8 +122,8 @@ functions:
       - httpApi:
           path: /servicesCategory/update/{id}
           method: PUT
-#Services EndPoints
-#-------------------------------------------------------
+  #Services EndPoints
+  #-------------------------------------------------------
   createService:
     handler: src/handlers/services/createService.handler
     events:
@@ -143,8 +154,8 @@ functions:
       - httpApi:
           path: /services/delete/{id}
           method: DELETE
-#Pets EndPoints
-#-------------------------------------------------------
+  #Pets EndPoints
+  #-------------------------------------------------------
   createPet:
     handler: src/handlers/pets/createPet.handler
     events:

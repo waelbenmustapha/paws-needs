@@ -32,6 +32,17 @@ const UserSchema = new mongoose.Schema(
       default: "user",
       enum: ["user", "provider", "admin"],
     },
+    facebook_user_id: {
+      type: String,
+      unique: true,
+      default: null,
+      select: false,
+    },
+    provider: {
+      type: String,
+      default: "email",
+      enum: ["email", "facebook", "google"],
+    },
     status: {
       type: String,
       default: "active",
