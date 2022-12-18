@@ -6,13 +6,71 @@ import {
   Image,
   Dimensions,
   Pressable,
+  Platform,
 } from "react-native";
 import React from "react";
 import ReturnNavBar from "../../components/ReturnNavBar";
 import ButtonPrimary from "../../components/ButtonPrimary";
 import Colors from "../../utils/Colors";
+import {
+  LoginManager,
+  LoginButton,
+  AccessToken,
+  Profile,
+} from "react-native-fbsdk-next";
+import {
+  GoogleSignin,
+  GoogleSigninButton,
+  statusCodes,
+} from "@react-native-google-signin/google-signin";
 
 const Signin = ({ navigation }) => {
+  // login with facebook
+  function loginWithFacebook() {
+    {
+      LoginManager.logInWithPermissions(["public_profile", "email"]).then(
+        function (result) {
+          if (result.isCancelled) {
+            alert("Login Cancelled");
+          } else {
+            alert("Login Success");
+            if (Platform.OS === "ios") {
+              AuthenticationToken.getAuthenticationTokenIOS().then((data) => {
+                console.log(data?.authenticationToken);
+              });
+            } else {
+              AccessToken.getCurrentAccessToken().then((data) => {
+                console.log(data?.accessToken.toString());
+              });
+            }
+          }
+        },
+        function (error) {
+          alert("Login failed with error: " + error);
+        }
+      );
+    }
+  }
+
+  // login with google
+  const loginWithGoogle = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      const userInfo = await GoogleSignin.signIn();
+      console.log(userInfo);
+    } catch (error) {
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        // user cancelled the login flow
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        // operation (e.g. sign in) is in progress already
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        // play services not available or outdated
+      } else {
+        // some other error happened
+      }
+    }
+  };
+
   return (
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -23,9 +81,19 @@ const Signin = ({ navigation }) => {
             source={require("../../assets/social-signin.png")}
           />
           <Text style={styles.text}>Let’s get you in</Text>
+          <GoogleSigninButton
+            style={{ width: 192, height: 48 }}
+            size={GoogleSigninButton.Size.Wide}
+            color={GoogleSigninButton.Color.Dark}
+            onPress={() => {
+              loginWithGoogle();
+            }}
+            // disabled={this.state.isSigninInProgress}
+          />
           <Pressable
             onPress={() => {
               console.log("facebook");
+              loginWithFacebook();
             }}
             style={({ pressed }) => [
               {
@@ -46,6 +114,7 @@ const Signin = ({ navigation }) => {
           <Pressable
             onPress={() => {
               console.log("google");
+              loginWithGoogle();
             }}
             style={({ pressed }) => [
               {

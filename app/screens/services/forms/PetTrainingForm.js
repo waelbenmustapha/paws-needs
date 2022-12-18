@@ -11,7 +11,6 @@ import {
 } from "react-native";
 import PawAndText from "../../../components/PawAndText";
 import ButtonPrimary from "../../../components/ButtonPrimary";
-import CustomPicker from "../../../components/CustomPicker";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Feather from "react-native-vector-icons/Feather";
 import OneTimeCalendar from "../../../components/calendars/OneTimeCalendar";

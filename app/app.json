@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "paws-needs",
+    "name": "Paws Needs",
     "slug": "paws-needs",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -16,7 +16,8 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.waelben.pawsneeds"
     },
     "android": {
       "config": {
@@ -34,12 +35,26 @@
       "favicon": "./assets/logo-paw.png"
     },
     "extra": {
-      "eas": {
+      "eas00000WAEL00000": {
         "projectId": "5f96f3c6-3a84-4598-878e-9e434c576741"
+      },
+      "eas": {
+        "projectId": "53437416-d663-47a6-92f8-32130a32e131"
       }
     },
     "packagerOpts": {
       "config": "metro.config.js"
-    }
+    },
+    "plugins": [
+      [
+        "react-native-fbsdk-next",
+        {
+          "appID": "1377453809458481",
+          "clientToken": "39e20c418ef073de4ca50146853bc048",
+          "displayName": "Paws Needs"
+        }
+      ],
+      "@react-native-google-signin/google-signin"
+    ]
   }
 }
