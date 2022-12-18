@@ -9,13 +9,21 @@ import * as SplashScreen from "expo-splash-screen";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-// import { GoogleSignin } from "@react-native-google-signin/google-signin";
+import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import "expo-dev-client";
 
 // GoogleSignIn initial configuration
 // iosClientId is required for iOS platform development and
 // webCLientId for Android. Use only what is suitable to you
-// GoogleSignin.configure();
+GoogleSignin.configure({
+  scopes: ["https://www.googleapis.com/auth/drive.readonly"], // what API you want to access on behalf of the user, default is email and profile
+  webClientId:
+    "827758753919-2mlcjfukg9tc6rlbhc3npi5jh0v472b8.apps.googleusercontent.com", // client ID of type WEB for your server (needed to verify user ID and offline access)
+  iosClientId:
+    "827758753919-eceonlornfbqcl422giqcg6a9tirskn4.apps.googleusercontent.com", // [iOS] if you want to specify the client ID of type iOS (otherwise, it is taken from GoogleService-Info.plist)
+  googleServicePlistPath: "", // [iOS] if you renamed your GoogleService-Info file, new name here, e.g. GoogleService-Info-Staging
+  openIdRealm: "", // [iOS] The OpenID2 realm of the home web server. This allows Google to include the user's OpenID Identifier in the OpenID Connect ID token.
+});
 
 SplashScreen.preventAutoHideAsync();
 const queryClient = new QueryClient();

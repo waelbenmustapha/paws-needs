@@ -8,71 +8,105 @@ import {
   Pressable,
   Platform,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import ReturnNavBar from "../../components/ReturnNavBar";
 import ButtonPrimary from "../../components/ButtonPrimary";
 import Colors from "../../utils/Colors";
-import {
-  LoginManager,
-  LoginButton,
-  AccessToken,
-  Profile,
-} from "react-native-fbsdk-next";
+import { LoginManager, AccessToken } from "react-native-fbsdk-next";
 import {
   GoogleSignin,
-  GoogleSigninButton,
   statusCodes,
 } from "@react-native-google-signin/google-signin";
+import ErrorView from "../../components/ErrorView";
+import LoadingScreen from "../../components/LoadingScreen";
+import { useFacebookSignin } from "../../apis/auth/useFacebookSignin";
+import { useGoogleSignin } from "../../apis/auth/useGoogleSignin";
 
 const Signin = ({ navigation }) => {
+  const [apiError, setApiError] = useState("");
+  // facebook mutation
+  const mutateFacebook = useFacebookSignin({
+    setApiError,
+  });
+  // google mutation
+  const mutateGoogle = useGoogleSignin({
+    setApiError,
+  });
+
   // login with facebook
-  function loginWithFacebook() {
-    {
-      LoginManager.logInWithPermissions(["public_profile", "email"]).then(
-        function (result) {
-          if (result.isCancelled) {
-            alert("Login Cancelled");
+  function handleFacebookLogin() {
+    LoginManager.logOut();
+    LoginManager.logInWithPermissions(["public_profile", "email"]).then(
+      function (result) {
+        if (result.isCancelled) {
+          alert("Login Cancelled");
+        } else {
+          if (Platform.OS === "ios") {
+            // IOS Platform
+            AuthenticationToken.getAuthenticationTokenIOS().then((data) => {
+              if (data?.authenticationToken) {
+                mutateFacebook.mutateAsync({
+                  token: data?.authenticationToken,
+                });
+              }
+            });
           } else {
-            alert("Login Success");
-            if (Platform.OS === "ios") {
-              AuthenticationToken.getAuthenticationTokenIOS().then((data) => {
-                console.log(data?.authenticationToken);
-              });
-            } else {
-              AccessToken.getCurrentAccessToken().then((data) => {
-                console.log(data?.accessToken.toString());
-              });
-            }
+            // Android Platform or other
+            AccessToken.getCurrentAccessToken().then((data) => {
+              if (data?.accessToken) {
+                mutateFacebook.mutateAsync({
+                  token: data?.accessToken.toString(),
+                });
+              }
+            });
           }
-        },
-        function (error) {
-          alert("Login failed with error: " + error);
         }
-      );
+      },
+      function (error) {
+        alert("Login failed with error: " + error);
+      }
+    );
+  }
+
+  //logout google
+  async function signOut() {
+    try {
+      await GoogleSignin.signOut();
+      // Remember to remove the user from your app's state as well
+    } catch (error) {
+      console.error(error);
     }
   }
 
   // login with google
-  const loginWithGoogle = async () => {
+  async function handleGoogleLogin() {
     try {
+      await signOut();
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
-      console.log(userInfo);
+      mutateGoogle.mutateAsync({ token: userInfo.idToken });
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         // user cancelled the login flow
+        console.log("Login Cancelled");
       } else if (error.code === statusCodes.IN_PROGRESS) {
         // operation (e.g. sign in) is in progress already
+        console.log("In Progress");
       } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
         // play services not available or outdated
+        alert("Google Play Services not Available or Outdated");
       } else {
         // some other error happened
+        alert("Something went Wrong");
       }
     }
-  };
+  }
 
   return (
     <View style={styles.container}>
+      {mutateFacebook.isLoading || mutateGoogle.isLoading ? (
+        <LoadingScreen />
+      ) : null}
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={[styles.center, styles.content]}>
           <ReturnNavBar navigation={navigation} />
@@ -81,19 +115,13 @@ const Signin = ({ navigation }) => {
             source={require("../../assets/social-signin.png")}
           />
           <Text style={styles.text}>Let’s get you in</Text>
-          <GoogleSigninButton
-            style={{ width: 192, height: 48 }}
-            size={GoogleSigninButton.Size.Wide}
-            color={GoogleSigninButton.Color.Dark}
-            onPress={() => {
-              loginWithGoogle();
-            }}
-            // disabled={this.state.isSigninInProgress}
-          />
+          {apiError ? (
+            <ErrorView message={apiError} setError={setApiError} />
+          ) : null}
           <Pressable
             onPress={() => {
               console.log("facebook");
-              loginWithFacebook();
+              handleFacebookLogin();
             }}
             style={({ pressed }) => [
               {
@@ -114,7 +142,7 @@ const Signin = ({ navigation }) => {
           <Pressable
             onPress={() => {
               console.log("google");
-              loginWithGoogle();
+              handleGoogleLogin();
             }}
             style={({ pressed }) => [
               {
@@ -130,7 +158,7 @@ const Signin = ({ navigation }) => {
             />
             <Text style={styles.social_button_text}>Continue with Google</Text>
           </Pressable>
-          <Pressable
+          {/* <Pressable
             onPress={() => {
               console.log("apple");
             }}
@@ -149,7 +177,7 @@ const Signin = ({ navigation }) => {
             <Text style={styles.social_button_text}>
               Continue with Apple ID
             </Text>
-          </Pressable>
+          </Pressable> */}
           <View
             style={[
               styles.row,
@@ -220,6 +248,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
+    position: "relative",
   },
   content: { flex: 1, marginHorizontal: 20 },
   row: { flexDirection: "row" },

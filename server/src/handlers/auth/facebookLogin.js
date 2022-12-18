@@ -9,26 +9,12 @@ module.exports.handler = async (event, context) => {
   const inputData = JSON.parse(event.body);
 
   // check input data
-  if (!inputData || !inputData.fullname || !inputData.email) {
+  if (!inputData || !inputData.token) {
     return {
       statusCode: 400,
       body: JSON.stringify({
         success: false,
-        msg: "fullname and email are required.",
-      }),
-    };
-  }
-
-  // check if email is valid
-  const emailRegexp =
-    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
-
-  if (!emailRegexp.test(inputData.email)) {
-    return {
-      statusCode: 400,
-      body: JSON.stringify({
-        success: false,
-        msg: "Invalid email address",
+        msg: "Login with facebook require token.",
       }),
     };
   }
@@ -48,7 +34,7 @@ module.exports.handler = async (event, context) => {
 
       // if verifying token request SUCCESSED statusCode = 200
       if (debugedTokenResponse.status == 200) {
-        // handling unauthorized token error ( Expired Token )
+        // handling unauthorized token error ( Invalid/Expired Token )
         if (debugedTokenResponse.data.data.is_valid == false) {
           return {
             statusCode: 401,
@@ -61,6 +47,14 @@ module.exports.handler = async (event, context) => {
 
         // valid Token
         if (debugedTokenResponse.data.data.is_valid == true) {
+          // get user info from the access_token
+          const userinfo = await axios.get("https://graph.facebook.com/me", {
+            params: {
+              fields: ["email", "name"].join(","),
+              access_token: inputData.token,
+            },
+          });
+
           await connectDatabase();
           // generate password
           const generatedPassword = Math.random().toString(36).slice(-8);
@@ -69,8 +63,8 @@ module.exports.handler = async (event, context) => {
           const hashedPassword = bcrypt.hashSync(generatedPassword, salt);
           // Create User Object
           let newUser = new User({
-            fullname: inputData.fullname.trim(),
-            email: inputData.email.trim().toLowerCase(),
+            fullname: userinfo.data.name.trim(),
+            email: userinfo.data.email.trim().toLowerCase(),
             password: hashedPassword,
             provider: "facebook",
             facebook_user_id: debugedTokenResponse.data.data.user_id,
@@ -135,10 +129,10 @@ module.exports.handler = async (event, context) => {
             const generatedJWT = jwt.sign(
               {
                 data: {
-                  _id: user._id,
-                  fullname: user.fullname,
-                  email: user.email,
-                  role: user.role,
+                  _id: savedUser._id,
+                  fullname: savedUser.fullname,
+                  email: savedUser.email,
+                  role: savedUser.role,
                 },
               },
               process.env.TOKEN_SECRET,
@@ -150,7 +144,7 @@ module.exports.handler = async (event, context) => {
               body: JSON.stringify({
                 success: true,
                 token: generatedJWT,
-                user: user,
+                user: savedUser,
               }),
             };
           }

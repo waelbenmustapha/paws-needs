@@ -21,22 +21,19 @@ const UserSchema = new mongoose.Schema(
       minLength: 8,
       select: false,
     },
-
     addresses: [{ type: mongoose.Schema.Types.ObjectId, ref: "Address" }],
-
     phoneNumber: { type: String, required: false, default: null },
     profile_pic: { type: String, required: false, default: null },
     pets: [{ type: mongoose.Schema.Types.ObjectId, ref: "Pet" }],
+    facebook_user_id: {
+      type: String,
+      default: null,
+      select: false,
+    },
     role: {
       type: String,
       default: "user",
       enum: ["user", "provider", "admin"],
-    },
-    facebook_user_id: {
-      type: String,
-      unique: true,
-      default: null,
-      select: false,
     },
     provider: {
       type: String,
