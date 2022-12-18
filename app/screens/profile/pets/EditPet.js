@@ -25,6 +25,7 @@ import { useCreatePet } from "../../../apis/pets/useCreatePet";
 import { useAuth } from "../../../context/AuthProvider";
 import { useEditPet } from "../../../apis/pets/useEditPet";
 import SelectMultipleBottomSheet from "../../../components/bottomsheet/SelectMultipleBottomSheet";
+import ReturnNavBar from "../../../components/ReturnNavBar";
 const EditPet = ({ navigation, route }) => {
   const [apiError, setApiError] = useState("");
   const auth = useAuth();
@@ -78,19 +79,11 @@ const EditPet = ({ navigation, route }) => {
 
   return (
     <View style={styles.container}>
-      <ScrollView>
-        <View style={styles.nav}>
-          <View style={styles.row}>
-            <AntDesign
-              onPress={() => navigation.goBack()}
-              style={styles.icon}
-              name="arrowleft"
-              size={24}
-              color={Colors.PRIMARY}
-            />
-            <Text style={styles.navText}>Edit Pet</Text>
-          </View>
-        </View>
+       <ReturnNavBar
+        title={"Edit Pet"}
+        arrowColor={Colors.PRIMARY}
+        navigation={navigation}
+      />
         <Formik
           initialValues={{
             name: petToEdit.name,
@@ -393,7 +386,6 @@ const EditPet = ({ navigation, route }) => {
             </>
           )}
         </Formik>
-      </ScrollView>
     </View>
   );
 };

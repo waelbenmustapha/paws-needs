@@ -52,7 +52,7 @@ const verifyAdmin = (opts) => {
 
     if (event.headers.authorization == undefined) {
       return {
-        statusCode: 401,
+        statusCode: 403,
         body: JSON.stringify({
           success: false,
           msg: "Unauthorized",
@@ -63,7 +63,7 @@ const verifyAdmin = (opts) => {
     const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
     if (decoded.data.role != "admin") {
       return {
-        statusCode: 401,
+        statusCode: 403,
         body: JSON.stringify({
           success: false,
           msg: "Unauthorized only admin can access this",
@@ -75,7 +75,7 @@ const verifyAdmin = (opts) => {
   // on Error function
   const onError = async (request) => {
     return {
-      statusCode: 401,
+      statusCode: 403,
       body: JSON.stringify({
         success: false,
         msg: request.error,
@@ -101,7 +101,7 @@ const verifyProviderOrAdmin = (opts) => {
 
     if (event.headers.authorization == undefined) {
       return {
-        statusCode: 401,
+        statusCode: 403,
         body: JSON.stringify({
           success: false,
           msg: "Unauthorized",
@@ -112,7 +112,7 @@ const verifyProviderOrAdmin = (opts) => {
     const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
     if (decoded.data.role != "provider" || decoded.data.role != "admin") {
       return {
-        statusCode: 401,
+        statusCode: 403,
         body: JSON.stringify({
           success: false,
           msg: "Unauthorized only provider can access this",
@@ -124,7 +124,7 @@ const verifyProviderOrAdmin = (opts) => {
   // on Error function
   const onError = async (request) => {
     return {
-      statusCode: 401,
+      statusCode: 403,
       body: JSON.stringify({
         success: false,
         msg: request.error,

@@ -11,12 +11,10 @@ import {
 } from "react-native";
 import PawAndText from "../../../components/PawAndText";
 import ButtonPrimary from "../../../components/ButtonPrimary";
-import CustomPicker from "../../../components/CustomPicker";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Feather from "react-native-vector-icons/Feather";
 import OneTimeCalendar from "../../../components/calendars/OneTimeCalendar";
 import DateTimePicker from "@react-native-community/datetimepicker";
-import CustomBottomSheet from "../../../components/bottomsheet/CustomBottomSheet";
 import Colors from "../../../utils/Colors";
 import SpecificDaysCalendar from "../../../components/calendars/SpecificDaysCalendar";
 import { useApp } from "../../../context/AppProvider";

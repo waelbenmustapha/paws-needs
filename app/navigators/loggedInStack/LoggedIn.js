@@ -11,9 +11,23 @@ import axiosTokenInstance from "../../utils/axiosTokenInstance";
 const Stack = createNativeStackNavigator();
 
 const LoggedIn = () => {
-  const auth = useAuth()
-  axiosTokenInstance.defaults.headers.common['Authorization'] = `Bearer ${auth.user.token}`;
+  const auth = useAuth();
+ 
+  axiosTokenInstance.defaults.headers.common[
+    "Authorization"
+  ] = `Bearer ${auth.user.token}`;
 
+  axiosTokenInstance.interceptors.response.use(
+    (response) => {
+      return response;
+    },
+    (error) => {
+      if (error.response.status === 401) {
+        auth.removeAsyncUser();
+      }
+      return error;
+    }
+  );
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="drawer" component={DrawerNavigator} />

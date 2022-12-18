@@ -24,6 +24,7 @@ import ButtonPrimary from "../../../components/ButtonPrimary";
 import { useCreatePet } from "../../../apis/pets/useCreatePet";
 import { useAuth } from "../../../context/AuthProvider";
 import SelectMultipleBottomSheet from "../../../components/bottomsheet/SelectMultipleBottomSheet";
+import ReturnNavBar from "../../../components/ReturnNavBar";
 const AddPet = ({ navigation }) => {
   const [apiError, setApiError] = useState("");
   const auth = useAuth();
@@ -75,19 +76,11 @@ const AddPet = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <ScrollView>
-        <View style={styles.nav}>
-          <View style={styles.row}>
-            <AntDesign
-              onPress={() => navigation.goBack()}
-              style={styles.icon}
-              name="arrowleft"
-              size={24}
-              color={Colors.PRIMARY}
-            />
-            <Text style={styles.navText}>Add Pet</Text>
-          </View>
-        </View>
+      <ReturnNavBar
+        title={"Add Pet"}
+        arrowColor={Colors.PRIMARY}
+        navigation={navigation}
+      />
         <Formik
           initialValues={{
             name: "",
@@ -132,7 +125,7 @@ const AddPet = ({ navigation }) => {
             isValid,
           }) => (
             <>
-              <ScrollView showsVerticalScrollIndicator={false}>
+              <ScrollView  showsVerticalScrollIndicator={false}>
                 <View style={{ paddingVertical: 40 }}>
                   <View style={{ marginBottom: 32 }}>
                     <UserImageEdit image={avatarimg} />
@@ -390,7 +383,6 @@ const AddPet = ({ navigation }) => {
             </>
           )}
         </Formik>
-      </ScrollView>
     </View>
   );
 };
