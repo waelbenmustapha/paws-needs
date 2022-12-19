@@ -9,6 +9,7 @@ import CloseFillIcon from "../../assets/svg/close-fill.svg";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { useSignin } from "../../apis/auth/useSignin";
+import ErrorView from "../../components/ErrorView";
 
 const SigninWithEmail = ({ navigation }) => {
   const loginValidationSchema = yup.object().shape({
@@ -34,36 +35,7 @@ const SigninWithEmail = ({ navigation }) => {
           <Text style={styles.headerText}>Sign In</Text>
 
           {apiError ? (
-            <View
-              style={{
-                width: "100%",
-                marginBottom: 32,
-                backgroundColor: "rgba(234, 0, 0, 0.1)",
-                padding: 12,
-                borderRadius: 5,
-                flexDirection: "row",
-                alignItems: "center",
-              }}
-            >
-              <CloseFillIcon
-                onPress={() => setApiError("")}
-                width={20}
-                height={20}
-                color={"red"}
-              />
-              <View style={{ flex: 1, alignItems: "center" }}>
-                <Text
-                  style={{
-                    fontSize: 12,
-                    fontWeight: "400",
-                    color: "red",
-                    marginLeft: 12,
-                  }}
-                >
-                  {apiError}
-                </Text>
-              </View>
-            </View>
+            <ErrorView message={apiError} setError={setApiError} />
           ) : null}
 
           <Formik

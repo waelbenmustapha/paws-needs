@@ -15,16 +15,22 @@ import * as yup from "yup";
 import ButtonPrimary from "../../components/ButtonPrimary";
 import ReturnNavBar from "../../components/ReturnNavBar";
 import { useEditProfile } from "../../apis/user/useEditProfile";
+import ErrorView from "../../components/ErrorView";
 
 const EditProfile = ({ navigation }) => {
   const auth = useAuth();
   const [userData, setUserData] = useState(null);
-  const [token, setToken] = useState(null);
+  const [apiError, setApiError] = useState("");
+  const initialValues = {
+    fullname: "",
+    email: "",
+    address: "",
+    phoneNumber: "",
+  };
 
   async function getUser() {
     const data = await auth.getAsyncUser();
     setUserData(data.user);
-    setToken(data.token);
   }
 
   useEffect(() => {
@@ -44,8 +50,6 @@ const EditProfile = ({ navigation }) => {
       .required("Email is required"),
   });
 
-  const [apiError, setApiError] = useState("");
-
   const { isLoading, mutateAsync: EditProfile } = useEditProfile({
     setApiError,
   });
@@ -58,12 +62,7 @@ const EditProfile = ({ navigation }) => {
         navigation={navigation}
       />
       <Formik
-        initialValues={{
-          fullname: "",
-          email: "",
-          address: "",
-          phoneNumber: "",
-        }}
+        initialValues={initialValues}
         validationSchema={profileValidationSchema}
         onSubmit={(values) => EditProfile(values)}
       >
@@ -84,36 +83,7 @@ const EditProfile = ({ navigation }) => {
                 </View>
 
                 {apiError ? (
-                  <View
-                    style={{
-                      width: "100%",
-                      marginBottom: 32,
-                      backgroundColor: "rgba(234, 0, 0, 0.1)",
-                      padding: 12,
-                      borderRadius: 5,
-                      flexDirection: "row",
-                      alignItems: "center",
-                    }}
-                  >
-                    <CloseFillIcon
-                      onPress={() => setApiError("")}
-                      width={20}
-                      height={20}
-                      color={"red"}
-                    />
-                    <View style={{ flex: 1, alignItems: "center" }}>
-                      <Text
-                        style={{
-                          fontSize: 12,
-                          fontWeight: "400",
-                          color: "red",
-                          marginLeft: 12,
-                        }}
-                      >
-                        {apiError}
-                      </Text>
-                    </View>
-                  </View>
+                  <ErrorView message={apiError} setError={setApiError} />
                 ) : null}
 
                 <View style={{ marginBottom: 20 }}>

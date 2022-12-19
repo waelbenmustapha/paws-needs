@@ -26,6 +26,7 @@ import { useAuth } from "../../../context/AuthProvider";
 import { useEditPet } from "../../../apis/pets/useEditPet";
 import SelectMultipleBottomSheet from "../../../components/bottomsheet/SelectMultipleBottomSheet";
 import ReturnNavBar from "../../../components/ReturnNavBar";
+import ErrorView from "../../../components/ErrorView";
 const EditPet = ({ navigation, route }) => {
   const [apiError, setApiError] = useState("");
   const auth = useAuth();
@@ -75,317 +76,281 @@ const EditPet = ({ navigation, route }) => {
     { label: "Friendly with kids", value: "Friendly with kids" },
     { label: "Microchipped", value: "Microchipped" },
   ];
- 
 
   return (
     <View style={styles.container}>
-       <ReturnNavBar
+      <ReturnNavBar
         title={"Edit Pet"}
         arrowColor={Colors.PRIMARY}
         navigation={navigation}
       />
-        <Formik
-          initialValues={{
-            name: petToEdit.name,
-            type: petToEdit.type,
-            breed: petToEdit.breed,
-            userId: id,
-            image: petToEdit.empty,
-            gender: petToEdit.gender,
-            weight: petToEdit.weight.toString(),
-            description: petToEdit.description,
-          }}
-          validationSchema={profileValidationSchema}
-          onSubmit={(values) => {
-            console.log(values);
-            fnEdit({ ...values, _id: petToEdit._id,moredetails:itemSelected })
-              .then((result) => {
-                if (result.success == true) {
-                  navigation.navigate("mypets");
-                } else {
-                  // console.log(result.status);
-                  // console.log(result.data);
-                  console.log("error");
-                  setApiError("Something Went Wrong");
-                }
-              })
-              .catch((error) => {
-                // console.log("error happen while Sign In");
-                // console.log(error);
+      <Formik
+        initialValues={{
+          name: petToEdit.name,
+          type: petToEdit.type,
+          breed: petToEdit.breed,
+          userId: id,
+          image: petToEdit.empty,
+          gender: petToEdit.gender,
+          weight: petToEdit.weight.toString(),
+          description: petToEdit.description,
+        }}
+        validationSchema={profileValidationSchema}
+        onSubmit={(values) => {
+          console.log(values);
+          fnEdit({ ...values, _id: petToEdit._id, moredetails: itemSelected })
+            .then((result) => {
+              if (result.success == true) {
+                navigation.navigate("mypets");
+              } else {
+                // console.log(result.status);
+                // console.log(result.data);
                 console.log("error");
-
                 setApiError("Something Went Wrong");
-              });
-          }}
-        >
-          {({
-            handleChange,
-            handleBlur,
-            handleSubmit,
-            values,
-            errors,
-            touched,
-            setFieldTouched,
-            isValid,
-          }) => (
-            <>
-              <ScrollView showsVerticalScrollIndicator={false}>
-                <View style={{ paddingVertical: 40 }}>
-                  <View style={{ marginBottom: 32 }}>
-                    <UserImageEdit image={avatarimg} />
-                  </View>
-                  {apiError ? (
-                    <View
-                      style={{
-                        width: "100%",
-                        marginBottom: 32,
-                        backgroundColor: "rgba(234, 0, 0, 0.1)",
-                        padding: 12,
-                        borderRadius: 5,
-                        flexDirection: "row",
-                        alignItems: "center",
-                      }}
-                    >
-                      <CloseFillIcon
-                        onPress={() => setApiError("")}
-                        width={20}
-                        height={20}
-                        color={"red"}
-                      />
-                      <View style={{ flex: 1, alignItems: "center" }}>
-                        <Text
-                          style={{
-                            fontSize: 12,
-                            fontWeight: "400",
-                            color: "red",
-                            marginLeft: 12,
-                          }}
-                        >
-                          {apiError}
-                        </Text>
-                      </View>
-                    </View>
-                  ) : null}
-                  <View style={{ marginBottom: 20 }}>
-                    <InputText
-                      name="name"
-                      placeholder={"Name"}
-                      onChangeText={handleChange("name")}
-                      onBlur={handleBlur("name")}
-                      value={values.name}
-                      // error={errors.fullname && touched.fullname}
-                    />
-                    {errors.name && touched.name && (
-                      <Text
-                        style={{ fontSize: 12, color: "red", marginTop: 7 }}
-                      >
-                        {errors.name}
-                      </Text>
-                    )}
-                  </View>
-                  <View style={{ marginBottom: 20 }}>
-                    <TouchableOpacity
-                      onPress={() => {
-                        setFieldTouched("type", true);
+              }
+            })
+            .catch((error) => {
+              // console.log("error happen while Sign In");
+              // console.log(error);
+              console.log("error");
 
-                        setBottomSheetOpenTypes(true);
-                      }}
-                      style={{
-                        height: 56,
-                        paddingHorizontal: 20,
-                        borderRadius: 12,
-                        backgroundColor: Colors.DARK_BG,
-                        flexDirection: "row",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                      }}
-                    >
-                      <Text
-                        style={{
-                          fontSize: 14,
-                          fontWeight: "400",
-                          color: Colors.TEXT_GRAY,
-                        }}
-                      >
-                        {values.type}
-                      </Text>
-                      <Ionicons
-                        name="caret-down"
-                        size={14}
-                        color={Colors.PRIMARY}
-                      />
-                    </TouchableOpacity>
-                    {errors.type && touched.type && (
-                      <Text
-                        style={{ fontSize: 12, color: "red", marginTop: 7 }}
-                      >
-                        {errors.type}
-                      </Text>
-                    )}
-                  </View>
-                  <View style={{ marginBottom: 20 }}>
-                    <InputText
-                      name="breed"
-                      placeholder={"Breed"}
-                      onChangeText={handleChange("breed")}
-                      onBlur={handleBlur("breed")}
-                      value={values.breed}
-                      // error={errors.fullname && touched.fullname}
-                    />
-                    {errors.breed && touched.breed && (
-                      <Text
-                        style={{ fontSize: 12, color: "red", marginTop: 7 }}
-                      >
-                        {errors.breed}
-                      </Text>
-                    )}
-                  </View>
-                  <View style={{ marginBottom: 20 }}>
-                    <TouchableOpacity
-                      onPress={() => {
-                        setFieldTouched("gender", true);
-                        setBottomSheetOpenGender(true);
-                      }}
-                      style={{
-                        height: 56,
-                        paddingHorizontal: 20,
-                        borderRadius: 12,
-                        backgroundColor: Colors.DARK_BG,
-                        flexDirection: "row",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                      }}
-                    >
-                      <Text
-                        style={{
-                          fontSize: 14,
-                          fontWeight: "400",
-                          color: Colors.TEXT_GRAY,
-                        }}
-                      >
-                        {values.gender}
-                      </Text>
-                      <Ionicons
-                        name="caret-down"
-                        size={14}
-                        color={Colors.PRIMARY}
-                      />
-                    </TouchableOpacity>
-                    {errors.gender && touched.gender && (
-                      <Text
-                        style={{ fontSize: 12, color: "red", marginTop: 7 }}
-                      >
-                        {errors.gender}
-                      </Text>
-                    )}
-                  </View>
-                  <View style={{ marginBottom: 20 }}>
-                    <InputText
-                      name="weight"
-                      placeholder={"Weight"}
-                      value={values.weight}
-                      onChangeText={handleChange("weight")}
-                      onBlur={handleBlur("weight")}
-                      // error={errors.fullname && touched.fullname}
-                      icon={<KgIcon color={Colors.PRIMARY} />}
-                    />
-                    {errors.weight && touched.weight && (
-                      <Text
-                        style={{ fontSize: 12, color: "red", marginTop: 7 }}
-                      >
-                        {errors.weight}
-                      </Text>
-                    )}
-                  </View>
-                  <TouchableOpacity
-              onPress={() => {
-                setBottomSheetOpenDetails(true);
-              }}
-              style={{
-                height: 56,
-                paddingHorizontal: 20,
-                marginBottom: 20,
-                borderRadius: 12,
-                backgroundColor: Colors.DARK_BG,
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-between",
-              }}
-            >
-              <Text
-                style={{
-                  fontSize: 14,
-                  fontWeight: "400",
-                  color: Colors.TEXT_GRAY,
-                }}
-              >
-                {itemSelected.length === 0
-                  ? "More Details"
-                  : itemSelected.map((el) => el + " - ")}
-              </Text>
-              <Ionicons name="caret-down" size={14} color={Colors.PRIMARY} />
-            </TouchableOpacity>
-                  <TextInput
-                    multiline={true}
-                    name="description"
-                    onChangeText={handleChange("description")}
-                    onBlur={handleBlur("description")}
-                    value={values.description}
-                    numberOfLines={3}
-                    placeholder={"Description"}
-                    style={[
-                      styles.input,
-                      { minHeight: 100, textAlignVertical: "top" },
-                    ]}
+              setApiError("Something Went Wrong");
+            });
+        }}
+      >
+        {({
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          values,
+          errors,
+          touched,
+          setFieldTouched,
+          isValid,
+        }) => (
+          <>
+            <ScrollView showsVerticalScrollIndicator={false}>
+              <View style={{ paddingVertical: 40 }}>
+                <View style={{ marginBottom: 32 }}>
+                  <UserImageEdit image={avatarimg} />
+                </View>
+                {apiError ? (
+                  <ErrorView message={apiError} setError={setApiError} />
+                ) : null}
+                <View style={{ marginBottom: 20 }}>
+                  <InputText
+                    name="name"
+                    placeholder={"Name"}
+                    onChangeText={handleChange("name")}
+                    onBlur={handleBlur("name")}
+                    value={values.name}
+                    // error={errors.fullname && touched.fullname}
                   />
-                  {errors.description && touched.description && (
+                  {errors.name && touched.name && (
                     <Text style={{ fontSize: 12, color: "red", marginTop: 7 }}>
-                      {errors.description}
+                      {errors.name}
                     </Text>
                   )}
                 </View>
-              </ScrollView>
-              <View
-                style={{
-                  backgroundColor: "#fff",
-                  paddingTop: 20,
-                  paddingBottom: 32,
-                }}
-              >
-                <View style={{ width: "100%" }}>
-                  <ButtonPrimary
-                    title={isLoading ? "Loading..." : "Update"}
-                    onPress={handleSubmit}
-                    disabled={!isValid || isLoading}
-                  />
-                </View>
-              </View>
+                <View style={{ marginBottom: 20 }}>
+                  <TouchableOpacity
+                    onPress={() => {
+                      setFieldTouched("type", true);
 
-              <SelectBottomSheet
-                bottomSheetOpen={bottomSheetOpenTypes}
-                setBottomSheetOpen={setBottomSheetOpenTypes}
-                setValue={handleChange("type")}
-                title={"Type"}
-                data={bottomSheetValues}
-              />
-              <SelectBottomSheet
-                bottomSheetOpen={bottomSheetOpenGender}
-                setBottomSheetOpen={setBottomSheetOpenGender}
-                setValue={handleChange("gender")}
-                title={"Genders"}
-                data={Gendersvalues}
-              />
-              <SelectMultipleBottomSheet
+                      setBottomSheetOpenTypes(true);
+                    }}
+                    style={{
+                      height: 56,
+                      paddingHorizontal: 20,
+                      borderRadius: 12,
+                      backgroundColor: Colors.DARK_BG,
+                      flexDirection: "row",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <Text
+                      style={{
+                        fontSize: 14,
+                        fontWeight: "400",
+                        color: Colors.TEXT_GRAY,
+                      }}
+                    >
+                      {values.type}
+                    </Text>
+                    <Ionicons
+                      name="caret-down"
+                      size={14}
+                      color={Colors.PRIMARY}
+                    />
+                  </TouchableOpacity>
+                  {errors.type && touched.type && (
+                    <Text style={{ fontSize: 12, color: "red", marginTop: 7 }}>
+                      {errors.type}
+                    </Text>
+                  )}
+                </View>
+                <View style={{ marginBottom: 20 }}>
+                  <InputText
+                    name="breed"
+                    placeholder={"Breed"}
+                    onChangeText={handleChange("breed")}
+                    onBlur={handleBlur("breed")}
+                    value={values.breed}
+                    // error={errors.fullname && touched.fullname}
+                  />
+                  {errors.breed && touched.breed && (
+                    <Text style={{ fontSize: 12, color: "red", marginTop: 7 }}>
+                      {errors.breed}
+                    </Text>
+                  )}
+                </View>
+                <View style={{ marginBottom: 20 }}>
+                  <TouchableOpacity
+                    onPress={() => {
+                      setFieldTouched("gender", true);
+                      setBottomSheetOpenGender(true);
+                    }}
+                    style={{
+                      height: 56,
+                      paddingHorizontal: 20,
+                      borderRadius: 12,
+                      backgroundColor: Colors.DARK_BG,
+                      flexDirection: "row",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <Text
+                      style={{
+                        fontSize: 14,
+                        fontWeight: "400",
+                        color: Colors.TEXT_GRAY,
+                      }}
+                    >
+                      {values.gender}
+                    </Text>
+                    <Ionicons
+                      name="caret-down"
+                      size={14}
+                      color={Colors.PRIMARY}
+                    />
+                  </TouchableOpacity>
+                  {errors.gender && touched.gender && (
+                    <Text style={{ fontSize: 12, color: "red", marginTop: 7 }}>
+                      {errors.gender}
+                    </Text>
+                  )}
+                </View>
+                <View style={{ marginBottom: 20 }}>
+                  <InputText
+                    name="weight"
+                    placeholder={"Weight"}
+                    value={values.weight}
+                    onChangeText={handleChange("weight")}
+                    onBlur={handleBlur("weight")}
+                    // error={errors.fullname && touched.fullname}
+                    icon={<KgIcon color={Colors.PRIMARY} />}
+                  />
+                  {errors.weight && touched.weight && (
+                    <Text style={{ fontSize: 12, color: "red", marginTop: 7 }}>
+                      {errors.weight}
+                    </Text>
+                  )}
+                </View>
+                <TouchableOpacity
+                  onPress={() => {
+                    setBottomSheetOpenDetails(true);
+                  }}
+                  style={{
+                    height: 56,
+                    paddingHorizontal: 20,
+                    marginBottom: 20,
+                    borderRadius: 12,
+                    backgroundColor: Colors.DARK_BG,
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontSize: 14,
+                      fontWeight: "400",
+                      color: Colors.TEXT_GRAY,
+                    }}
+                  >
+                    {itemSelected.length === 0
+                      ? "More Details"
+                      : itemSelected.map((el) => el + " - ")}
+                  </Text>
+                  <Ionicons
+                    name="caret-down"
+                    size={14}
+                    color={Colors.PRIMARY}
+                  />
+                </TouchableOpacity>
+                <TextInput
+                  multiline={true}
+                  name="description"
+                  onChangeText={handleChange("description")}
+                  onBlur={handleBlur("description")}
+                  value={values.description}
+                  numberOfLines={3}
+                  placeholder={"Description"}
+                  style={[
+                    styles.input,
+                    { minHeight: 100, textAlignVertical: "top" },
+                  ]}
+                />
+                {errors.description && touched.description && (
+                  <Text style={{ fontSize: 12, color: "red", marginTop: 7 }}>
+                    {errors.description}
+                  </Text>
+                )}
+              </View>
+            </ScrollView>
+            <View
+              style={{
+                backgroundColor: "#fff",
+                paddingTop: 20,
+                paddingBottom: 32,
+              }}
+            >
+              <View style={{ width: "100%" }}>
+                <ButtonPrimary
+                  title={isLoading ? "Loading..." : "Update"}
+                  onPress={handleSubmit}
+                  disabled={!isValid || isLoading}
+                />
+              </View>
+            </View>
+
+            <SelectBottomSheet
+              bottomSheetOpen={bottomSheetOpenTypes}
+              setBottomSheetOpen={setBottomSheetOpenTypes}
+              setValue={handleChange("type")}
+              title={"Type"}
+              data={bottomSheetValues}
+            />
+            <SelectBottomSheet
+              bottomSheetOpen={bottomSheetOpenGender}
+              setBottomSheetOpen={setBottomSheetOpenGender}
+              setValue={handleChange("gender")}
+              title={"Genders"}
+              data={Gendersvalues}
+            />
+            <SelectMultipleBottomSheet
               itemSelected={itemSelected}
               setItemSelected={setItemSelected}
-                bottomSheetOpen={bottomSheetOpenDetails}
-                setBottomSheetOpen={setBottomSheetOpenDetails}
-                title={"More Details"}
-                data={detailsValues}
-              />
-            </>
-          )}
-        </Formik>
+              bottomSheetOpen={bottomSheetOpenDetails}
+              setBottomSheetOpen={setBottomSheetOpenDetails}
+              title={"More Details"}
+              data={detailsValues}
+            />
+          </>
+        )}
+      </Formik>
     </View>
   );
 };

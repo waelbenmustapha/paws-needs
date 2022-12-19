@@ -24,6 +24,7 @@ import * as yup from "yup";
 import ButtonPrimary from "../../../components/ButtonPrimary";
 import { useCreateAddress } from "../../../apis/addresses/useCreateAddress";
 import { useAuth } from "../../../context/AuthProvider";
+import ErrorView from "../../../components/ErrorView";
 
 const AddAdress = ({ navigation }) => {
   const [location, setLocation] = useState(null);
@@ -209,36 +210,7 @@ const AddAdress = ({ navigation }) => {
             }}
           />
           {apiError ? (
-            <View
-              style={{
-                width: "100%",
-                marginBottom: 32,
-                backgroundColor: "rgba(234, 0, 0, 0.1)",
-                padding: 12,
-                borderRadius: 5,
-                flexDirection: "row",
-                alignItems: "center",
-              }}
-            >
-              <CloseFillIcon
-                onPress={() => setApiError("")}
-                width={20}
-                height={20}
-                color={"red"}
-              />
-              <View style={{ flex: 1, alignItems: "center" }}>
-                <Text
-                  style={{
-                    fontSize: 12,
-                    fontWeight: "400",
-                    color: "red",
-                    marginLeft: 12,
-                  }}
-                >
-                  {apiError}
-                </Text>
-              </View>
-            </View>
+            <ErrorView message={apiError} setError={setApiError} />
           ) : null}
           <ScrollView
             showsVerticalScrollIndicator={false}
@@ -273,7 +245,7 @@ const AddAdress = ({ navigation }) => {
                     })
                     .catch((error) => {
                       // console.log("error happen while Sign In");
-                       console.log(error);
+                      console.log(error);
                       setApiError("Something Went Wrong");
                     });
                 } else {
