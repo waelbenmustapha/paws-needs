@@ -113,12 +113,11 @@ module.exports.handler = async (event, context) => {
       }
     }
   } catch (e) {
-    console.log(e);
     return {
       statusCode: 500,
       body: JSON.stringify({
         success: false,
-        msg: "google login failed.",
+        msg: "Internal Server Error",
       }),
     };
   }

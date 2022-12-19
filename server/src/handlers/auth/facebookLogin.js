@@ -106,13 +106,23 @@ module.exports.handler = async (event, context) => {
               email: newUser.email,
             });
             if (userEmail) {
-              return {
-                statusCode: 400,
-                body: JSON.stringify({
-                  success: false,
-                  msg: "Account with this email already exist.",
-                }),
-              };
+              if (userEmail.provider == "google") {
+                return {
+                  statusCode: 400,
+                  body: JSON.stringify({
+                    success: false,
+                    msg: "You Already have an Account linked with google",
+                  }),
+                };
+              } else {
+                return {
+                  statusCode: 400,
+                  body: JSON.stringify({
+                    success: false,
+                    msg: "You Already have an Account with this email",
+                  }),
+                };
+              }
             }
             // saving user in database
             const savedUser = await User.create(newUser);
