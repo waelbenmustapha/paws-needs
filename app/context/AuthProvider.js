@@ -28,10 +28,8 @@ export const AuthProvider = ({ children }) => {
     return user;
   };
 
-  const getAsyncUserId =  () => {
-    
+  const getAsyncUserId = () => {
     return user.user._id;
-    
   };
   // remove user from async storage
   const removeAsyncUser = () => {
@@ -41,7 +39,7 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     getDataObj("user").then((res) => setUser(res));
-    setTimeout(() => setTimer(false), 0);
+    setTimeout(() => setTimer(false), 2000);
   }, []);
 
   if (user === "loading" || timer) {
@@ -50,7 +48,13 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, saveAsyncUser, getAsyncUser,getAsyncUserId, removeAsyncUser }}
+      value={{
+        user,
+        saveAsyncUser,
+        getAsyncUser,
+        getAsyncUserId,
+        removeAsyncUser,
+      }}
     >
       {children}
     </AuthContext.Provider>
