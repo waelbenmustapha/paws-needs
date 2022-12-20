@@ -14,9 +14,9 @@ const updateCurrentUser = async (event, context) => {
     !inputData ||
     !inputData.fullname ||
     !inputData.email ||
-    !inputData.address ||
     !inputData.phoneNumber
   ) {
+    console.log("input error");
     return {
       statusCode: 400,
       body: JSON.stringify({
@@ -43,23 +43,27 @@ const updateCurrentUser = async (event, context) => {
   let newUser = {
     fullname: inputData.fullname,
     email: inputData.email,
-    phoneNumber: inputData.phoneNumber,
+    phoneNumber: null,
     profile_pic:
       "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__480.png",
-    address: {
-      name: null,
-      street: null,
-      city: null,
-      longitude: null,
-      latitude: null,
-    },
   };
 
   try {
     await connectDatabase();
-
     // get user id from token
     const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
+
+    // check if there is a user exist with this id
+    const foundUser = await User.findOne({ _id: decoded.data._id });
+    if (!foundUser) {
+      return {
+        statusCode: 404,
+        body: JSON.stringify({
+          success: false,
+          msg: "User not found",
+        }),
+      };
+    }
     // check if there is a user exist with the same email entred
     const user = await User.findOne({
       $and: [{ _id: { $ne: decoded.data._id } }, { email: newUser.email }],
@@ -75,27 +79,22 @@ const updateCurrentUser = async (event, context) => {
       };
     }
 
-    // ckeck if user user exist with this id then save data
-    const savedData = await User.findByIdAndUpdate(
-      { _id: decoded.data._id },
-      newUser
-    );
-    if (!savedData) {
-      return {
-        statusCode: 404,
-        body: JSON.stringify({
-          success: false,
-          msg: "User not found",
-        }),
-      };
+    // update user data
+    const savedData = await User.findByIdAndUpdate(decoded.data._id, newUser);
+    if (savedData) {
+      // get the updated user
+      const userUpdated = await User.findOne(savedData._id);
+      if (userUpdated) {
+        return {
+          statusCode: 200,
+          body: JSON.stringify({
+            success: true,
+            msg: "Account updated successfuly",
+            user: userUpdated,
+          }),
+        };
+      }
     }
-    return {
-      statusCode: 200,
-      body: JSON.stringify({
-        success: true,
-        msg: "Account updated successfuly",
-      }),
-    };
   } catch (error) {
     return {
       statusCode: error.statusCode || 500,

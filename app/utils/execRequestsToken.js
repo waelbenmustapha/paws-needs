@@ -5,8 +5,7 @@ export async function execRequestToken(axiosRequestConfig) {
     const response = await axiosTokenInstance({
       ...axiosRequestConfig,
     });
-
-    return Promise.resolve(response.data);
+    return Promise.resolve(response);
   } catch (error) {
     if (error instanceof Error) {
       if (error.response) {

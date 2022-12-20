@@ -33,10 +33,21 @@ const updateUserById = async (event, context) => {
   }
 
   // create a new user object
-  
 
   try {
     await connectDatabase();
+
+    // check if there is a user exist with this id
+    const foundUser = await User.findOne({ _id: id });
+    if (!foundUser) {
+      return {
+        statusCode: 404,
+        body: JSON.stringify({
+          success: false,
+          msg: "User not found",
+        }),
+      };
+    }
 
     // check if there is a user exist with the same email entred
     const user = await User.findOne({
@@ -54,23 +65,16 @@ const updateUserById = async (event, context) => {
     }
 
     // ckeck if user user exist with this id then save data
-    const savedData = await User.findByIdAndUpdate({ _id: id }, inputData);
-    if (!savedData) {
+    const savedData = await User.findByIdAndUpdate(id, inputData);
+    if (savedData) {
       return {
-        statusCode: 404,
+        statusCode: 200,
         body: JSON.stringify({
-          success: false,
-          msg: "user not found",
+          success: true,
+          msg: "user updated successfuly",
         }),
       };
     }
-    return {
-      statusCode: 200,
-      body: JSON.stringify({
-        success: true,
-        msg: "user updated successfuly",
-      }),
-    };
   } catch (error) {
     return {
       statusCode: error.statusCode || 500,

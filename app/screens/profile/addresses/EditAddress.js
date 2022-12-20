@@ -11,7 +11,6 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import Colors from "../../../utils/Colors";
-import CloseFillIcon from "../../../assets/svg/close-fill.svg";
 
 import AntDesign from "react-native-vector-icons/AntDesign";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";

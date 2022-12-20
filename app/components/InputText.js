@@ -5,6 +5,7 @@ import EyeOff from "../assets/svg/eye-off.svg";
 import Colors from "../utils/Colors";
 
 const InputText = ({
+  label,
   placeholder,
   isPassword,
   icon,
@@ -17,6 +18,7 @@ const InputText = ({
   const [isFocused, setIsFocused] = useState(false);
   return (
     <View>
+      {label ? <Text style={styles.inputLabel}>{label}</Text> : null}
       <View
         style={[
           styles.inputContainer,
@@ -87,6 +89,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     alignItems: "center",
     justifyContent: "center",
+  },
+  inputLabel: {
+    fontSize: 14,
+    fontWeight: "400",
+    marginBottom: 8,
+    color: Colors.PRIMARY,
   },
 });
 

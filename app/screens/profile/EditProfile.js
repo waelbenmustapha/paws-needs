@@ -1,4 +1,10 @@
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  ActivityIndicator,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import Colors from "../../utils/Colors";
 import UserImageEdit from "../../components/UserImageEdit";
@@ -7,8 +13,6 @@ import avatarimg from "../../assets/avatar.png";
 import Envelope from "../../assets/svg/envelope.svg";
 import Phone from "../../assets/svg/phone.svg";
 import Person from "../../assets/svg/person-outline.svg";
-import CloseFillIcon from "../../assets/svg/close-fill.svg";
-import LocationFillIcon from "../../assets/svg/location.svg";
 import { useAuth } from "../../context/AuthProvider";
 import { Formik } from "formik";
 import * as yup from "yup";
@@ -21,12 +25,6 @@ const EditProfile = ({ navigation }) => {
   const auth = useAuth();
   const [userData, setUserData] = useState(null);
   const [apiError, setApiError] = useState("");
-  const initialValues = {
-    fullname: "",
-    email: "",
-    address: "",
-    phoneNumber: "",
-  };
 
   async function getUser() {
     const data = await auth.getAsyncUser();
@@ -42,15 +40,14 @@ const EditProfile = ({ navigation }) => {
     phoneNumber: yup
       .string()
       .matches(/(\d){8}\b/, "Enter a valid phone number")
-      .required("Phone number is required"),
-    address: yup.string().required("Address is required"),
+      .nullable(),
     email: yup
       .string()
       .email("Please enter valid email")
       .required("Email is required"),
   });
 
-  const { isLoading, mutateAsync: EditProfile } = useEditProfile({
+  const { isLoading, mutateAsync: updateProfile } = useEditProfile({
     setApiError,
   });
 
@@ -61,128 +58,131 @@ const EditProfile = ({ navigation }) => {
         arrowColor={Colors.PRIMARY}
         navigation={navigation}
       />
-      <Formik
-        initialValues={initialValues}
-        validationSchema={profileValidationSchema}
-        onSubmit={(values) => EditProfile(values)}
-      >
-        {({
-          handleChange,
-          handleBlur,
-          handleSubmit,
-          values,
-          errors,
-          touched,
-          isValid,
-        }) => (
-          <>
-            <ScrollView showsVerticalScrollIndicator={false}>
-              <View style={{ paddingVertical: 40 }}>
-                <View style={{ marginBottom: 32 }}>
-                  <UserImageEdit image={avatarimg} />
-                </View>
+      {!userData ? (
+        <View
+          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+        >
+          <ActivityIndicator size={50} color={Colors.PRIMARY} />
+        </View>
+      ) : (
+        <Formik
+          initialValues={{
+            fullname: userData.fullname,
+            email: userData.email,
+            phoneNumber: userData.phoneNumber,
+          }}
+          validationSchema={profileValidationSchema}
+          onSubmit={(values) => updateProfile(values)}
+        >
+          {({
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            values,
+            errors,
+            touched,
+            isValid,
+          }) => (
+            <>
+              <ScrollView showsVerticalScrollIndicator={false}>
+                <View style={{ paddingVertical: 40 }}>
+                  <View style={{ marginBottom: 32 }}>
+                    <UserImageEdit image={avatarimg} />
+                  </View>
 
-                {apiError ? (
-                  <ErrorView message={apiError} setError={setApiError} />
-                ) : null}
+                  {apiError ? (
+                    <ErrorView message={apiError} setError={setApiError} />
+                  ) : null}
 
-                <View style={{ marginBottom: 20 }}>
-                  <InputText
-                    name="fullname"
-                    placeholder={"Full Name"}
-                    onChangeText={handleChange("fullname")}
-                    onBlur={handleBlur("fullname")}
-                    value={values.fullname}
-                    // error={errors.fullname && touched.fullname}
-                    icon={
-                      <Person width={20} height={20} color={Colors.PRIMARY} />
-                    }
-                  />
-                  {errors.fullname && touched.fullname && (
-                    <Text style={{ fontSize: 12, color: "red", marginTop: 7 }}>
-                      {errors.fullname}
-                    </Text>
-                  )}
+                  <View style={{ marginBottom: 20 }}>
+                    <InputText
+                      name="fullname"
+                      placeholder={"Full Name"}
+                      label="Full Name:"
+                      onChangeText={handleChange("fullname")}
+                      onBlur={handleBlur("fullname")}
+                      value={values.fullname}
+                      // error={errors.fullname && touched.fullname}
+                      icon={
+                        <Person width={20} height={20} color={Colors.PRIMARY} />
+                      }
+                    />
+                    {errors.fullname && touched.fullname && (
+                      <Text
+                        style={{ fontSize: 12, color: "red", marginTop: 7 }}
+                      >
+                        {errors.fullname}
+                      </Text>
+                    )}
+                  </View>
+                  <View style={{ marginBottom: 20 }}>
+                    <InputText
+                      name="email"
+                      placeholder={"Email"}
+                      label="Email:"
+                      keyboardType="email-address"
+                      onChangeText={handleChange("email")}
+                      onBlur={handleBlur("email")}
+                      value={values.email}
+                      // error={errors.email && touched.email}
+                      icon={
+                        <Envelope
+                          width={20}
+                          height={20}
+                          color={Colors.PRIMARY}
+                        />
+                      }
+                    />
+                    {errors.email && touched.email && (
+                      <Text
+                        style={{ fontSize: 12, color: "red", marginTop: 7 }}
+                      >
+                        {errors.email}
+                      </Text>
+                    )}
+                  </View>
+                  <View style={{ marginBottom: 20 }}>
+                    <InputText
+                      name="phoneNumber"
+                      placeholder={"Phone Number"}
+                      label="Phone Number:"
+                      onChangeText={handleChange("phoneNumber")}
+                      onBlur={handleBlur("phoneNumber")}
+                      value={values.phoneNumber}
+                      // error={errors.phoneNumber && touched.phoneNumber}
+                      icon={
+                        <Phone width={20} height={20} color={Colors.PRIMARY} />
+                      }
+                    />
+                    {errors.phoneNumber && touched.phoneNumber && (
+                      <Text
+                        style={{ fontSize: 12, color: "red", marginTop: 7 }}
+                      >
+                        {errors.phoneNumber}
+                      </Text>
+                    )}
+                  </View>
                 </View>
-                <View style={{ marginBottom: 20 }}>
-                  <InputText
-                    name="email"
-                    placeholder={"Email"}
-                    keyboardType="email-address"
-                    onChangeText={handleChange("email")}
-                    onBlur={handleBlur("email")}
-                    value={values.email}
-                    // error={errors.email && touched.email}
-                    icon={
-                      <Envelope width={20} height={20} color={Colors.PRIMARY} />
-                    }
+              </ScrollView>
+              <View
+                style={{
+                  backgroundColor: "#fff",
+                  paddingTop: 20,
+                  paddingBottom: 32,
+                }}
+              >
+                <View style={{ width: "100%" }}>
+                  <ButtonPrimary
+                    title={isLoading ? "Loading..." : "Update"}
+                    onPress={handleSubmit}
+                    disabled={!isValid}
                   />
-                  {errors.email && touched.email && (
-                    <Text style={{ fontSize: 12, color: "red", marginTop: 7 }}>
-                      {errors.email}
-                    </Text>
-                  )}
-                </View>
-                <View style={{ marginBottom: 20 }}>
-                  <InputText
-                    name="address"
-                    placeholder={"Address Linked"}
-                    onChangeText={handleChange("address")}
-                    onBlur={handleBlur("address")}
-                    value={values.address}
-                    // error={errors.address && touched.address}
-                    icon={
-                      <LocationFillIcon
-                        width={20}
-                        height={20}
-                        color={Colors.PRIMARY}
-                      />
-                    }
-                  />
-                  {errors.address && touched.address && (
-                    <Text style={{ fontSize: 12, color: "red", marginTop: 7 }}>
-                      {errors.address}
-                    </Text>
-                  )}
-                </View>
-                <View style={{ marginBottom: 20 }}>
-                  <InputText
-                    name="phoneNumber"
-                    placeholder={"Phone Number"}
-                    onChangeText={handleChange("phoneNumber")}
-                    onBlur={handleBlur("phoneNumber")}
-                    value={values.phoneNumber}
-                    // error={errors.phoneNumber && touched.phoneNumber}
-                    icon={
-                      <Phone width={20} height={20} color={Colors.PRIMARY} />
-                    }
-                  />
-                  {errors.phoneNumber && touched.phoneNumber && (
-                    <Text style={{ fontSize: 12, color: "red", marginTop: 7 }}>
-                      {errors.phoneNumber}
-                    </Text>
-                  )}
                 </View>
               </View>
-            </ScrollView>
-            <View
-              style={{
-                backgroundColor: "#fff",
-                paddingTop: 20,
-                paddingBottom: 32,
-              }}
-            >
-              <View style={{ width: "100%" }}>
-                <ButtonPrimary
-                  title={isLoading ? "Loading..." : "Update"}
-                  onPress={handleSubmit}
-                  disabled={!isValid}
-                />
-              </View>
-            </View>
-          </>
-        )}
-      </Formik>
+            </>
+          )}
+        </Formik>
+      )}
     </View>
   );
 };

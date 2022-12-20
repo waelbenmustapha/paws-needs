@@ -1,28 +1,22 @@
 import { useMutation } from "@tanstack/react-query";
-import { editProfile } from "./profileApi";
+import { execRequestToken } from "../../utils/execRequestsToken";
+// import apiClient from "../../utils/http-common";
+
+export async function editProfile(data) {
+  return execRequestToken({
+    url: "/users/update-current-user",
+    method: "PUT",
+    data,
+  });
+}
 
 export const useEditProfile = ({ setApiError }) => {
   return useMutation(editProfile, {
     onSuccess: (result) => {
-      console.log("useMutation onSuccess:");
-      console.log(result);
-      console.log("*************headers********************");
-      console.log(result.headers);
-      if (result) {
-        if (result.status == 200 && result.data.success == true) {
-          console.log(result);
-        } else {
-          console.log(result.status);
-          console.log(result.data);
-          if (result.data) {
-            setApiError(result.data.msg);
-          }
-        }
-      }
+      console.log("result: ", result);
     },
     onError: (error) => {
-      console.log("error happen while updating your profile");
-      console.log(error);
+      console.log("error: ", error);
       setApiError("Error happen while updating your profile");
     },
   });

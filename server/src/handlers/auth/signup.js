@@ -48,7 +48,7 @@ module.exports.handler = async (event, context) => {
   // Create User Object
   let newUser = new User({
     fullname: obj.fullname.trim(),
-    email: obj.email.trim().toLowerCase(),
+    email: obj.email.toLowerCase().trim(),
     password: hashedPassword,
     phoneNumber: obj.phoneNumber,
   });
