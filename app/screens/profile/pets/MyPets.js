@@ -54,7 +54,7 @@ const MyPets = ({ navigation }) => {
         </View>
       </View>
       {isRefetching && <Text>Refetching</Text>}
-      {data.map((el) => (
+      {data.data.map((el) => (
         <TouchableOpacity
           onPress={() => navigation.navigate("editpet", { pet: el })}
           style={{
@@ -67,7 +67,7 @@ const MyPets = ({ navigation }) => {
         >
           <Text>{el.name}</Text>
         </TouchableOpacity>
-      ))}
+        ))}
       <TouchableOpacity
         onPress={() => navigation.navigate("addpet")}
         style={{

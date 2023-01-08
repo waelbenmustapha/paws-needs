@@ -122,22 +122,31 @@ function AddUser() {
             </div>
           </div>
           {/* Button group */}
-          <div className="w-full mt-10 flex justify-center">
-            {/* Submit button */}
-            <button
-              className="w-[250px] h-12 rounded-full bg-main-orange-500 text-white text-tiny font-bold shadow-2xl focus:outline-none"
-              onClick={handleSubmitUser}
+          <div className="w-full flex justify-end items-center">
+          <div className="flex flex-row flex-nowrap justify-center items-center">
+            <Link
+              to={"/dashboard/users"}
+              style={{
+                border: `2px solid ${context.mainColor}`,
+                color: context.mainColor,
+              }}
+              className="flex flex-row flex-nowrap justify-center items-center rounded-[4px] min-w-[88px] min-h-[33px] px-4 py-2 bg-transparent font-bold text-center text-xxs 2lg:text-xs lg:text-tiny outline-none"
             >
-              Create User
-            </button>
-            {/* Cancel button */}
+              <span>Cancel</span>
+            </Link>
             <button
-              className="w-[250px] h-12 rounded-full bg-white text-main-text text-tiny font-bold shadow-2xl focus:outline-none ml-4"
-              onClick={() => navigate("/dashboard/users")}
+            disabled={isLoading}
+              onClick={() => handleSubmitUser()}
+              style={{
+                border: `2px solid ${context.mainColor}`,
+                backgroundColor: context.mainColor,
+              }}
+              className="flex flex-row flex-nowrap justify-center items-center rounded-[4px] min-w-[88px] min-h-[33px] px-4 py-2 ml-3 text-white font-bold text-center text-xxs 2lg:text-xs lg:text-tiny outline-none"
             >
-              Cancel
+              <span>Create User</span>
             </button>
           </div>
+        </div>
         </div>
       </div>
     </>

@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import { execRequest } from "../../utils/execRequests";
+import { execRequestToken } from "../../utils/execRequestsToken";
 
 
 export const fetch = ( userId ) => {
-    return execRequest({
+    return execRequestToken({
       url: '/address/user-addresses/'+userId,
       method: 'GET',
     })

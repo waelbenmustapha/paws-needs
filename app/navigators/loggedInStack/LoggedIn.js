@@ -17,15 +17,17 @@ const LoggedIn = () => {
     "Authorization"
   ] = `Bearer ${auth.user.token}`;
 
+
   axiosTokenInstance.interceptors.response.use(
     (response) => {
+      console.log("hi")
       return response;
     },
     (error) => {
       if (error.response.status === 401) {
         auth.removeAsyncUser();
       }
-      return error;
+      return Promise.reject(error);
     }
   );
   return (

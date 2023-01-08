@@ -14,10 +14,22 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.waelben.pawsneeds"
+      "bundleIdentifier": "com.waelben.pawsneeds",
+      "infoPlist": {
+        "SKAdNetworkItems": [
+          {
+            "SKAdNetworkIdentifier": "v9wttpbfk9.skadnetwork"
+          },
+          {
+            "SKAdNetworkIdentifier": "n38lu8286q.skadnetwork"
+          }
+        ]
+      }
     },
     "android": {
       "config": {
@@ -29,7 +41,10 @@
         "foregroundImage": "./assets/logo-paw.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.waelben.pawsneeds"
+      "package": "com.waelben.pawsneeds",
+      "permissions": [
+        "android.permission.INTERNET"
+      ]
     },
     "web": {
       "favicon": "./assets/logo-paw.png"
@@ -38,8 +53,11 @@
       "eas00000WAEL00000": {
         "projectId": "5f96f3c6-3a84-4598-878e-9e434c576741"
       },
-      "eas": {
+      "eas00000SABER00000": {
         "projectId": "53437416-d663-47a6-92f8-32130a32e131"
+      },
+      "eas": {
+        "projectId": "5f96f3c6-3a84-4598-878e-9e434c576741"
       }
     },
     "packagerOpts": {

@@ -81,7 +81,9 @@ const Signin = ({ navigation }) => {
   // login with google
   async function handleGoogleLogin() {
     try {
-      await signOut();
+      //await signOut();
+      GoogleSignin.configure();
+
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
       mutateGoogle.mutateAsync({ token: userInfo.idToken });

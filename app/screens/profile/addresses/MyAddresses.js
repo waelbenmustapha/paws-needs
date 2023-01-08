@@ -54,7 +54,7 @@ import { useGetUserAdresses } from "../../../apis/addresses/useGetUserAddresses"
           </View>
         </View>
         {isRefetching && <Text>Refetching</Text>}
-        {data.map((el) => (
+        {data.data.map((el) => (
           <TouchableOpacity
             onPress={() => navigation.navigate("editaddress", { address: el })}
             style={{

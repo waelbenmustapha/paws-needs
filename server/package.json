@@ -17,6 +17,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.7.2",
     "serverless-dotenv-plugin": "^4.0.2",
+    "serverless-plugin-include-dependencies": "^4.1.0",
     "validator": "^13.7.0"
   },
   "devDependencies": {

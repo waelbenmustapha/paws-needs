@@ -3,7 +3,7 @@ import axios from "axios";
 export async function execRequest(axiosRequestConfig) {
   try {
     const response = await axios({
-      baseURL: "http://192.168.1.13:3000",
+      baseURL: "http://192.168.1.45:3000",
       headers: {
         "Content-type": "application/json",
       },

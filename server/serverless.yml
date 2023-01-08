@@ -3,7 +3,7 @@ frameworkVersion: "3"
 plugins:
   - serverless-dotenv-plugin
   - serverless-offline
-
+  - serverless-plugin-include-dependencies
 custom:
   serverless-offline:
     httpPort: 3000
@@ -11,11 +11,11 @@ custom:
     host: 0.0.0.0
 
 provider:
+
   name: aws
   runtime: nodejs16.x
-  region: eu-west-3
+  region: me-south-1
   stage: ${opt:stage, 'dev'}
-  memorySize: 4096 # optional, in MB, default is 1024
   timeout: 20 # optional, in seconds, default is 6
 
 #Functions Apis
